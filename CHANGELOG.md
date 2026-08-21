@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.4.4] — 2026-08-22
+
+### Added
+- **Chat name filling**: chats without a name now display participant names as a comma-separated list (like the official IVA client). Works for `get_all`, `search`, `get_p2p`, `get` actions.
+- `transformResponse` callback support in `createActionTool` framework — allows post-processing API responses before returning to the AI agent
+
+### Changed
+- `iva_chat` tool now uses `fillChatNames` transformer to replace empty `name` field with participant names from `users` array
+
+---
+
+## [1.4.3] — 2026-08-22
+
+### Added
+- **35 new tests** (53 total): tool structure integrity (10 tests), parameter validation (12 tests), error formatting (9 tests), MCP protocol end-to-end (4 tests)
+- `src/tools/index.test.ts` — verifies all 40 tools register correctly, have unique names, action enums, confirm parameter, correct tool counts (28+11+1)
+- `src/tools/validate.test.ts` — UUID format, integer bounds, enum enforcement, type coercion, array validation, boolean, optional params
+- `src/error.test.ts` — errorResult, apiErrorResult, successResult, IvaApiError constructor
+- `src/mcp-protocol.test.ts` — end-to-end: initialize handshake, tools/list (40 tools), tools/call validation error, unknown tool error
+
+---
+
+## [1.4.2] — 2026-08-22
+
+### Fixed
+- Reverted forced protocol version override — SDK default negotiation is the correct approach (server responds with the highest version both client and server support)
+
+---
+
+## [1.4.1] — 2026-08-22
+
+### Added
+- Override initialize handler to always respond with latest protocol version `2025-11-25` (later reverted in 1.4.2)
+
+---
+
 ## [1.4.0] — 2026-08-22
 
 ### Added

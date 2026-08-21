@@ -10,7 +10,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
 [![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
 
-**40 tools** · **391 REST actions** · **368 API endpoints**
+**40 tools** · **375 REST actions** · **368 API endpoints** · **53 tests**
 
 MCP server for the **IVA MCU** video conferencing platform.
 Wraps Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
@@ -249,7 +249,7 @@ npm run build
 
 ## Tools Overview
 
-### Clients API — 28 tools, 317 actions
+### Clients API — 28 tools, 311 actions
 
 | Tool | Description | Actions |
 |------|-------------|---------|
@@ -313,7 +313,7 @@ The MCP server understands **natural language in Russian and English**. You don'
 - **Schedule and manage meetings** — create, update, delete conferences; start them instantly; list upcoming sessions
 - **Control live conferences** — join/leave, start/stop recording, enable transcription and subtitling, manage media publication
 - **Manage participants** — add, remove, mute/unmute, raise/lower hand, set reactions, send DTMF, disconnect
-- **Chat** — create group chats, send and edit messages, forward, star, search, manage notifications
+- **Chat** — create group chats, send and edit messages, forward, star, search, manage notifications. Chats without names display participant names automatically (like the official IVA client)
 - **Make calls** — join/hold/transfer calls, start/stop screen sharing, send DTMF tones
 - **Documents & presentations** — upload, convert, present documents and whiteboards, control demonstration
 - **Lobby control** — approve or reject waiting participants
