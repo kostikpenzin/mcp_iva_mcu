@@ -38,5 +38,19 @@ export function createIntegrationUsersTool(client: IvaApiClient): ToolDefinition
       get_paid_calls_balance_history: { apiType: "integration", method: "GET", path: "/users/{profileId}/paid-calls-balance/history", pathParams: ["profileId"], queryParams: ["limit", "offset"] },
     },
     client,
+    {
+      find: "Найти пользователей по фильтрам / Find users with filtering and pagination.",
+      create: "Создать нового пользователя / Create a new user account.",
+      get: "Получить информацию о пользователе / Get user information by profileId.",
+      update: "Обновить данные пользователя / Update an existing user's information.",
+      delete: "Удалить пользователя / Delete a user account.",
+      block: "Заблокировать пользователя / Block a user account.",
+      unblock: "Разблокировать пользователя / Unblock a previously blocked user.",
+      login: "Войти как пользователь / Log in as a user (returns auth token).",
+      get_paid_calls_balance: "Получить баланс платных звонков пользователя / Get user's paid calls balance.",
+      delete_paid_calls_balance: "Удалить баланс платных звонков / Delete the paid calls balance.",
+      edit_paid_calls_balance: "Изменить баланс платных звонков / Edit user's paid calls balance.",
+      get_paid_calls_balance_history: "Получить историю баланса платных звонков / Get paid calls balance history.",
+    },
   );
 }

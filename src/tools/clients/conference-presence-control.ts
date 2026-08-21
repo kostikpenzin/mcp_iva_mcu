@@ -20,5 +20,10 @@ export function createConferencePresenceControlTool(client: IvaApiClient): ToolD
       confirm: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/presence-control/{presenceControlId}/confirm", pathParams: ["conferenceSessionId", "presenceControlId"], bodyParam: "confirmData" },
     },
     client,
+    {
+      start: "Запустить контроль присутствия в конференции. / Start presence control in the conference.",
+      stop: "Остановить контроль присутствия. / Stop presence control.",
+      confirm: "Подтвердить присутствие участника. / Confirm participant attendance.",
+    },
   );
 }

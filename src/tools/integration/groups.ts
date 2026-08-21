@@ -25,5 +25,15 @@ export function createIntegrationGroupsTool(client: IvaApiClient): ToolDefinitio
       remove_users: { apiType: "integration", method: "POST", path: "/groups/{groupId}/users/remove", pathParams: ["groupId"], bodyParam: "userIds", bodyWrapper: "userIds" },
     },
     client,
+    {
+      get_top_level: "Получить группы верхнего уровня / Get top-level groups.",
+      create: "Создать новую группу / Create a new group.",
+      get: "Получить информацию о группе / Get group information by groupId.",
+      update: "Обновить данные группы / Update an existing group's information.",
+      delete: "Удалить группу / Delete a group.",
+      get_subgroups: "Получить подгруппы / Get subgroups of a parent group.",
+      add_users: "Добавить пользователей в группу / Add users to a group.",
+      remove_users: "Удалить пользователей из группы / Remove users from a group.",
+    },
   );
 }

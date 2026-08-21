@@ -22,5 +22,14 @@ export function createConferenceLobbyTool(client: IvaApiClient): ToolDefinition 
       reject_all: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/lobby/reject-all", pathParams: ["conferenceSessionId"], emptyBody: true },
     },
     client,
+    {
+      join: "Войти в лобби конференции. / Join the conference lobby.",
+      leave: "Покинуть лобби конференции. / Leave the conference lobby.",
+      get_participants: "Получить участников лобби. / Get lobby participants.",
+      approve: "Одобрить вход участника в конференцию. / Approve a participant's lobby request.",
+      approve_all: "Одобрить все запросы участников. / Approve all lobby requests.",
+      reject: "Отклонить вход участника. / Reject a participant's lobby request.",
+      reject_all: "Отклонить все запросы участников. / Reject all lobby requests.",
+    },
   );
 }

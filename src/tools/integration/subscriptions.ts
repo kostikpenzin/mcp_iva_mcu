@@ -20,5 +20,12 @@ export function createIntegrationSubscriptionsTool(client: IvaApiClient): ToolDe
       update: { apiType: "integration", method: "PATCH", path: "/subscriptions/{subscriptionId}", pathParams: ["subscriptionId"], bodyParam: "subscriptionData" },
     },
     client,
+    {
+      get_all: "Получить список всех подписок / Get all subscriptions.",
+      create: "Создать новую подписку / Create a new subscription (webhook).",
+      get: "Получить информацию о подписке / Get subscription information by subscriptionId.",
+      delete: "Удалить подписку / Delete a subscription.",
+      update: "Обновить данные подписки / Update an existing subscription.",
+    },
   );
 }

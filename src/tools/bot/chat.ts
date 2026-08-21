@@ -22,5 +22,11 @@ export function createBotChatTool(client: IvaApiClient): ToolDefinition {
       download_file: { apiType: "bot", method: "GET", path: "/chats/{chatRoomId}/files/{resourceId}", pathParams: ["chatRoomId", "resourceId"] },
     },
     client,
+    {
+      send_message: "Отправить сообщение в чат / Send a message to a chat room.",
+      create_resource: "Создать ресурс для загрузки файла / Create a resource slot for file upload.",
+      upload_file: "Загрузить файл в чат / Upload a file to a chat room.",
+      download_file: "Скачать файл из чата / Download a file from a chat room.",
+    },
   );
 }

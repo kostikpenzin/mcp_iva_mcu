@@ -35,5 +35,18 @@ export function createIntegrationCompaniesTool(client: IvaApiClient): ToolDefini
       get_paid_calls_balance_history: { apiType: "integration", method: "GET", path: "/companies/{companyId}/paid-calls-balance/history", pathParams: ["companyId"], queryParams: ["limit", "offset"] },
     },
     client,
+    {
+      find: "Найти компании / Find companies with pagination.",
+      create: "Создать новую компанию / Create a new company.",
+      get: "Получить информацию о компании / Get company information by companyId.",
+      update: "Обновить данные компании / Update an existing company's information.",
+      block: "Заблокировать компанию / Block a company.",
+      unblock: "Разблокировать компанию / Unblock a previously blocked company.",
+      get_disk_utilization: "Получить информацию об использовании диска компании / Get company's disk utilization.",
+      get_paid_calls_balance: "Получить баланс платных звонков компании / Get company's paid calls balance.",
+      delete_paid_calls_balance: "Удалить баланс платных звонков компании / Delete the company's paid calls balance.",
+      edit_paid_calls_balance: "Изменить баланс платных звонков компании / Edit company's paid calls balance.",
+      get_paid_calls_balance_history: "Получить историю баланса платных звонков компании / Get company's paid calls balance history.",
+    },
   );
 }

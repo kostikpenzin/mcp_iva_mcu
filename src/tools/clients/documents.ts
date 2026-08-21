@@ -21,5 +21,11 @@ export function createDocumentsTool(client: IvaApiClient): ToolDefinition {
       get_pages: { apiType: "clients", method: "GET", path: "/documents/{documentId}/pages", pathParams: ["documentId"], queryParams: ["limit", "offset"] },
     },
     client,
+    {
+      convert: "Convert a document to whiteboard pages (PDF/PPTX -> slides). Конвертировать документ в страницы доски.",
+      delete: "Delete a single document. Удалить документ.",
+      delete_multiple: "Delete multiple documents at once. Удалить несколько документов.",
+      get_pages: "Get the list of converted pages for a document (with pagination).",
+    },
   );
 }

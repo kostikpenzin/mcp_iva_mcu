@@ -14,5 +14,9 @@ export function createIntegrationDomainsTool(client: IvaApiClient): ToolDefiniti
       get_all: { apiType: "integration", method: "GET", path: "/domains" },
     },
     client,
+    {
+      get: "Получить информацию о домене / Get domain information by domainId.",
+      get_all: "Получить список всех доменов / Get list of all domains.",
+    },
   );
 }

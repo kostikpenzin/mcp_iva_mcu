@@ -35,5 +35,18 @@ export function createIntegrationChatsTool(client: IvaApiClient): ToolDefinition
       find_call_documents: { apiType: "integration", method: "GET", path: "/chats/{chatId}/call/{callId}/documents", pathParams: ["chatId", "callId"], queryParams: ["limit", "offset"] },
     },
     client,
+    {
+      create_group_chat: "Создать групповой чат / Create a new group chat.",
+      get: "Получить информацию о чате / Get chat information by chatId.",
+      delete: "Удалить чат / Delete a chat.",
+      add_participants: "Добавить участников в чат / Add participants to a chat.",
+      remove_participants: "Удалить участников из чата / Remove participants from a chat.",
+      get_participants: "Получить участников чата / Get chat participants.",
+      get_p2p: "Создать или получить персональный чат / Get or create a P2P chat between users.",
+      get_call: "Получить информацию о звонке в чате / Get information about a chat call.",
+      get_calls: "Получить список звонков / Get list of calls.",
+      get_call_participants: "Получить участников звонка / Get participants of a call.",
+      find_call_documents: "Найти документы звонка / Find documents of a call.",
+    },
   );
 }

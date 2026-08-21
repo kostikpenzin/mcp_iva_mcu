@@ -20,5 +20,10 @@ export function createIntegrationDocumentsTool(client: IvaApiClient): ToolDefini
       delete_multiple: { apiType: "integration", method: "POST", path: "/documents/remove", bodyParam: "documentIds", bodyWrapper: "documentIds" },
     },
     client,
+    {
+      get_disk_files: "Получить файлы диска / Get disk files list.",
+      delete: "Удалить документ / Delete a single document by documentId.",
+      delete_multiple: "Удалить несколько документов / Delete multiple documents at once.",
+    },
   );
 }

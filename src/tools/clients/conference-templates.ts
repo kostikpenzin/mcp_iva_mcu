@@ -21,5 +21,13 @@ export function createConferenceTemplatesTool(client: IvaApiClient): ToolDefinit
       set_as_default: { apiType: "clients", method: "POST", path: "/conference-templates/{conferenceTemplateId}/set-as-default", pathParams: ["conferenceTemplateId"], emptyBody: true },
     },
     client,
+    {
+      list: "Получить список шаблонов конференций. / List conference templates.",
+      create: "Создать шаблон конференции. / Create a conference template.",
+      get: "Получить шаблон конференции по ID. / Get conference template by ID.",
+      delete: "Удалить шаблон конференции. / Delete a conference template.",
+      update: "Обновить шаблон конференции. / Update a conference template.",
+      set_as_default: "Сделать шаблон конференции шаблоном по умолчанию. / Set template as default.",
+    },
   );
 }

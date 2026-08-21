@@ -41,5 +41,19 @@ export function createConferenceMediaTool(client: IvaApiClient): ToolDefinition 
       set_translation_direction: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/media/translation-direction", pathParams: ["conferenceSessionId"], bodyParam: "translationDirection", bodyWrapper: "translationDirection" },
     },
     client,
+    {
+      get_info: "Получить информацию о медиа конференции. / Get conference media info.",
+      get_room_info: "Получить информацию о комнате. / Get room info.",
+      report_media_state: "Сообщить состояние медиа. / Report media state.",
+      request_attention: "Запросить внимание (поднять руку). / Request attention (raise hand).",
+      revoke_attention: "Отозвать запрос внимания. / Revoke attention request.",
+      report_equipment: "Сообщить информацию об оборудовании. / Report equipment info.",
+      set_layout: "Установить раскладку видео. / Set video layout.",
+      set_media_profile: "Установить медиа-профиль. / Set media profile.",
+      set_broadcast_language: "Установить язык вещания. / Set broadcast language.",
+      set_original_volume: "Установить громкость оригинала. / Set original volume.",
+      set_screen_orientation: "Установить ориентацию экрана. / Set screen orientation.",
+      set_translation_direction: "Установить направление перевода. / Set translation direction.",
+    },
   );
 }

@@ -11,5 +11,8 @@ export function createIntegrationResourcesTool(client: IvaApiClient): ToolDefini
     { resourceId: P.resourceId },
     { download: { apiType: "integration", method: "GET", path: "/resources/{resourceId}", pathParams: ["resourceId"] } },
     client,
+    {
+      download: "Скачать файл ресурса / Download a resource file by resourceId.",
+    },
   );
 }

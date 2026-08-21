@@ -32,5 +32,17 @@ export function createSystemTool(client: IvaApiClient): ToolDefinition {
       get_client_applications: { apiType: "clients", method: "GET", path: "/public/applications" },
     },
     client,
+    {
+      get_system_info: "Get IVA system information (build version, server info, etc.).",
+      get_media_info: "Get IVA media server information (media capabilities, codecs, etc.).",
+      get_ice_servers: "Get ICE/TURN servers configuration for WebRTC connections.",
+      get_layouts: "Get the list of available conference video layouts.",
+      get_layout: "Get a specific conference layout by ID (composition/grid definition).",
+      get_broadcast_notification: "Get the current global broadcast notification (system-wide message).",
+      confirm_sms: "Confirm an SMS approval request (e.g. verify SMS code for phone registration).",
+      send_crash_report: "Send a crash report (with file resource) to IVA support.",
+      send_mail_to_support: "Send an email message to IVA technical support.",
+      get_client_applications: "Get the list of available IVA client applications (download links, versions).",
+    },
   );
 }

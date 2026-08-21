@@ -37,5 +37,17 @@ export function createConferenceChatTool(client: IvaApiClient): ToolDefinition {
       typing: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/messages/typing", pathParams: ["conferenceSessionId"], bodyParam: "typingData" },
     },
     client,
+    {
+      send: "Отправить сообщение в чат конференции. / Send a chat message in the conference.",
+      edit: "Редактировать сообщение чата. / Edit a chat message.",
+      remove: "Удалить сообщения чата. / Remove chat messages.",
+      remove_all: "Удалить все сообщения чата. / Remove all chat messages.",
+      remove_all_for_participant: "Удалить все сообщения участника. / Remove all messages of a participant.",
+      get: "Получить сообщения чата конференции. / Get conference chat messages.",
+      get_participant_targets: "Получить целевых участников чата. / Get chat participant targets.",
+      export_txt: "Экспортировать чат в TXT. / Export chat to TXT.",
+      moderate: "Модерировать сообщение чата. / Moderate a chat message.",
+      typing: "Уведомить о наборе текста. / Notify about typing.",
+    },
   );
 }

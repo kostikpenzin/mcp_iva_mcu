@@ -11,5 +11,8 @@ export function createIntegrationProfilesTool(client: IvaApiClient): ToolDefinit
     { profileId: P.profileId },
     { get: { apiType: "integration", method: "GET", path: "/profiles/{profileId}", pathParams: ["profileId"] } },
     client,
+    {
+      get: "Получить информацию о профиле пользователя / Get profile information by profileId.",
+    },
   );
 }

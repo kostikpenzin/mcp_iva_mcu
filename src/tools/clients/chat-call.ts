@@ -43,5 +43,23 @@ export function createChatCallTool(client: IvaApiClient): ToolDefinition {
       transfer_to_user: { apiType: "clients", method: "POST", path: "/chat-calls/{chatRoomId}/transfer-to-user", pathParams: ["chatRoomId"], bodyParam: "transferData" },
     },
     client,
+    {
+      get: "Get the current state of a chat call (participants, media, status). Получить состояние звонка в чате.",
+      join: "Join a chat call (audio/video). Присоединиться к звонку в чате. Войти в звонок.",
+      join_v2: "Join a chat call (v2 endpoint with extended options). Присоединиться к звонку (v2).",
+      start: "Start a new chat call (audio/video) in the chat room. Начать звонок в чате.",
+      leave: "Leave the current chat call. Покинуть звонок. Выйти из звонка.",
+      hold: "Put the chat call on hold. Поставить звонок на удержание.",
+      start_recording: "Start recording the chat call. Начать запись звонка.",
+      stop_recording: "Stop recording the chat call. Остановить запись звонка.",
+      start_screenshare: "Start screen sharing inside a chat call. Начать демонстрацию экрана в звонке.",
+      stop_screenshare: "Stop screen sharing inside a chat call. Остановить демонстрацию экрана в звонке.",
+      set_media_state: "Set media state for the chat call (mute audio/video, camera on/off). Установить состояние медиа.",
+      send_dtmf: "Send a DTMF tone (digit press) during the call. Отправить DTMF-сигнал.",
+      start_outgoing_call: "Start an outgoing call from a participant in the chat.",
+      cancel_outgoing_call: "Cancel an outgoing call that has not yet been answered. Отменить исходящий вызов.",
+      transfer_to_call: "Transfer the current chat call to another chat call. Перевести звонок на другой звонок.",
+      transfer_to_user: "Transfer the current chat call to another user. Перевести звонок на другого пользователя.",
+    },
   );
 }

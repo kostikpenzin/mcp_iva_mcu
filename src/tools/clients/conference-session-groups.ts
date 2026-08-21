@@ -27,5 +27,14 @@ export function createConferenceSessionGroupsTool(client: IvaApiClient): ToolDef
       remove: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/groups/remove", pathParams: ["conferenceSessionId"], bodyParam: "removeData" },
     },
     client,
+    {
+      activate: "Активировать группы сессии. / Activate session groups.",
+      create: "Создать группы в сессии (например, сессионные залы). / Create session groups (e.g., breakout rooms).",
+      deactivate: "Деактивировать группы сессии. / Deactivate session groups.",
+      extend_duration: "Продлить длительность группы сессии. / Extend session group duration.",
+      get: "Получить группы сессии. / Get session groups.",
+      move_participants: "Переместить участников между группами. / Move participants between groups.",
+      remove: "Удалить группы сессии. / Remove session groups.",
+    },
   );
 }

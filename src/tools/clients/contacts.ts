@@ -39,5 +39,19 @@ export function createContactsTool(client: IvaApiClient): ToolDefinition {
       create_note: { apiType: "clients", method: "POST", path: "/contacts/create-note", bodyParam: "noteData" },
     },
     client,
+    {
+      get: "Получить список контактов. / Get the list of contacts.",
+      get_changes: "Получить изменения контактов. / Get contacts changes.",
+      get_presences: "Получить статусы присутствия контактов. / Get contacts presences.",
+      get_invitations: "Получить входящие приглашения в контакты. / Get incoming contact invitations.",
+      get_tags: "Получить теги контактов. / Get contact tags.",
+      get_users_presence: "Получить статусы присутствия пользователей. / Get users presences.",
+      invite: "Пригласить пользователя в контакты. / Invite a user to contacts.",
+      reject_invitation: "Отклонить приглашение в контакты. / Reject a contact invitation.",
+      remove: "Удалить контакт. / Remove a contact.",
+      update: "Обновить данные контакта. / Update contact data.",
+      remove_contacts: "Удалить несколько контактов. / Remove multiple contacts.",
+      create_note: "Создать заметку о контакте. / Create a contact note.",
+    },
   );
 }

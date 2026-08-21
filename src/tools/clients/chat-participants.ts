@@ -21,5 +21,10 @@ export function createChatParticipantsTool(client: IvaApiClient): ToolDefinition
       update: { apiType: "clients", method: "PATCH", path: "/chats/{chatRoomId}/participants/{profileId}", pathParams: ["chatRoomId", "profileId"], bodyParam: "participantUpdate" },
     },
     client,
+    {
+      add: "Add participants to a chat room. Добавить участников в чат. Пригласить в чат.",
+      remove: "Remove participants from a chat room. Удалить участников из чата. Исключить из чата.",
+      update: "Update participant settings in a chat room (e.g. role, permissions, mute). Обновить настройки участника чата.",
+    },
   );
 }

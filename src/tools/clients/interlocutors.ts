@@ -28,5 +28,14 @@ export function createInterlocutorsTool(client: IvaApiClient): ToolDefinition {
       subscribe_presence: { apiType: "clients", method: "POST", path: "/interlocutors/presences/subscribe", bodyParam: "profileIds", bodyWrapper: "profileIds" },
     },
     client,
+    {
+      find_by_contact: "Find an interlocutor (contact) by contact ID. Найти собеседника по ID контакта.",
+      find_by_ldap_user: "Find an interlocutor by LDAP user ID (corporate directory lookup).",
+      find_by_profile: "Find an interlocutor by IVA profile ID.",
+      find_by_profile_ids: "Find multiple interlocutors by a list of profile IDs (batch lookup).",
+      find: "Search for interlocutors using flexible criteria (name, department, etc.). Найти собеседников по критериям поиска.",
+      get_types: "Get the list of available interlocutor types (user/group/room/etc.).",
+      subscribe_presence: "Subscribe to presence/status changes for one or more profiles. Подписаться на присутствие.",
+    },
   );
 }

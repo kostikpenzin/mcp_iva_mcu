@@ -39,5 +39,18 @@ export function createIntegrationConferenceSessionsTool(client: IvaApiClient): T
       remove_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/remove", pathParams: ["conferenceSessionId"], bodyParam: "participantIds", bodyWrapper: "participantIds" },
     },
     client,
+    {
+      create_room: "Создать комнату для конференции / Create a new conference session room.",
+      delete: "Удалить сессию конференции / Delete a conference session.",
+      update: "Обновить данные сессии конференции / Update a conference session.",
+      find: "Найти сессии конференции / Find conference sessions.",
+      find_documents: "Найти документы сессии конференции / Find documents of a conference session.",
+      get_join_data: "Получить данные для подключения к сессии / Get join data for a conference session.",
+      start_now: "Запустить конференцию немедленно / Start a conference session immediately.",
+      add_participants: "Добавить участников в сессию / Add participants to a conference session.",
+      find_participants: "Найти участников сессии / Find participants of a conference session.",
+      find_by_profile: "Найти участников по профилям / Find participants by profile IDs.",
+      remove_participants: "Удалить участников из сессии / Remove participants from a conference session.",
+    },
   );
 }

@@ -18,5 +18,9 @@ export function createDevicesTool(client: IvaApiClient): ToolDefinition {
       deregister: { apiType: "clients", method: "POST", path: "/profiles/{profileId}/devices/{deviceId}/deregister", pathParams: ["profileId", "deviceId"], emptyBody: true },
     },
     client,
+    {
+      register: "Register a user device (phone, softphone, etc.) for SIP/VoIP. Зарегистрировать устройство пользователя.",
+      deregister: "Deregister/unregister a user device. Снять регистрацию устройства. Удалить устройство.",
+    },
   );
 }

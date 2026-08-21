@@ -22,5 +22,12 @@ export function createFileResourcesTool(client: IvaApiClient): ToolDefinition {
       subscribe_scanning: { apiType: "clients", method: "POST", path: "/resources/status/subscribe", bodyParam: "scanData" },
     },
     client,
+    {
+      create: "Create a new file resource slot (returns upload URL/info). Создать ресурс для загрузки файла.",
+      download: "Download a file resource (get the file content or download URL).",
+      upload: "Upload file content into a previously created resource. Загрузить файл в ресурс.",
+      get_info: "Get metadata/information about one or more file resources (size, name, status).",
+      subscribe_scanning: "Subscribe to antivirus/scanning status updates for resources. Подписаться на статус сканирования.",
+    },
   );
 }

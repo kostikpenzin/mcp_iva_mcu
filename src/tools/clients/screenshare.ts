@@ -30,5 +30,14 @@ export function createScreenshareTool(client: IvaApiClient): ToolDefinition {
       stop_remote_control: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/screenshare/remote-control/stop", pathParams: ["conferenceSessionId"], emptyBody: true },
     },
     client,
+    {
+      start_web: "Start web (browser) screen sharing in the conference. Начать демонстрацию экрана (веб). Показать экран.",
+      start_vnc: "Start VNC-based screen sharing (remote desktop). Начать демонстрацию VNC-экрана.",
+      stop: "Stop screen sharing. Остановить демонстрацию экрана. Прекратить показ экрана.",
+      request_remote_control: "Request remote control of a shared screen. Запросить удалённое управление экраном.",
+      respond_remote_control: "Respond to a remote control request (accept/reject). Ответить на запрос удалённого управления.",
+      batch_respond_remote_control: "Respond to multiple remote control requests at once (batch accept/reject).",
+      stop_remote_control: "Stop/terminate an active remote control session. Остановить удалённое управление.",
+    },
   );
 }

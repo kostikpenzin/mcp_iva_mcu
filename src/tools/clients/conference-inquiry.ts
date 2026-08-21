@@ -44,5 +44,23 @@ export function createConferenceInquiryTool(client: IvaApiClient): ToolDefinitio
       export_all: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/export-all-inquiries-answers", pathParams: ["conferenceSessionId"] },
     },
     client,
+    {
+      create: "Создать опрос в конференции. / Create a poll/inquiry in the conference.",
+      find: "Найти опросы конференции. / Find conference inquiries.",
+      get: "Получить опрос по ID. / Get inquiry by ID.",
+      delete: "Удалить опрос. / Delete an inquiry.",
+      update: "Обновить опрос. / Update an inquiry.",
+      start: "Запустить опрос. / Start an inquiry.",
+      stop: "Остановить опрос. / Stop an inquiry.",
+      start_all: "Запустить все опросы. / Start all inquiries.",
+      stop_all: "Остановить все опросы. / Stop all inquiries.",
+      answer: "Ответить на опрос. / Answer an inquiry.",
+      edit_answer: "Редактировать ответ на опрос. / Edit an inquiry answer.",
+      get_answers: "Получить ответы на опрос. / Get inquiry answers.",
+      find_responders: "Найти респондентов опроса. / Find inquiry responders.",
+      get_aggregated_answers: "Получить агрегированные ответы. / Get aggregated answers.",
+      export: "Экспортировать ответы на опрос. / Export inquiry answers.",
+      export_all: "Экспортировать все ответы на опросы. / Export all inquiry answers.",
+    },
   );
 }

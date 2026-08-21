@@ -17,5 +17,9 @@ export function createConferenceQuestionnaireTool(client: IvaApiClient): ToolDef
       save_answers: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/questionnaire/save-answers", pathParams: ["conferenceSessionId"], bodyParam: "answersData" },
     },
     client,
+    {
+      get: "Get the questionnaire for a conference session (questions/structure). Получить опрос конференции.",
+      save_answers: "Save the participant's answers to the conference questionnaire. Сохранить ответы на опрос.",
+    },
   );
 }

@@ -26,5 +26,14 @@ export function createIntegrationConferencesTool(client: IvaApiClient): ToolDefi
       get_templates: { apiType: "integration", method: "GET", path: "/conference-templates" },
     },
     client,
+    {
+      create: "Создать новую конференцию / Create a new conference.",
+      delete: "Удалить конференцию / Delete a conference.",
+      update: "Обновить данные конференции / Update an existing conference.",
+      add_participants: "Добавить участников в конференцию / Add participants to a conference.",
+      find_participants: "Найти участников конференции / Find conference participants.",
+      remove_participants: "Удалить участников из конференции / Remove participants from a conference.",
+      get_templates: "Получить шаблоны конференций / Get list of conference templates.",
+    },
   );
 }
