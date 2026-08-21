@@ -1,5 +1,57 @@
 # Changelog
 
+## [1.4.0] — 2026-08-22
+
+### Added
+- **Destructive action confirmation**: `IVA_CONFIRM_DESTRUCTIVE=true` environment variable — when enabled, destructive actions (delete, remove, disconnect, stop, block, mute, cancel, reject, clear, pause) require an explicit `confirm: true` parameter before executing
+- `confirm` parameter added to all tool schemas
+- `isDestructiveAction` helper in framework — auto-detects destructive actions by method (DELETE) and action name keywords
+- 3 new tests for confirm logic (blocked without confirm, allowed with confirm, allowed when disabled)
+- Documentation for confirmation feature in README (EN + RU)
+
+### Changed
+- `IvaConfig` type extended with `confirmDestructive: boolean`
+- `IvaApiClient` exposes `isConfirmDestructive()` method
+- `loadConfig` reads `IVA_CONFIRM_DESTRUCTIVE` env var
+
+---
+
+## [1.3.3] — 2026-08-22
+
+### Fixed
+- **~50 bodyWrapper and query param corrections** across all tools, verified against OpenAPI specs:
+  - Removed `bodyWrapper` from 8 actions where API expects raw array (contacts, interlocutors, chat-messages, integration conference-sessions)
+  - Fixed `bodyWrapper` field names on 9 actions to match DTO schemas (user-session, conference-media, conference-chat, whiteboard, integration groups)
+  - Fixed `contacts.invite` — changed from object body to raw array of profile UUIDs
+  - Corrected query params on ~20 actions (chat search, chat-messages get, conference-session find, contacts get_changes, user-session get_login_url, conference-chat get, etc.)
+
+---
+
+## [1.3.2] — 2026-08-22
+
+### Fixed
+- **P2P chat parameter**: `get_p2p` was using `targetProfileId` but API expects `profileId` — direct messages now work correctly
+- Added `contactId`, `email`, `phone`, `name` as optional query params for P2P chat lookup
+- Updated server instructions: AI now guided to use `get_p2p` for direct messages, `create_group_chat` only for multi-user chats
+- Clarified `messageData` description: field is `message` not `text`
+
+---
+
+## [1.3.1] — 2026-08-22
+
+### Fixed
+- **bodyWrapper corrections** for participant actions per OpenAPI specs:
+  - `create_group_chat` (clients): removed bodyWrapper — API expects raw array
+  - `chat-participants remove`: removed bodyWrapper — API expects raw array
+  - `conference-participants add`: changed wrapper to `invitations` (was `participants`)
+  - `conference-participants remove/disconnect`: removed bodyWrapper — API expects raw array
+  - Integration `chats create_group_chat`: wrapper changed to `interlocutors`
+  - Integration `chats add/remove_participants`: removed bodyWrapper
+  - Integration `conferences add/remove_participants`: wrapper changed to `data`
+  - Integration `conference-sessions add/remove_participants`: wrapper changed to `data`
+
+---
+
 ## [1.3.0] — 2026-08-22
 
 ### Added
