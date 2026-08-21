@@ -16,7 +16,7 @@ export function createChatMessagesTool(client: IvaApiClient): ToolDefinition {
       chatRoomId: P.chatRoomId,
       messageId: P.messageId,
       messageIds: P.messageIds,
-      messageData: { type: "object", description: "Message data to send" },
+      messageData: { type: "object", description: "Message data. Use {\"message\": \"text here\"} for text messages. Field is 'message' not 'text'." },
       audioData: { type: "object", description: "Audio message data" },
       messageEdit: { type: "object", description: "Message edit content" },
       attachmentId: P.resourceId,
