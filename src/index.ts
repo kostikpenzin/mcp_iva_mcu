@@ -19,7 +19,7 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.3.1" },
+    { name: "mcp-iva-mcu", version: "1.3.2" },
     {
       capabilities: {
         tools: {},
@@ -54,10 +54,11 @@ async function main() {
         "  - Lower hand → iva_conference_participants action=hand_down (опусти руку, lower hand)\n" +
         "  - Set reaction → iva_conference_participants action=set_reaction (поставь реакцию, set reaction)\n" +
         "  - Disconnect → iva_conference_participants action=disconnect (отключи участника, disconnect)\n\n" +
-        "CHAT & MESSAGES (чат, сообщение, написать, отправить, переслать, forward, chat, message, send):\n" +
-        "  - Create group chat → iva_chat action=create_group_chat (создай чат, create group chat)\n" +
+        "CHAT & MESSAGES (чат, сообщение, написать, отправить, переслать, forward, chat, message, send, личное сообщение, в личку, direct message):\n" +
+        "  - Get/create P2P (direct) chat → iva_chat action=get_p2p with profileId of recipient (найди личный чат, send direct message, напиши в личку). Use this for 1-on-1 messages, NOT create_group_chat.\n" +
+        "  - Create group chat → iva_chat action=create_group_chat (создай групповой чат, create group chat). Only for multi-user chats.\n" +
         "  - Search chats → iva_chat action=search (найди чат, search chats)\n" +
-        "  - Send message → iva_chat_messages action=send (отправь сообщение, send message)\n" +
+        "  - Send message → iva_chat_messages action=send (отправь сообщение, send message). messageData must use field 'message' not 'text': {\"message\": \"hello\"}\n" +
         "  - Edit message → iva_chat_messages action=edit (редактируй сообщение, edit message)\n" +
         "  - Delete message → iva_chat_messages action=delete (удали сообщение, delete message)\n" +
         "  - Forward messages → iva_chat action=forward_messages (перешли сообщения, forward messages)\n" +
