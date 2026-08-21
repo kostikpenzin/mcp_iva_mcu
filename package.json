@@ -1,16 +1,18 @@
 {
   "name": "mcp-iva-mcu",
   "version": "1.0.0",
-  "description": "MCP server for IVA MCU video conferencing platform — wraps Clients API, Integration API, and Bot API",
+  "description": "MCP server for IVA MCU video conferencing platform",
   "license": "MIT",
-  "mcpName": "io.github.mcp-iva-mcu/server",
+  "mcpName": "io.github.kostikpenzin/mcp-iva-mcu",
   "type": "module",
   "main": "dist/index.js",
   "bin": {
     "mcp-iva-mcu": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
@@ -21,12 +23,29 @@
     "prepublishOnly": "npm run clean && npm run build"
   },
   "keywords": [
+    "modelcontextprotocol",
     "mcp",
+    "mcp-server",
     "iva",
     "mcu",
     "video-conferencing",
-    "model-context-protocol"
+    "iva-mcu",
+    "claude",
+    "claude-desktop",
+    "openapi",
+    "rest-api",
+    "webrtc",
+    "bot-api",
+    "typescript"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kostikpenzin/mcp_iva_mcu.git"
+  },
+  "bugs": {
+    "url": "https://github.com/kostikpenzin/mcp_iva_mcu/issues"
+  },
+  "homepage": "https://github.com/kostikpenzin/mcp_iva_mcu#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
     "ws": "^8.18.0",
