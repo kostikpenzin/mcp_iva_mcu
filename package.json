@@ -13,6 +13,7 @@
     "dist",
     "LICENSE",
     "README.md",
+    "CHANGELOG.md",
     "i18n/README.ru.md"
   ],
   "scripts": {
