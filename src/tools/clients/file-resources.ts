@@ -18,7 +18,7 @@ export function createFileResourcesTool(client: IvaApiClient): ToolDefinition {
       create: { apiType: "clients", method: "POST", path: "/resources/create", emptyBody: true },
       download: { apiType: "clients", method: "GET", path: "/resources/{resourceId}", pathParams: ["resourceId"] },
       upload: { apiType: "clients", method: "POST", path: "/resources/{resourceId}", pathParams: ["resourceId"], rawBody: true },
-      get_info: { apiType: "clients", method: "POST", path: "/resources/info", bodyParam: "resourceIds" },
+      get_info: { apiType: "clients", method: "POST", path: "/resources/info", bodyParam: "resourceIds", bodyWrapper: "resourceIds" },
       subscribe_scanning: { apiType: "clients", method: "POST", path: "/resources/status/subscribe", bodyParam: "scanData" },
     },
     client,

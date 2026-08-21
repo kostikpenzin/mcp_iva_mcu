@@ -17,7 +17,7 @@ export function createDocumentsTool(client: IvaApiClient): ToolDefinition {
     {
       convert: { apiType: "clients", method: "POST", path: "/documents/{documentId}/convert", pathParams: ["documentId"], emptyBody: true },
       delete: { apiType: "clients", method: "DELETE", path: "/documents/{documentId}", pathParams: ["documentId"] },
-      delete_multiple: { apiType: "clients", method: "POST", path: "/documents", bodyParam: "documentIds" },
+      delete_multiple: { apiType: "clients", method: "POST", path: "/documents", bodyParam: "documentIds", bodyWrapper: "documentIds" },
       get_pages: { apiType: "clients", method: "GET", path: "/documents/{documentId}/pages", pathParams: ["documentId"], queryParams: ["limit", "offset"] },
     },
     client,

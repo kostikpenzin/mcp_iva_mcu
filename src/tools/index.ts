@@ -1,5 +1,4 @@
 import type { IvaApiClient } from "../api-client.js";
-import type { IvaWsClient } from "../ws-client.js";
 import type { ToolDefinition } from "../types.js";
 
 // Clients API tools
@@ -47,14 +46,9 @@ import { createIntegrationResourcesTool } from "./integration/resources.js";
 
 // Bot API tools
 import { createBotChatTool } from "./bot/chat.js";
-import { createBotEventsTool } from "./bot/events.js";
-
-// WebSocket events tool
-import { createEventsTool } from "./events.js";
 
 export function getAllTools(
   client: IvaApiClient,
-  wsClient: IvaWsClient,
 ): ToolDefinition[] {
   return [
     // Clients API (28 tools)
@@ -100,11 +94,7 @@ export function getAllTools(
     createIntegrationProfilesTool(client),
     createIntegrationResourcesTool(client),
 
-    // Bot API (2 tools)
+    // Bot API (1 tool)
     createBotChatTool(client),
-    createBotEventsTool(wsClient),
-
-    // WebSocket events (1 tool)
-    createEventsTool(wsClient),
   ];
 }

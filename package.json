@@ -12,7 +12,8 @@
   "files": [
     "dist",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "i18n/README.ru.md"
   ],
   "scripts": {
     "build": "tsc && shx chmod +x dist/*.js",
@@ -20,7 +21,8 @@
     "start": "node dist/index.js",
     "dev": "tsc --watch",
     "clean": "rimraf dist",
-    "prepublishOnly": "npm run clean && npm run build"
+    "test": "vitest run",
+    "prepublishOnly": "npm run clean && npm run build && npm test"
   },
   "keywords": [
     "modelcontextprotocol",
@@ -48,15 +50,16 @@
   "homepage": "https://github.com/kostikpenzin/mcp_iva_mcu#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.12.1",
-    "ws": "^8.18.0",
-    "zod": "^3.23.8"
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "@types/ws": "^8.5.12",
+    "@vitest/coverage-v8": "^4.1.11",
     "rimraf": "^6.0.0",
     "shx": "^0.4.0",
-    "typescript": "^5.6.0"
+    "typescript": "^5.6.0",
+    "vitest": "^4.1.11"
   },
   "engines": {
     "node": ">=18.0.0"

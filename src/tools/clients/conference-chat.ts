@@ -29,7 +29,7 @@ export function createConferenceChatTool(client: IvaApiClient): ToolDefinition {
       edit: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/messages/{messageId}", pathParams: ["conferenceSessionId", "messageId"], bodyParam: "messageEdit" },
       remove: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/messages/remove", pathParams: ["conferenceSessionId"], bodyParam: "removeData" },
       remove_all: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/messages/remove-all", pathParams: ["conferenceSessionId"], emptyBody: true },
-      remove_all_for_participant: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/messages/remove-all-for-participant", pathParams: ["conferenceSessionId"], bodyParam: "participantId" },
+      remove_all_for_participant: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/messages/remove-all-for-participant", pathParams: ["conferenceSessionId"], bodyParam: "participantId", bodyWrapper: "participantId" },
       get: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/messages", pathParams: ["conferenceSessionId"], queryParams: ["limit", "offset"] },
       get_participant_targets: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/messages/participant-targets", pathParams: ["conferenceSessionId"] },
       export_txt: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/messages/export-txt", pathParams: ["conferenceSessionId"] },

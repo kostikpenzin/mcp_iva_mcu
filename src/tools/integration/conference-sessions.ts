@@ -33,10 +33,10 @@ export function createIntegrationConferenceSessionsTool(client: IvaApiClient): T
       find_documents: { apiType: "integration", method: "GET", path: "/conference-sessions/{conferenceSessionId}/documents", pathParams: ["conferenceSessionId"], queryParams: ["limit", "offset"] },
       get_join_data: { apiType: "integration", method: "GET", path: "/conference-sessions/{conferenceSessionId}/join-data", pathParams: ["conferenceSessionId"] },
       start_now: { apiType: "integration", method: "POST", path: "/conference-sessions/start-now", bodyParam: "startData" },
-      add_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/add", pathParams: ["conferenceSessionId"], bodyParam: "participants" },
+      add_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/add", pathParams: ["conferenceSessionId"], bodyParam: "participants", bodyWrapper: "participants" },
       find_participants: { apiType: "integration", method: "GET", path: "/conference-sessions/{conferenceSessionId}/participants", pathParams: ["conferenceSessionId"], queryParams: ["limit", "offset"] },
-      find_by_profile: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/find-by-profile", pathParams: ["conferenceSessionId"], bodyParam: "profileIds" },
-      remove_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/remove", pathParams: ["conferenceSessionId"], bodyParam: "participantIds" },
+      find_by_profile: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/find-by-profile", pathParams: ["conferenceSessionId"], bodyParam: "profileIds", bodyWrapper: "profileIds" },
+      remove_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/remove", pathParams: ["conferenceSessionId"], bodyParam: "participantIds", bodyWrapper: "participantIds" },
     },
     client,
   );

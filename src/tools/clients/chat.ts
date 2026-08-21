@@ -28,7 +28,7 @@ export function createChatTool(client: IvaApiClient): ToolDefinition {
       targetProfileId: P.targetProfileId,
     },
     {
-      create_group_chat: { apiType: "clients", method: "POST", path: "/chats/create-group-chat", bodyParam: "participants" },
+      create_group_chat: { apiType: "clients", method: "POST", path: "/chats/create-group-chat", bodyParam: "participants", bodyWrapper: "participants" },
       get: { apiType: "clients", method: "GET", path: "/chats/{chatRoomId}", pathParams: ["chatRoomId"] },
       delete: { apiType: "clients", method: "DELETE", path: "/chats/{chatRoomId}", pathParams: ["chatRoomId"] },
       update: { apiType: "clients", method: "PATCH", path: "/chats/{chatRoomId}", pathParams: ["chatRoomId"], bodyParam: "chatUpdate" },

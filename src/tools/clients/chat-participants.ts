@@ -17,7 +17,7 @@ export function createChatParticipantsTool(client: IvaApiClient): ToolDefinition
     },
     {
       add: { apiType: "clients", method: "POST", path: "/chats/{chatRoomId}/participants/add", pathParams: ["chatRoomId"], bodyParam: "participants" },
-      remove: { apiType: "clients", method: "POST", path: "/chats/{chatRoomId}/participants/remove", pathParams: ["chatRoomId"], bodyParam: "participantIds" },
+      remove: { apiType: "clients", method: "POST", path: "/chats/{chatRoomId}/participants/remove", pathParams: ["chatRoomId"], bodyParam: "participantIds", bodyWrapper: "participantIds" },
       update: { apiType: "clients", method: "PATCH", path: "/chats/{chatRoomId}/participants/{profileId}", pathParams: ["chatRoomId", "profileId"], bodyParam: "participantUpdate" },
     },
     client,

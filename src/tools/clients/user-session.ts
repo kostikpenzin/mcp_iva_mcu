@@ -28,7 +28,7 @@ export function createUserSessionTool(client: IvaApiClient): ToolDefinition {
       login_exchange: { apiType: "clients", method: "POST", path: "/login-exchange", bodyParam: "credentials" },
       logout: { apiType: "clients", method: "POST", path: "/logout", emptyBody: true },
       get_session_info: { apiType: "clients", method: "GET", path: "/session/info" },
-      set_session_state: { apiType: "clients", method: "POST", path: "/session/state", bodyParam: "sessionState" },
+      set_session_state: { apiType: "clients", method: "POST", path: "/session/state", bodyParam: "sessionState", bodyWrapper: "state" },
       get_login_url: { apiType: "clients", method: "GET", path: "/login-url", queryParams: ["loginUrlType"] },
       "2fa_renew": { apiType: "clients", method: "POST", path: "/2fa/{twoFAChallengeId}/renew", pathParams: ["twoFAChallengeId"], emptyBody: true },
       "2fa_verify": { apiType: "clients", method: "POST", path: "/2fa/{twoFAChallengeId}/verify", pathParams: ["twoFAChallengeId"], rawBody: true },

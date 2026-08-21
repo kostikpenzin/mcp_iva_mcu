@@ -1,6 +1,7 @@
 import type { IvaApiClient } from "../api-client.js";
 import type { ApiType, HttpMethod, ToolDefinition } from "../types.js";
 import { errorResult, successResult } from "../error.js";
+import { validateArgs } from "./validate.js";
 
 export interface ActionMapping {
   apiType: ApiType;
@@ -9,6 +10,7 @@ export interface ActionMapping {
   pathParams?: string[];
   queryParams?: string[];
   bodyParam?: string;
+  bodyWrapper?: string;
   emptyBody?: boolean;
   rawBody?: boolean;
 }
@@ -37,6 +39,20 @@ export function createActionTool(
       required: ["action"],
     },
     handler: async (args) => {
+      const validationError = validateArgs(args, {
+        properties: {
+          action: {
+            type: "string",
+            enum: actionEnum,
+          },
+          ...paramSchema,
+        },
+        required: ["action"],
+      });
+      if (validationError) {
+        return errorResult(validationError);
+      }
+
       const action = args.action as string;
       const mapping = mappings[action];
       if (!mapping) {
@@ -76,6 +92,9 @@ export function createActionTool(
           return errorResult(
             `Parameter '${mapping.bodyParam}' is required for action '${action}'`,
           );
+        }
+        if (mapping.bodyWrapper) {
+          body = { [mapping.bodyWrapper]: body };
         }
       } else if (mapping.rawBody) {
         const { action: _action, ...rest } = args;

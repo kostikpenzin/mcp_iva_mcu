@@ -10,11 +10,11 @@
 [![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
 [![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
 
-**42 tools** · **391 REST actions** · **368 API endpoints** · **17 WebSocket channels**
+**40 tools** · **391 REST actions** · **368 API endpoints**
 
 MCP server for the **IVA MCU** video conferencing platform.
 Wraps Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
-into 42 tools your AI agent can call directly.
+into 40 tools your AI agent can call directly.
 
 [Installation](#installation) ·
 [Configuration](#mcp-client-configuration) ·
@@ -195,7 +195,7 @@ npm run build
 
 ## Tools Overview
 
-### Clients API — 28 tools, 315 actions
+### Clients API — 28 tools, 317 actions
 
 | Tool | Description | Actions |
 |------|-------------|---------|
@@ -228,7 +228,7 @@ npm run build
 | `iva_whiteboard` | Books, pages, demonstration, export, undo | 21 |
 | `iva_screenshare` | Web/VNC screen share, remote control | 7 |
 
-### Integration API — 11 tools, 72 actions
+### Integration API — 11 tools, 70 actions
 
 | Tool | Description | Actions |
 |------|-------------|---------|
@@ -244,18 +244,11 @@ npm run build
 | `iva_integration_profiles` | Get profile info | 1 |
 | `iva_integration_resources` | Download file | 1 |
 
-### Bot API — 2 tools, 4 actions
+### Bot API — 1 tool, 4 actions
 
 | Tool | Description | Actions |
 |------|-------------|---------|
-| `iva_bot_chat` | Send message, create/upload/download files | 4 |
-| `iva_bot_events` | Collect chat events via WebSocket | — |
-
-### Events — 1 tool, 17 WebSocket channels
-
-| Tool | Description |
-|------|-------------|
-| `iva_events` | Collect events from WebSocket channels (chat, conference, active conference, contact, group, profile, system) |
+| `iva_bot_chat` | Send message, create resource, upload/download files | 4 |
 
 ## Usage Examples
 
@@ -278,14 +271,6 @@ Arguments:
   messageData: { "text": "Hello everyone!" }
 ```
 
-**Collect events:**
-```
-Tool: iva_events
-Arguments:
-  event_type: "chat"
-  duration: 15
-```
-
 ## Development
 
 ```bash
@@ -305,17 +290,15 @@ mcp_iva_mcu/
 │   ├── index.ts          # MCP server entry point
 │   ├── config.ts         # Environment configuration
 │   ├── api-client.ts     # HTTP client with auth
-│   ├── ws-client.ts      # WebSocket client for events
 │   ├── error.ts          # Error handling
 │   ├── types.ts          # Shared types
 │   └── tools/
 │       ├── framework.ts  # Data-driven tool framework
 │       ├── params.ts     # Reusable param schemas
-│       ├── index.ts      # Tool registration (42 tools)
+│       ├── index.ts      # Tool registration (40 tools)
 │       ├── clients/      # 28 Clients API tools
 │       ├── integration/  # 11 Integration API tools
-│       ├── bot/          # 2 Bot API tools
-│       └── events.ts     # WebSocket events tool
+│       └── bot/          # 1 Bot API tool
 ├── specs/                # OpenAPI specifications
 ├── i18n/                 # Translations (README.ru.md)
 ├── Dockerfile            # Multi-stage Docker build

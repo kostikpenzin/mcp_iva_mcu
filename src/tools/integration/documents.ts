@@ -17,7 +17,7 @@ export function createIntegrationDocumentsTool(client: IvaApiClient): ToolDefini
     {
       get_disk_files: { apiType: "integration", method: "GET", path: "/disk", queryParams: ["limit", "offset"] },
       delete: { apiType: "integration", method: "DELETE", path: "/documents/{documentId}", pathParams: ["documentId"] },
-      delete_multiple: { apiType: "integration", method: "POST", path: "/documents/remove", bodyParam: "documentIds" },
+      delete_multiple: { apiType: "integration", method: "POST", path: "/documents/remove", bodyParam: "documentIds", bodyWrapper: "documentIds" },
     },
     client,
   );

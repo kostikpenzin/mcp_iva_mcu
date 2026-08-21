@@ -32,7 +32,7 @@ export function createWhiteboardTool(client: IvaApiClient): ToolDefinition {
     },
     {
       load: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/whiteboard", pathParams: ["conferenceSessionId"] },
-      start_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/start", pathParams: ["conferenceSessionId"], bodyParam: "bookId" },
+      start_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/start", pathParams: ["conferenceSessionId"], bodyParam: "bookId", bodyWrapper: "bookId" },
       stop_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/stop", pathParams: ["conferenceSessionId"], emptyBody: true },
       update_cursor: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/cursor", pathParams: ["conferenceSessionId"], bodyParam: "cursorData" },
       update_demo_state: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/state", pathParams: ["conferenceSessionId"], bodyParam: "demoStateData" },

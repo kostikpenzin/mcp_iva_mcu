@@ -46,7 +46,7 @@ export function createProfileTool(client: IvaApiClient): ToolDefinition {
       get_password_recovery_info: { apiType: "clients", method: "GET", path: "/public/profiles/password-recovery/{recoveryTokenId}", pathParams: ["recoveryTokenId"] },
       request_password_recovery: { apiType: "clients", method: "POST", path: "/public/profiles/password-recovery/request-recovery", bodyParam: "recoveryRequest" },
       update_password_by_recovery: { apiType: "clients", method: "POST", path: "/public/profiles/password-recovery/{recoveryTokenId}/change-password", pathParams: ["recoveryTokenId"], bodyParam: "passwordData" },
-      validate_password: { apiType: "clients", method: "POST", path: "/public/profiles/validate-password", bodyParam: "passwordToValidate" },
+      validate_password: { apiType: "clients", method: "POST", path: "/public/profiles/validate-password", bodyParam: "passwordToValidate", bodyWrapper: "password" },
       get_private_office_url: { apiType: "clients", method: "GET", path: "/profiles/{profileId}/private-office-url", pathParams: ["profileId"] },
       get_subscriptions: { apiType: "clients", method: "POST", path: "/profiles/{profileId}/subscriptions", pathParams: ["profileId"], emptyBody: true },
       get_free_resources: { apiType: "clients", method: "GET", path: "/profiles/{profileId}/subscriptions/{subscriptionId}/free-resources", pathParams: ["profileId", "subscriptionId"] },

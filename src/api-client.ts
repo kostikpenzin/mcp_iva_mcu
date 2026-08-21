@@ -1,6 +1,8 @@
 import type { IvaConfig, ApiType, ApiRequestOptions, HttpMethod } from "./types.js";
 import { IvaApiError } from "./error.js";
 
+const DEFAULT_TIMEOUT_MS = 30000;
+
 const API_PATHS: Record<ApiType, string> = {
   clients: "/api/rest",
   integration: "/api/rest/integration",
@@ -59,7 +61,7 @@ export class IvaApiClient {
     if (!pathParams) return path;
     let result = path;
     for (const [key, value] of Object.entries(pathParams)) {
-      result = result.replace(`{${key}}`, encodeURIComponent(String(value)));
+      result = result.replaceAll(`{${key}}`, encodeURIComponent(String(value)));
     }
     return result;
   }
@@ -108,11 +110,29 @@ export class IvaApiClient {
       }
     }
 
-    const response = await fetch(url, {
-      method: opts.method,
-      headers,
-      body: bodyStr,
-    });
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
+
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        method: opts.method,
+        headers,
+        body: bodyStr,
+        signal: controller.signal,
+      });
+    } catch (err) {
+      clearTimeout(timeout);
+      if (err instanceof Error && err.name === "AbortError") {
+        throw new IvaApiError(
+          408,
+          `Request timed out after ${DEFAULT_TIMEOUT_MS}ms`,
+          "REQUEST_TIMEOUT",
+        );
+      }
+      throw err;
+    }
+    clearTimeout(timeout);
 
     const responseText = await response.text();
 
@@ -163,6 +183,14 @@ export class IvaApiClient {
     body?: unknown;
   }): Promise<T> {
     return this.request<T>({ apiType, method: "PATCH", path, ...opts });
+  }
+
+  async put<T = unknown>(apiType: ApiType, path: string, opts?: {
+    pathParams?: Record<string, string | number>;
+    queryParams?: Record<string, unknown>;
+    body?: unknown;
+  }): Promise<T> {
+    return this.request<T>({ apiType, method: "PUT", path, ...opts });
   }
 
   async delete<T = unknown>(apiType: ApiType, path: string, opts?: {

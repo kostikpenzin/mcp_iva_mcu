@@ -7,7 +7,6 @@ import {
 } from "@modelcontextprotocol/sdk/types.js";
 import { loadConfig } from "./config.js";
 import { IvaApiClient } from "./api-client.js";
-import { IvaWsClient } from "./ws-client.js";
 import { getAllTools } from "./tools/index.js";
 import type { ToolDefinition } from "./types.js";
 import { IvaApiError, errorResult, apiErrorResult } from "./error.js";
@@ -15,9 +14,8 @@ import { IvaApiError, errorResult, apiErrorResult } from "./error.js";
 async function main() {
   const config = loadConfig();
   const apiClient = new IvaApiClient(config);
-  const wsClient = new IvaWsClient(config);
 
-  const tools = getAllTools(apiClient, wsClient);
+  const tools = getAllTools(apiClient);
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
@@ -27,7 +25,7 @@ async function main() {
         tools: {},
       },
       instructions:
-        "IVA MCU MCP server. Provides 43 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.",
+        "IVA MCU MCP server. Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.",
     },
   );
 
@@ -63,6 +61,19 @@ async function main() {
 
   const transport = new StdioServerTransport();
   await server.connect(transport);
+
+  const shutdown = async () => {
+    try {
+      await server.close();
+      await transport.close();
+    } catch {
+      // ignore
+    }
+    process.exit(0);
+  };
+
+  process.on("SIGINT", shutdown);
+  process.on("SIGTERM", shutdown);
 }
 
 main().catch((err) => {
