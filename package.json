@@ -1,7 +1,7 @@
 {
   "name": "mcp-iva-mcu",
   "version": "1.5.0",
-  "description": "MCP server for IVA MCU video conferencing platform",
+  "description": "MCP server for IVA MCU video conferencing platform — 40 tools wrapping Clients API, Integration API & Bot API with natural language support (RU/EN), auto-login, destructive action confirmation, and chat name auto-filling",
   "license": "MIT",
   "mcpName": "io.github.kostikpenzin/mcp-iva-mcu",
   "type": "module",
