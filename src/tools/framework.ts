@@ -22,7 +22,14 @@ export function createActionTool(
   paramSchema: Record<string, unknown>,
   mappings: Record<string, ActionMapping>,
   client: IvaApiClient,
+  actionDescriptions?: Record<string, string>,
 ): ToolDefinition {
+  const actionDesc = actionDescriptions
+    ? Object.entries(actionDescriptions)
+        .map(([k, v]) => `  - "${k}": ${v}`)
+        .join("\n")
+    : `One of: ${actionEnum.join(", ")}`;
+
   return {
     name,
     description,
@@ -32,7 +39,7 @@ export function createActionTool(
         action: {
           type: "string",
           enum: actionEnum,
-          description: "Operation to perform",
+          description: `Operation to perform:\n${actionDesc}`,
         },
         ...paramSchema,
       },

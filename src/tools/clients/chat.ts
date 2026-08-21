@@ -43,5 +43,20 @@ export function createChatTool(client: IvaApiClient): ToolDefinition {
       set_p2p_notifications: { apiType: "clients", method: "POST", path: "/chats/p2p-chat-notifications", bodyParam: "notificationData" },
     },
     client,
+    {
+      create_group_chat: "Create a group chat. Use when user says 'создай чат', 'create group chat'. Required: participants array.",
+      get: "Get chat details by ID",
+      delete: "Delete a chat",
+      update: "Update chat properties (name, avatar, etc.)",
+      search: "Search chats by query. Use when user says 'найди чат', 'search chats'.",
+      get_p2p: "Get or create a P2P (direct) chat with a user",
+      get_all: "Get all chats (paginated by date)",
+      forward_messages: "Forward messages to another chat. Required: forwardData with messageIds and targetChatRoomIds.",
+      clear_history: "Clear chat history",
+      allow_notifications: "Enable notifications for a chat",
+      forbid_notifications: "Disable notifications for a chat",
+      get_muted: "Get list of muted chat IDs",
+      set_p2p_notifications: "Set P2P chat notification settings",
+    },
   );
 }

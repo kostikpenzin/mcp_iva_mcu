@@ -45,5 +45,21 @@ export function createChatMessagesTool(client: IvaApiClient): ToolDefinition {
       notify_read: { apiType: "clients", method: "POST", path: "/chats/{chatRoomId}/last-read-at", pathParams: ["chatRoomId"], bodyParam: "readData" },
     },
     client,
+    {
+      send: "Send a text message to a chat. Use when user says 'отправь сообщение', 'send message'. Required: chatRoomId, messageData with text.",
+      send_audio: "Send an audio message to a chat",
+      edit: "Edit an existing message",
+      delete: "Delete a single message",
+      delete_multiple: "Delete multiple messages at once. Required: chatRoomId, messageIds array.",
+      get: "Get messages from a chat (paginated)",
+      get_changes: "Get message changes since a timestamp",
+      get_starred: "Get starred/favorited messages",
+      search_attachments: "Search for attachments in a chat",
+      remove_attachment: "Remove an attachment from a message",
+      star: "Star/favorite messages. Required: chatRoomId, messageIds array.",
+      unstar: "Remove star from messages",
+      typing: "Send typing notification",
+      notify_read: "Mark messages as read",
+    },
   );
 }

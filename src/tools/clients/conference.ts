@@ -15,7 +15,7 @@ export function createConferenceTool(client: IvaApiClient): ToolDefinition {
     {
       conferenceId: P.conferenceId,
       participantId: P.participantId,
-      conferenceData: { type: "object", description: "Conference creation/update data" },
+      conferenceData: { type: "object", description: "Conference creation/update data. Required fields: name (string), startDate (integer, UNIX ms). Optional: duration (ms), description, settings object with conferenceType, participants array." },
       scheduleData: { type: "object", description: "Schedule calculation data" },
       invitationResponse: { type: "object", description: "Invitation response data" },
       startNowData: { type: "object", description: "Quick start conference data" },
@@ -38,5 +38,19 @@ export function createConferenceTool(client: IvaApiClient): ToolDefinition {
       create_room: { apiType: "clients", method: "POST", path: "/rooms", bodyParam: "roomData" },
     },
     client,
+    {
+      create: "Create a new conference/meeting/event. Required: conferenceData with name and startDate (UNIX ms). Use this when user says 'заброни встречу', 'создай конференцию', 'schedule a meeting', 'book an event'.",
+      get: "Get conference details by ID",
+      delete: "Delete a conference by ID",
+      update: "Update conference properties",
+      calculate_sessions_schedule: "Calculate session schedule for recurring conferences",
+      get_draft: "Get draft conference based on existing one",
+      get_free_resources: "Get free resources available for a conference",
+      get_participant: "Get a specific participant of a conference",
+      get_participants: "List all participants of a conference",
+      respond_on_invitation: "Respond to a conference invitation (accept/decline)",
+      start_now: "Start a conference immediately (quick start without scheduling)",
+      create_room: "Create a conference room (persistent meeting space)",
+    },
   );
 }

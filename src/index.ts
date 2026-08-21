@@ -19,13 +19,47 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.1.0" },
+    { name: "mcp-iva-mcu", version: "1.2.0" },
     {
       capabilities: {
         tools: {},
       },
       instructions:
-        "IVA MCU MCP server. Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.",
+        "IVA MCU MCP server. Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
+        "NATURAL LANGUAGE MAPPING (Russian/English → tool + action):\n" +
+        "Conferences/meetings/events (встреча, мероприятие, конференция, собрание, планёрка, webinar, meeting, conference, event, book, schedule, create):\n" +
+        "  - Create/schedule/book a meeting → iva_conference action=create (requires conferenceData with name + startDate in UNIX ms)\n" +
+        "  - Get meeting info → iva_conference action=get (requires conferenceId)\n" +
+        "  - Delete meeting → iva_conference action=delete\n" +
+        "  - Start meeting now → iva_conference action=start_now\n" +
+        "  - List/find meetings → iva_conference_session action=find\n" +
+        "  - Get session details → iva_conference_session action=get (requires conferenceSessionId)\n" +
+        "  - Join session → iva_conference_session action=join\n" +
+        "  - Leave session → iva_conference_session action=leave\n" +
+        "  - Start recording → iva_conference_session action=start_recording\n" +
+        "  - Stop recording → iva_conference_session action=stop_recording\n" +
+        "  - Start transcription → iva_conference_session action=start_transcription\n\n" +
+        "Conference participants (участники, пригласить, убрать, muted, микрофон, рука, reaction):\n" +
+        "  - Add participants → iva_conference_participants action=add\n" +
+        "  - Remove participants → iva_conference_participants action=remove\n" +
+        "  - Mute participant → iva_conference_participants action=mute_media\n" +
+        "  - Raise hand → iva_conference_participants action=hand_up\n" +
+        "  - Set reaction → iva_conference_participants action=set_reaction\n\n" +
+        "Chat/messages (чат, сообщение, написать, отправить, forward, переслать):\n" +
+        "  - Send message → iva_chat_messages action=send\n" +
+        "  - Create group chat → iva_chat action=create_group_chat\n" +
+        "  - Search chats → iva_chat action=search\n\n" +
+        "Profile/user (профиль, пользователь, пароль, настройки):\n" +
+        "  - Get profile → iva_profile action=get\n" +
+        "  - Update profile → iva_profile action=update\n" +
+        "  - Change password → iva_profile action=update_password\n\n" +
+        "Contacts (контакты, найти пользователя, presence, статус):\n" +
+        "  - Search contacts → iva_contacts action=get\n" +
+        "  - Invite contact → iva_contacts action=invite\n\n" +
+        "Integration API (управление пользователями, компаниями, группами):\n" +
+        "  - Create user → iva_integration_users action=create\n" +
+        "  - Create company → iva_integration_companies action=create\n\n" +
+        "All UUID parameters must be valid UUIDs. Dates are UNIX timestamps in milliseconds.",
     },
   );
 
