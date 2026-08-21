@@ -1,6 +1,29 @@
+<div align="center">
+
 # MCP Server for IVA MCU
 
+[![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
+[![npm downloads](https://img.shields.io/npm/dm/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
+[![license](https://img.shields.io/npm/l/mcp-iva-mcu.svg)](./LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-%3E%3D18-green.svg)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
+[![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
+[![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
+
+**42 tools** · **391 REST actions** · **368 API endpoints** · **17 WebSocket channels**
+
+MCP (Model Context Protocol) server for the **IVA MCU** video conferencing platform.
+Wraps [Clients API](https://meet.iva360.ru/doc/api/rest.html) (v2.28.12),
+[Integration API](https://meet.iva360.ru/doc/api/integration.html) (v1.28.12),
+and [Bot API](https://meet.iva360.ru/doc/api/bot.html) (v1.28.12).
+
+📦 [npm package](https://www.npmjs.com/package/mcp-iva-mcu) ·
+🐙 [GitHub repository](https://github.com/kostikpenzin/mcp_iva_mcu) ·
+📋 [Report an issue](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
+
 **Languages:** [English](#english) | [Русский](#русский)
+
+</div>
 
 ---
 
@@ -342,6 +365,10 @@ MIT
 # Русский
 
 MCP-сервер (Model Context Protocol) для видеоконференцплатформы **IVA MCU**. Предоставляет **42 инструмента**, покрывающих **391 REST-действие** на **368 эндпоинтах** трёх API IVA, плюс 17 WebSocket-каналов событий.
+
+📦 [npm-пакет](https://www.npmjs.com/package/mcp-iva-mcu) ·
+🐙 [GitHub-репозиторий](https://github.com/kostikpenzin/mcp_iva_mcu) ·
+📋 [Сообщить о проблеме](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
 
 ## Совместимые версии API
 
