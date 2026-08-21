@@ -218,8 +218,8 @@ npm run build
 
 | Tool | Description | Actions |
 |------|-------------|---------|
-| `iva_user_session` | Login, logout, 2FA, session management | 10 |
-| `iva_profile` | Profile, call forwarding, password, disk, subscriptions | 19 |
+| `iva_user_session` | Logout, session info, guest login, session state | 5 |
+| `iva_profile` | Profile, call forwarding, disk, subscriptions | 13 |
 | `iva_contacts` | Contacts, invitations, presences, tags | 12 |
 | `iva_interlocutors` | Find interlocutors, presence subscription | 7 |
 | `iva_devices` | Register/deregister devices | 2 |
@@ -269,26 +269,102 @@ npm run build
 |------|-------------|---------|
 | `iva_bot_chat` | Send message, create resource, upload/download files | 4 |
 
-## Usage Examples
+## Capabilities
 
-Each tool uses an `action` parameter (string enum) to select the operation.
+The MCP server understands **natural language in Russian and English**. You don't need to know tool names or action enums — just describe what you want in plain language, and the AI agent will map it to the correct tool and action.
 
-**Create a conference:**
-```
-Tool: iva_conference
-Arguments:
-  action: "create"
-  conferenceData: { "name": "Team Meeting", "type": "PERIODICAL" }
-```
+### What you can do
 
-**Send a chat message:**
-```
-Tool: iva_chat_messages
-Arguments:
-  action: "send"
-  chatRoomId: "abc-123-def-456"
-  messageData: { "text": "Hello everyone!" }
-```
+- **Schedule and manage meetings** — create, update, delete conferences; start them instantly; list upcoming sessions
+- **Control live conferences** — join/leave, start/stop recording, enable transcription and subtitling, manage media publication
+- **Manage participants** — add, remove, mute/unmute, raise/lower hand, set reactions, send DTMF, disconnect
+- **Chat** — create group chats, send and edit messages, forward, star, search, manage notifications
+- **Make calls** — join/hold/transfer calls, start/stop screen sharing, send DTMF tones
+- **Documents & presentations** — upload, convert, present documents and whiteboards, control demonstration
+- **Polls & questionnaires** — create polls, collect answers, export results
+- **Lobby control** — approve or reject waiting participants
+- **Statistics & reports** — view conference statistics, export attendance and participation data
+- **Templates** — create and manage conference templates for quick scheduling
+- **Contacts & presence** — search users, invite contacts, check who's online
+- **User management (Integration API)** — create/block/unblock users, manage companies and groups
+- **Bot messaging** — send messages and files on behalf of a bot
+
+### Security
+
+- Password management and recovery actions are **excluded** from the MCP tools
+- Login and 2FA actions are **excluded** — authentication is handled automatically via `IVA_LOGIN`/`IVA_PASSWORD` environment variables
+- The AI agent never sees or handles your credentials directly
+
+## Usage Scenarios
+
+### 1. Book a meeting
+
+> **You say:** "Заброни встречу на завтра в 10 утра, название 'Планёрка отдела'"
+
+The AI agent will:
+1. Call `iva_conference` with `action: "create"`
+2. Generate `conferenceData` with `name: "Планёрка отдела"` and `startDate` as tomorrow's 10:00 AM in UNIX milliseconds
+3. Return the conference ID and number
+
+### 2. List upcoming meetings
+
+> **You say:** "Покажи все встречи на этой неделе"
+
+The AI agent will:
+1. Call `iva_conference_session` with `action: "find"`
+2. Set `dateFrom` to Monday and `dateTo` to Sunday
+3. Return a list of sessions with names, dates, and states
+
+### 3. Start recording in a live conference
+
+> **You say:** "Начни запись в конференции 'Встреча'"
+
+The AI agent will:
+1. Call `iva_conference_session` with `action: "find"` to locate the session
+2. Call `iva_conference_session` with `action: "start_recording"` using the session ID
+3. Confirm recording has started
+
+### 4. Mute a participant
+
+> **You say:** "Выключи микрофон у Иванова в текущей конференции"
+
+The AI agent will:
+1. Find the active session and list participants via `iva_conference_participants`
+2. Identify the participant by name
+3. Call `iva_conference_participants` with `action: "mute_media"` targeting that participant
+
+### 5. Send a message to a chat
+
+> **You say:** "Отправь сообщение в чат 'Разработка': 'Релиз сегодня в 18:00'"
+
+The AI agent will:
+1. Search chats via `iva_chat` with `action: "search"`
+2. Call `iva_chat_messages` with `action: "send"` and the message text
+
+### 6. Create a poll during a conference
+
+> **You say:** "Создай опрос: 'Выберите время для следующей встречи' с вариантами 'Пн', 'Вт', 'Ср'"
+
+The AI agent will:
+1. Call `iva_conference_inquiry` with `action: "create"` and poll data
+2. Call `iva_conference_inquiry` with `action: "start"` to launch the poll
+
+### 7. Create a new user (Integration API)
+
+> **You say:** "Создай пользователя ivan@company.ru в компании 'АО ИВА360'"
+
+The AI agent will:
+1. Find the company via `iva_integration_companies`
+2. Call `iva_integration_users` with `action: "create"` and user data
+
+### 8. Get conference statistics
+
+> **You say:** "Покажи статистику по конференции 'Встреча' за прошлый месяц"
+
+The AI agent will:
+1. Find the session via `iva_conference_session`
+2. Call `iva_conference_statistics` with `action: "get"` and date range
+3. Return attendance, duration, and participation data
 
 ## Development
 
