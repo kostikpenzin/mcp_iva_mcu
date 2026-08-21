@@ -118,6 +118,7 @@ Add to `claude_desktop_config.json`:
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -138,6 +139,7 @@ Add to `claude_desktop_config.json`:
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -162,6 +164,7 @@ docker build -t mcp/iva-mcu .
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -183,7 +186,8 @@ Add to `.cursor/mcp.json`:
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }
@@ -203,7 +207,8 @@ Add to `.vscode/mcp.json`:
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }
@@ -234,7 +239,8 @@ npm run build
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }

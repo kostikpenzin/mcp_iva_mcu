@@ -117,6 +117,7 @@ npx -y mcp-iva-mcu
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
         "IVA_BOT_TOKEN": "ваш-bot-токен"
       }
@@ -137,6 +138,7 @@ npx -y mcp-iva-mcu
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
         "IVA_BOT_TOKEN": "ваш-bot-токен"
       }
@@ -161,6 +163,7 @@ docker build -t mcp/iva-mcu .
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
         "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true",
         "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
         "IVA_BOT_TOKEN": "ваш-bot-токен"
       }
@@ -182,7 +185,8 @@ docker build -t mcp/iva-mcu .
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }
@@ -202,7 +206,8 @@ docker build -t mcp/iva-mcu .
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }
@@ -233,7 +238,8 @@ npm run build
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password"
+        "IVA_PASSWORD": "your-password",
+        "IVA_CONFIRM_DESTRUCTIVE": "true"
       }
     }
   }
