@@ -60,12 +60,16 @@ npx -y mcp-iva-mcu
 | Variable | Required | Description |
 |----------|----------|-------------|
 | `IVA_BASE_URL` | Yes | IVA MCU server URL |
-| `IVA_SESSION_TOKEN` | Clients API | Session UUID |
-| `IVA_JWT_TOKEN` | Clients API | JWT token (alternative to session) |
+| `IVA_LOGIN` | Clients API (auto-login) | Login (email) for automatic session refresh |
+| `IVA_PASSWORD` | Clients API (auto-login) | Password for automatic session refresh |
+| `IVA_SESSION_TOKEN` | Clients API (alternative) | Session UUID (expires — use login/password for auto-refresh) |
+| `IVA_JWT_TOKEN` | Clients API (alternative) | JWT token |
 | `IVA_INTEGRATION_TOKEN` | Integration API | Bearer token |
 | `IVA_BOT_TOKEN` | Bot API | Bot API token |
 
-Set at least one token per API you want to use.
+For Clients API, you can either:
+- Set `IVA_LOGIN` + `IVA_PASSWORD` — the server will auto-login and refresh sessions automatically (**recommended**), or
+- Set `IVA_SESSION_TOKEN` directly — note that session tokens expire and must be refreshed manually.
 
 ## MCP Client Configuration
 
@@ -83,7 +87,8 @@ Add to `claude_desktop_config.json`:
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid",
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -102,7 +107,8 @@ Add to `claude_desktop_config.json`:
       "args": ["/c", "npx", "-y", "mcp-iva-mcu"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid",
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -125,7 +131,8 @@ docker build -t mcp/iva-mcu .
       "args": ["run", "--rm", "-i", "mcp/iva-mcu"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid",
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password",
         "IVA_INTEGRATION_TOKEN": "your-integration-token",
         "IVA_BOT_TOKEN": "your-bot-token"
       }
@@ -146,7 +153,8 @@ Add to `.cursor/mcp.json`:
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid"
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -165,7 +173,8 @@ Add to `.vscode/mcp.json`:
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid"
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -195,7 +204,8 @@ npm run build
       "args": ["/absolute/path/to/mcp_iva_mcu/dist/index.js"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
-        "IVA_SESSION_TOKEN": "your-session-uuid"
+        "IVA_LOGIN": "your-email@example.ru",
+        "IVA_PASSWORD": "your-password"
       }
     }
   }

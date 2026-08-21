@@ -36,5 +36,7 @@ export function loadConfig(): IvaConfig {
     jwtToken: process.env.IVA_JWT_TOKEN,
     integrationToken: process.env.IVA_INTEGRATION_TOKEN,
     botToken: process.env.IVA_BOT_TOKEN,
+    login: process.env.IVA_LOGIN,
+    password: process.env.IVA_PASSWORD,
   };
 }

@@ -11,7 +11,7 @@ function createMockClient(): IvaApiClient {
     put: vi.fn(),
     delete: vi.fn(),
     baseUrl: "https://test.example.ru",
-    getAuthHeaders: vi.fn().mockReturnValue({ Session: "test" }),
+    getAuthHeaders: vi.fn().mockResolvedValue({ Session: "test" }),
   } as unknown as IvaApiClient;
 }
 

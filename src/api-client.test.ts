@@ -30,6 +30,45 @@ describe("IvaApiClient", () => {
     );
   });
 
+  it("auto-logins with IVA_LOGIN + IVA_PASSWORD when no session token", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "pass123",
+      integrationToken: "integration-token",
+      botToken: "bot-token",
+    };
+    const client = new IvaApiClient(loginConfig);
+    global.fetch = vi
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ sessionId: "auto-session-uuid" }), { status: 200 }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ ok: true }), { status: 200 }),
+      );
+
+    await client.get("clients", "/test");
+
+    // First call: login
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      1,
+      "https://test.example.ru/api/rest/login",
+      expect.objectContaining({
+        method: "POST",
+        body: JSON.stringify({ login: "user@example.ru", password: "pass123" }),
+      }),
+    );
+    // Second call: actual request with auto-obtained session
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      2,
+      "https://test.example.ru/api/rest/test",
+      expect.objectContaining({
+        headers: expect.objectContaining({ Session: "auto-session-uuid" }),
+      }),
+    );
+  });
+
   it("uses the correct auth header for each API type", async () => {
     const client = new IvaApiClient(config);
     global.fetch = vi

@@ -6,6 +6,8 @@ export interface IvaConfig {
   jwtToken?: string;
   integrationToken?: string;
   botToken?: string;
+  login?: string;
+  password?: string;
 }
 
 export interface ToolDefinition {

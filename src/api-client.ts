@@ -10,9 +10,45 @@ const API_PATHS: Record<ApiType, string> = {
 };
 
 export class IvaApiClient {
-  constructor(private config: IvaConfig) {}
+  private cachedSessionToken?: string;
 
-  private buildAuthHeaders(apiType: ApiType): Record<string, string> {
+  constructor(private config: IvaConfig) {
+    this.cachedSessionToken = config.sessionToken;
+  }
+
+  private async getFreshSessionToken(): Promise<string> {
+    if (this.cachedSessionToken) return this.cachedSessionToken;
+
+    if (!this.config.login || !this.config.password) {
+      throw new IvaApiError(
+        401,
+        "No authentication configured for Clients API. Set IVA_SESSION_TOKEN, IVA_JWT_TOKEN, or IVA_LOGIN + IVA_PASSWORD.",
+        "AUTH_NOT_CONFIGURED",
+      );
+    }
+
+    const url = `${this.config.baseUrl}/api/rest/login`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ login: this.config.login, password: this.config.password }),
+      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+    });
+
+    const data = await response.json() as { sessionId?: string };
+    if (!data.sessionId) {
+      throw new IvaApiError(
+        401,
+        "Auto-login failed: server did not return sessionId",
+        "AUTH_LOGIN_FAILED",
+      );
+    }
+
+    this.cachedSessionToken = data.sessionId;
+    return this.cachedSessionToken;
+  }
+
+  private async buildAuthHeaders(apiType: ApiType): Promise<Record<string, string>> {
     const headers: Record<string, string> = {};
     switch (apiType) {
       case "clients": {
@@ -20,10 +56,13 @@ export class IvaApiClient {
           headers["Session"] = this.config.sessionToken;
         } else if (this.config.jwtToken) {
           headers["Authorization"] = `Bearer ${this.config.jwtToken}`;
+        } else if (this.config.login && this.config.password) {
+          const session = await this.getFreshSessionToken();
+          headers["Session"] = session;
         } else {
           throw new IvaApiError(
             401,
-            "No authentication configured for Clients API. Set IVA_SESSION_TOKEN or IVA_JWT_TOKEN.",
+            "No authentication configured for Clients API. Set IVA_SESSION_TOKEN, IVA_JWT_TOKEN, or IVA_LOGIN + IVA_PASSWORD.",
             "AUTH_NOT_CONFIGURED",
           );
         }
@@ -92,7 +131,7 @@ export class IvaApiClient {
     const queryString = this.buildQuery(opts.queryParams);
     const url = `${this.config.baseUrl}${basePath}${fullPath}${queryString}`;
 
-    const authHeaders = this.buildAuthHeaders(opts.apiType);
+    const authHeaders = await this.buildAuthHeaders(opts.apiType);
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
       ...authHeaders,
@@ -204,7 +243,7 @@ export class IvaApiClient {
     return this.config.baseUrl;
   }
 
-  getAuthHeaders(apiType: ApiType): Record<string, string> {
+  getAuthHeaders(apiType: ApiType): Promise<Record<string, string>> {
     return this.buildAuthHeaders(apiType);
   }
 }
