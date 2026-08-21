@@ -3,6 +3,43 @@ import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
 
+function fillChatNames(action: string, data: unknown): unknown {
+  if (!data) return data;
+
+  const fillName = (chat: Record<string, unknown>): Record<string, unknown> => {
+    const name = chat.name as string | undefined;
+    if (name && name.trim()) return chat;
+    const users = chat.users as Array<Record<string, unknown>> | undefined;
+    if (users && users.length > 0) {
+      const names = users
+        .map((u) => u.name as string)
+        .filter(Boolean);
+      if (names.length > 0) {
+        chat.name = names.join(", ");
+      }
+    }
+    return chat;
+  };
+
+  if (action === "get_all" || action === "search") {
+    if (Array.isArray(data)) {
+      return data.map(fillName);
+    }
+    if (typeof data === "object" && data !== null) {
+      const obj = data as Record<string, unknown>;
+      if (Array.isArray(obj.data)) {
+        obj.data = (obj.data as Record<string, unknown>[]).map(fillName);
+      }
+    }
+  } else if (action === "get_p2p" || action === "get") {
+    if (typeof data === "object" && data !== null && !Array.isArray(data)) {
+      return fillName(data as Record<string, unknown>);
+    }
+  }
+
+  return data;
+}
+
 export function createChatTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_chat",
@@ -57,7 +94,7 @@ export function createChatTool(client: IvaApiClient): ToolDefinition {
       update: "Update chat properties (name, avatar, etc.)",
       search: "Search chats by query. Use when user says 'найди чат', 'search chats'.",
       get_p2p: "Get or create a P2P (direct/private) chat with a specific user. Use this for sending direct messages to a person — NOT create_group_chat. Pass profileId of the recipient. Use when user says 'напиши в личку', 'send direct message', 'найди личный чат'. At least one of: profileId, contactId, email, phone, name.",
-      get_all: "Get all chats (paginated by date)",
+      get_all: "Get all chats (paginated by date). Chats without names will show participant names as the title.",
       forward_messages: "Forward messages to another chat. Required: forwardData with messageIds and targetChatRoomIds.",
       clear_history: "Clear chat history",
       allow_notifications: "Enable notifications for a chat",
@@ -65,5 +102,6 @@ export function createChatTool(client: IvaApiClient): ToolDefinition {
       get_muted: "Get list of muted chat IDs",
       set_p2p_notifications: "Set P2P chat notification settings",
     },
+    fillChatNames,
   );
 }

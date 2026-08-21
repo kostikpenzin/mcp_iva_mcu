@@ -1,6 +1,6 @@
 {
   "name": "mcp-iva-mcu",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "MCP server for IVA MCU video conferencing platform",
   "license": "MIT",
   "mcpName": "io.github.kostikpenzin/mcp-iva-mcu",

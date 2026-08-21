@@ -34,6 +34,7 @@ export function createActionTool(
   mappings: Record<string, ActionMapping>,
   client: IvaApiClient,
   actionDescriptions?: Record<string, string>,
+  transformResponse?: (action: string, data: unknown) => unknown,
 ): ToolDefinition {
   const actionDesc = actionDescriptions
     ? Object.entries(actionDescriptions)
@@ -142,7 +143,8 @@ export function createActionTool(
         queryParams: Object.keys(queryParams).length > 0 ? queryParams : undefined,
         body,
       });
-      return successResult(result);
+      const transformed = transformResponse ? transformResponse(action, result) : result;
+      return successResult(transformed);
     },
   };
 }

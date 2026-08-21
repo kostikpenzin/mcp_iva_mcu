@@ -65,7 +65,7 @@ describe("MCP server end-to-end protocol", () => {
     const msg = await waitForMessage(proc, 1);
     expect(msg.result).toBeDefined();
     expect(msg.result.serverInfo.name).toBe("mcp-iva-mcu");
-    expect(msg.result.serverInfo.version).toBe("1.4.3");
+    expect(msg.result.serverInfo.version).toBe("1.4.4");
     expect(msg.result.protocolVersion).toBe("2024-11-05");
     expect(msg.result.capabilities.tools).toBeDefined();
     expect(msg.result.instructions).toContain("IVA MCU");
