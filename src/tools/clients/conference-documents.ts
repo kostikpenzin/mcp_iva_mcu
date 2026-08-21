@@ -1,0 +1,55 @@
+import type { IvaApiClient } from "../../api-client.js";
+import type { ToolDefinition } from "../../types.js";
+import { createActionTool } from "../framework.js";
+import { P } from "../params.js";
+
+export function createConferenceDocumentsTool(client: IvaApiClient): ToolDefinition {
+  return createActionTool(
+    "iva_conference_documents",
+    "IVA conference documents: create/delete/update/move/list documents and directories, document/video demonstration control (start/stop/pause/play/position), get pages/path/can-upload, public documents. Clients API v2.28.12.",
+    [
+      "get_public", "create_directory", "create_document", "delete",
+      "update", "can_upload", "get_pages", "get_path", "list",
+      "move", "start_document_demo", "stop_document_demo",
+      "start_video_demo", "stop_video_demo",
+      "pause_video", "play_video", "set_video_position",
+      "update_cursor_state", "update_demo_state",
+    ],
+    {
+      conferenceSessionId: P.conferenceSessionId,
+      documentId: P.documentId,
+      directoryId: P.directoryId,
+      sourceDocumentId: P.sourceDocumentId,
+      destinationDirectoryId: P.destinationDirectoryId,
+      resourceId: P.resourceId,
+      documentUpdate: { type: "object", description: "Document update data" },
+      cursorData: { type: "object", description: "Cursor state data" },
+      demoStateData: { type: "object", description: "Demonstration state data" },
+      positionData: { type: "object", description: "Video position data" },
+      limit: P.limit,
+      offset: P.offset,
+    },
+    {
+      get_public: { apiType: "clients", method: "GET", path: "/public/conference-sessions/{conferenceSessionId}/documents", pathParams: ["conferenceSessionId"] },
+      create_directory: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/documents/{directoryId}/create-directory", pathParams: ["conferenceSessionId", "directoryId"], rawBody: true },
+      create_document: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/documents/{directoryId}/create-document-for/{resourceId}", pathParams: ["conferenceSessionId", "directoryId", "resourceId"], rawBody: true },
+      delete: { apiType: "clients", method: "DELETE", path: "/conference-sessions/{conferenceSessionId}/documents/{documentId}", pathParams: ["conferenceSessionId", "documentId"] },
+      update: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/documents/{documentId}", pathParams: ["conferenceSessionId", "documentId"], bodyParam: "documentUpdate" },
+      can_upload: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/documents/can-upload", pathParams: ["conferenceSessionId"] },
+      get_pages: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/documents/{documentId}/pages", pathParams: ["conferenceSessionId", "documentId"], queryParams: ["limit", "offset"] },
+      get_path: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/documents/{directoryId}/path", pathParams: ["conferenceSessionId", "directoryId"] },
+      list: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/documents/{directoryId}", pathParams: ["conferenceSessionId", "directoryId"], queryParams: ["limit", "offset"] },
+      move: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/documents/{sourceDocumentId}/move-to/{destinationDirectoryId}", pathParams: ["conferenceSessionId", "sourceDocumentId", "destinationDirectoryId"], emptyBody: true },
+      start_document_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/document/start", pathParams: ["conferenceSessionId"], bodyParam: "documentId" },
+      stop_document_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/document/stop", pathParams: ["conferenceSessionId"], emptyBody: true },
+      start_video_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/video-document/start", pathParams: ["conferenceSessionId"], bodyParam: "documentId" },
+      stop_video_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/video-document/stop", pathParams: ["conferenceSessionId"], emptyBody: true },
+      pause_video: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/video-document/pause", pathParams: ["conferenceSessionId"], emptyBody: true },
+      play_video: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/video-document/play", pathParams: ["conferenceSessionId"], emptyBody: true },
+      set_video_position: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/video-document/position", pathParams: ["conferenceSessionId"], bodyParam: "positionData" },
+      update_cursor_state: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/document/cursor", pathParams: ["conferenceSessionId"], bodyParam: "cursorData" },
+      update_demo_state: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/document/state", pathParams: ["conferenceSessionId"], bodyParam: "demoStateData" },
+    },
+    client,
+  );
+}

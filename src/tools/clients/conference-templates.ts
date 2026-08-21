@@ -1,0 +1,25 @@
+import type { IvaApiClient } from "../../api-client.js";
+import type { ToolDefinition } from "../../types.js";
+import { createActionTool } from "../framework.js";
+import { P } from "../params.js";
+
+export function createConferenceTemplatesTool(client: IvaApiClient): ToolDefinition {
+  return createActionTool(
+    "iva_conference_templates",
+    "IVA conference templates: list/create/get/delete/update templates, set template as default. Clients API v2.28.12.",
+    ["list", "create", "get", "delete", "update", "set_as_default"],
+    {
+      conferenceTemplateId: P.conferenceTemplateId,
+      templateData: { type: "object", description: "Conference template creation/update data" },
+    },
+    {
+      list: { apiType: "clients", method: "GET", path: "/conference-templates" },
+      create: { apiType: "clients", method: "POST", path: "/conference-templates", bodyParam: "templateData" },
+      get: { apiType: "clients", method: "GET", path: "/conference-templates/{conferenceTemplateId}", pathParams: ["conferenceTemplateId"] },
+      delete: { apiType: "clients", method: "DELETE", path: "/conference-templates/{conferenceTemplateId}", pathParams: ["conferenceTemplateId"] },
+      update: { apiType: "clients", method: "PATCH", path: "/conference-templates/{conferenceTemplateId}", pathParams: ["conferenceTemplateId"], bodyParam: "templateData" },
+      set_as_default: { apiType: "clients", method: "POST", path: "/conference-templates/{conferenceTemplateId}/set-as-default", pathParams: ["conferenceTemplateId"], emptyBody: true },
+    },
+    client,
+  );
+}
