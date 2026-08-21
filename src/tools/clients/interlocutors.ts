@@ -22,10 +22,10 @@ export function createInterlocutorsTool(client: IvaApiClient): ToolDefinition {
       find_by_contact: { apiType: "clients", method: "GET", path: "/interlocutors/contact/{contactId}", pathParams: ["contactId"] },
       find_by_ldap_user: { apiType: "clients", method: "GET", path: "/interlocutors/ldap/{userId}", pathParams: ["userId"] },
       find_by_profile: { apiType: "clients", method: "GET", path: "/interlocutors/profile/{profileId}", pathParams: ["profileId"] },
-      find_by_profile_ids: { apiType: "clients", method: "POST", path: "/interlocutors/profiles", bodyParam: "profileIds", bodyWrapper: "profileIds" },
+      find_by_profile_ids: { apiType: "clients", method: "POST", path: "/interlocutors/profiles", bodyParam: "profileIds" },
       find: { apiType: "clients", method: "POST", path: "/interlocutors/find", bodyParam: "findCriteria" },
       get_types: { apiType: "clients", method: "GET", path: "/interlocutors/types" },
-      subscribe_presence: { apiType: "clients", method: "POST", path: "/interlocutors/presences/subscribe", bodyParam: "profileIds", bodyWrapper: "profileIds" },
+      subscribe_presence: { apiType: "clients", method: "POST", path: "/interlocutors/presences/subscribe", bodyParam: "profileIds" },
     },
     client,
     {

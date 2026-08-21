@@ -21,8 +21,8 @@ export function createIntegrationGroupsTool(client: IvaApiClient): ToolDefinitio
       update: { apiType: "integration", method: "PATCH", path: "/groups/{groupId}", pathParams: ["groupId"], bodyParam: "groupData" },
       delete: { apiType: "integration", method: "DELETE", path: "/groups/{groupId}", pathParams: ["groupId"] },
       get_subgroups: { apiType: "integration", method: "GET", path: "/groups/{parentGroupId}/subgroups", pathParams: ["parentGroupId"] },
-      add_users: { apiType: "integration", method: "POST", path: "/groups/{groupId}/users/add", pathParams: ["groupId"], bodyParam: "userIds", bodyWrapper: "userIds" },
-      remove_users: { apiType: "integration", method: "POST", path: "/groups/{groupId}/users/remove", pathParams: ["groupId"], bodyParam: "userIds", bodyWrapper: "userIds" },
+      add_users: { apiType: "integration", method: "POST", path: "/groups/{groupId}/users/add", pathParams: ["groupId"], bodyParam: "userIds", bodyWrapper: "data" },
+      remove_users: { apiType: "integration", method: "POST", path: "/groups/{groupId}/users/remove", pathParams: ["groupId"], bodyParam: "userIds", bodyWrapper: "data" },
     },
     client,
     {

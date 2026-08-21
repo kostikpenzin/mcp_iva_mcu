@@ -35,7 +35,7 @@ export function createIntegrationConferenceSessionsTool(client: IvaApiClient): T
       start_now: { apiType: "integration", method: "POST", path: "/conference-sessions/start-now", bodyParam: "startData" },
       add_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/add", pathParams: ["conferenceSessionId"], bodyParam: "participants", bodyWrapper: "data" },
       find_participants: { apiType: "integration", method: "GET", path: "/conference-sessions/{conferenceSessionId}/participants", pathParams: ["conferenceSessionId"], queryParams: ["limit", "offset"] },
-      find_by_profile: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/find-by-profile", pathParams: ["conferenceSessionId"], bodyParam: "profileIds", bodyWrapper: "profileIds" },
+      find_by_profile: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/find-by-profile", pathParams: ["conferenceSessionId"], bodyParam: "profileIds" },
       remove_participants: { apiType: "integration", method: "POST", path: "/conference-sessions/{conferenceSessionId}/participants/remove", pathParams: ["conferenceSessionId"], bodyParam: "participantIds", bodyWrapper: "data" },
     },
     client,

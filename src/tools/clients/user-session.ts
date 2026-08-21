@@ -13,14 +13,14 @@ export function createUserSessionTool(client: IvaApiClient): ToolDefinition {
     ],
     {
       sessionState: { type: "string", description: "Session state to set" },
-      loginUrlType: { type: "string", description: "Login URL type" },
+      providerId: { type: "string", description: "Login provider ID" },
     },
     {
       login_as_guest: { apiType: "clients", method: "POST", path: "/login-as-guest", emptyBody: true },
       logout: { apiType: "clients", method: "POST", path: "/logout", emptyBody: true },
       get_session_info: { apiType: "clients", method: "GET", path: "/session/info" },
-      set_session_state: { apiType: "clients", method: "POST", path: "/session/state", bodyParam: "sessionState", bodyWrapper: "state" },
-      get_login_url: { apiType: "clients", method: "GET", path: "/login-url", queryParams: ["loginUrlType"] },
+      set_session_state: { apiType: "clients", method: "POST", path: "/session/state", bodyParam: "sessionState", bodyWrapper: "sessionState" },
+      get_login_url: { apiType: "clients", method: "GET", path: "/login-url", queryParams: ["providerId"] },
     },
     client,
     {
