@@ -18,8 +18,9 @@ into 40 tools your AI agent can call directly.
 
 [Installation](#installation) ·
 [Configuration](#mcp-client-configuration) ·
+[Capabilities](#capabilities) ·
 [Tools](#tools-overview) ·
-[Usage](#usage-examples) ·
+[Scenarios](#usage-scenarios) ·
 [Development](#development) ·
 [npm package](https://www.npmjs.com/package/mcp-iva-mcu)
 
