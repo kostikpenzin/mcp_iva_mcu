@@ -282,7 +282,6 @@ The MCP server understands **natural language in Russian and English**. You don'
 - **Chat** — create group chats, send and edit messages, forward, star, search, manage notifications
 - **Make calls** — join/hold/transfer calls, start/stop screen sharing, send DTMF tones
 - **Documents & presentations** — upload, convert, present documents and whiteboards, control demonstration
-- **Polls & questionnaires** — create polls, collect answers, export results
 - **Lobby control** — approve or reject waiting participants
 - **Statistics & reports** — view conference statistics, export attendance and participation data
 - **Templates** — create and manage conference templates for quick scheduling
@@ -342,15 +341,7 @@ The AI agent will:
 1. Search chats via `iva_chat` with `action: "search"`
 2. Call `iva_chat_messages` with `action: "send"` and the message text
 
-### 6. Create a poll during a conference
-
-> **You say:** "Создай опрос: 'Выберите время для следующей встречи' с вариантами 'Пн', 'Вт', 'Ср'"
-
-The AI agent will:
-1. Call `iva_conference_inquiry` with `action: "create"` and poll data
-2. Call `iva_conference_inquiry` with `action: "start"` to launch the poll
-
-### 7. Create a new user (Integration API)
+### 6. Create a new user (Integration API)
 
 > **You say:** "Создай пользователя ivan@company.ru в компании 'АО ИВА360'"
 
@@ -358,7 +349,7 @@ The AI agent will:
 1. Find the company via `iva_integration_companies`
 2. Call `iva_integration_users` with `action: "create"` and user data
 
-### 8. Get conference statistics
+### 7. Get conference statistics
 
 > **You say:** "Покажи статистику по конференции 'Встреча' за прошлый месяц"
 
