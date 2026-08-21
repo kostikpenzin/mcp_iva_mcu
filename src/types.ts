@@ -8,6 +8,7 @@ export interface IvaConfig {
   botToken?: string;
   login?: string;
   password?: string;
+  confirmDestructive: boolean;
 }
 
 export interface ToolDefinition {

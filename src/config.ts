@@ -38,5 +38,6 @@ export function loadConfig(): IvaConfig {
     botToken: process.env.IVA_BOT_TOKEN,
     login: process.env.IVA_LOGIN,
     password: process.env.IVA_PASSWORD,
+    confirmDestructive: process.env.IVA_CONFIRM_DESTRUCTIVE === "true",
   };
 }

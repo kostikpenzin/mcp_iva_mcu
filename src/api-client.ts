@@ -246,4 +246,8 @@ export class IvaApiClient {
   getAuthHeaders(apiType: ApiType): Promise<Record<string, string>> {
     return this.buildAuthHeaders(apiType);
   }
+
+  isConfirmDestructive(): boolean {
+    return this.config.confirmDestructive;
+  }
 }

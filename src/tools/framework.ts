@@ -3,6 +3,17 @@ import type { ApiType, HttpMethod, ToolDefinition } from "../types.js";
 import { errorResult, successResult } from "../error.js";
 import { validateArgs } from "./validate.js";
 
+const DESTRUCTIVE_KEYWORDS = [
+  "delete", "remove", "disconnect", "clear", "block", "unblock",
+  "stop", "cancel", "reject", "mute", "pause", "destroy",
+];
+
+function isDestructiveAction(action: string, mapping: ActionMapping): boolean {
+  if (mapping.method === "DELETE") return true;
+  const lower = action.toLowerCase();
+  return DESTRUCTIVE_KEYWORDS.some((kw) => lower.includes(kw));
+}
+
 export interface ActionMapping {
   apiType: ApiType;
   method: HttpMethod;
@@ -41,6 +52,10 @@ export function createActionTool(
           enum: actionEnum,
           description: `Operation to perform:\n${actionDesc}`,
         },
+        confirm: {
+          type: "boolean",
+          description: "Set to true to confirm destructive actions (delete, remove, stop, etc.) when IVA_CONFIRM_DESTRUCTIVE is enabled.",
+        },
         ...paramSchema,
       },
       required: ["action"],
@@ -52,6 +67,7 @@ export function createActionTool(
             type: "string",
             enum: actionEnum,
           },
+          confirm: { type: "boolean" },
           ...paramSchema,
         },
         required: ["action"],
@@ -66,6 +82,16 @@ export function createActionTool(
         return errorResult(
           `Unknown action: ${action}. Available: ${Object.keys(mappings).join(", ")}`,
         );
+      }
+
+      if (client.isConfirmDestructive() && isDestructiveAction(action, mapping) && !args.confirm) {
+        return {
+          content: [{
+            type: "text",
+            text: `⚠️ Confirmation required.\n\nYou are about to perform a destructive action: "${action}" on tool "${name}".\nThis may delete, remove, or modify data on the IVA MCU server.\n\nTo proceed, call this tool again with the same arguments AND add "confirm": true.\n\nIf this was not intended, do not proceed.`,
+          }],
+          isError: true,
+        };
       }
 
       const pathParams: Record<string, string | number> = {};

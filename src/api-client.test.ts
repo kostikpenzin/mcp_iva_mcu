@@ -8,6 +8,7 @@ describe("IvaApiClient", () => {
     sessionToken: "session-uuid",
     integrationToken: "integration-token",
     botToken: "bot-token",
+    confirmDestructive: false,
   };
 
   it("builds the correct URL with path and query parameters", async () => {
@@ -37,6 +38,7 @@ describe("IvaApiClient", () => {
       password: "pass123",
       integrationToken: "integration-token",
       botToken: "bot-token",
+    confirmDestructive: false,
     };
     const client = new IvaApiClient(loginConfig);
     global.fetch = vi

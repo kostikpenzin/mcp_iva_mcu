@@ -67,10 +67,38 @@ npx -y mcp-iva-mcu
 | `IVA_JWT_TOKEN` | Clients API (alternative) | JWT token |
 | `IVA_INTEGRATION_TOKEN` | Integration API | Bearer token |
 | `IVA_BOT_TOKEN` | Bot API | Bot API token |
+| `IVA_CONFIRM_DESTRUCTIVE` | Optional | Set to `true` to require confirmation before destructive actions (delete, remove, stop, etc.) |
 
 For Clients API, you can either:
 - Set `IVA_LOGIN` + `IVA_PASSWORD` — the server will auto-login and refresh sessions automatically (**recommended**), or
 - Set `IVA_SESSION_TOKEN` directly — note that session tokens expire and must be refreshed manually.
+
+### Destructive Action Confirmation
+
+When `IVA_CONFIRM_DESTRUCTIVE=true` is set, the server requires an explicit `confirm: true` parameter before executing destructive actions (delete, remove, disconnect, stop, block, mute, cancel, reject, clear, pause). Without confirmation, the tool returns a warning message instead of executing.
+
+This protects against accidental data loss when using AI agents.
+
+**Without confirmation (blocked):**
+```
+Tool: iva_conference
+Arguments:
+  action: "delete"
+  conferenceId: "abc-123"
+→ Returns: "⚠️ Confirmation required..."
+```
+
+**With confirmation (executed):**
+```
+Tool: iva_conference
+Arguments:
+  action: "delete"
+  conferenceId: "abc-123"
+  confirm: true
+→ Executes the deletion
+```
+
+When `IVA_CONFIRM_DESTRUCTIVE` is not set or `false`, destructive actions execute without confirmation (default behavior).
 
 ## MCP Client Configuration
 

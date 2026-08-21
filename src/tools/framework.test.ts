@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { createActionTool } from "./framework.js";
 import type { IvaApiClient } from "../api-client.js";
 
-function createMockClient(): IvaApiClient {
+function createMockClient(confirmDestructive = false): IvaApiClient {
   return {
     request: vi.fn().mockResolvedValue({ ok: true }),
     get: vi.fn(),
@@ -12,6 +12,7 @@ function createMockClient(): IvaApiClient {
     delete: vi.fn(),
     baseUrl: "https://test.example.ru",
     getAuthHeaders: vi.fn().mockResolvedValue({ Session: "test" }),
+    isConfirmDestructive: vi.fn().mockReturnValue(confirmDestructive),
   } as unknown as IvaApiClient;
 }
 
@@ -126,5 +127,85 @@ describe("createActionTool", () => {
     const result = await tool.handler({ action: "unknown" });
     expect(result.isError).toBe(true);
     expect(result.content[0].text).toMatch(/Validation failed|Unknown action/);
+  });
+
+  it("blocks destructive action when confirmDestructive is enabled and confirm is not set", async () => {
+    const client = createMockClient(true);
+    const tool = createActionTool(
+      "test_tool",
+      "Test tool",
+      ["delete"],
+      { resourceId: { type: "string", format: "uuid", description: "Resource ID" } },
+      {
+        delete: {
+          apiType: "clients",
+          method: "DELETE",
+          path: "/resources/{resourceId}",
+          pathParams: ["resourceId"],
+        },
+      },
+      client,
+    );
+
+    const result = await tool.handler({
+      action: "delete",
+      resourceId: "550e8400-e29b-41d4-a716-446655440000",
+    });
+    expect(result.isError).toBe(true);
+    expect(result.content[0].text).toContain("Confirmation required");
+    expect(client.request).not.toHaveBeenCalled();
+  });
+
+  it("allows destructive action when confirmDestructive is enabled and confirm is true", async () => {
+    const client = createMockClient(true);
+    const tool = createActionTool(
+      "test_tool",
+      "Test tool",
+      ["delete"],
+      { resourceId: { type: "string", format: "uuid", description: "Resource ID" } },
+      {
+        delete: {
+          apiType: "clients",
+          method: "DELETE",
+          path: "/resources/{resourceId}",
+          pathParams: ["resourceId"],
+        },
+      },
+      client,
+    );
+
+    const result = await tool.handler({
+      action: "delete",
+      resourceId: "550e8400-e29b-41d4-a716-446655440000",
+      confirm: true,
+    });
+    expect(result.isError).toBeUndefined();
+    expect(client.request).toHaveBeenCalled();
+  });
+
+  it("allows destructive action when confirmDestructive is disabled", async () => {
+    const client = createMockClient(false);
+    const tool = createActionTool(
+      "test_tool",
+      "Test tool",
+      ["delete"],
+      { resourceId: { type: "string", format: "uuid", description: "Resource ID" } },
+      {
+        delete: {
+          apiType: "clients",
+          method: "DELETE",
+          path: "/resources/{resourceId}",
+          pathParams: ["resourceId"],
+        },
+      },
+      client,
+    );
+
+    const result = await tool.handler({
+      action: "delete",
+      resourceId: "550e8400-e29b-41d4-a716-446655440000",
+    });
+    expect(result.isError).toBeUndefined();
+    expect(client.request).toHaveBeenCalled();
   });
 });
