@@ -20,7 +20,8 @@ into 40 tools your AI agent can call directly.
 [Configuration](#mcp-client-configuration) ·
 [Tools](#tools-overview) ·
 [Usage](#usage-examples) ·
-[Development](#development)
+[Development](#development) ·
+[npm package](https://www.npmjs.com/package/mcp-iva-mcu)
 
 **Languages:** English · [Русский](./i18n/README.ru.md)
 
@@ -45,6 +46,14 @@ OpenAPI specs for these exact versions are in [`specs/`](./specs) (source repo o
 - Node.js 18+
 - IVA MCU server URL (e.g. `https://your-iva-server.ru`)
 - At least one auth token (see [Environment Variables](#environment-variables))
+
+### Install from npm
+
+```bash
+npm install -g mcp-iva-mcu
+# or run without installing
+npx -y mcp-iva-mcu
+```
 
 ### Environment Variables
 
