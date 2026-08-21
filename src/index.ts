@@ -4,6 +4,8 @@ import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js"
 import {
   ListToolsRequestSchema,
   CallToolRequestSchema,
+  InitializeRequestSchema,
+  LATEST_PROTOCOL_VERSION,
 } from "@modelcontextprotocol/sdk/types.js";
 import { loadConfig } from "./config.js";
 import { IvaApiClient } from "./api-client.js";
@@ -19,7 +21,7 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.4.0" },
+    { name: "mcp-iva-mcu", version: "1.4.1" },
     {
       capabilities: {
         tools: {},
@@ -121,6 +123,16 @@ async function main() {
         "All UUID parameters must be valid UUIDs. Dates are UNIX timestamps in milliseconds.",
     },
   );
+
+  // Override initialize handler to always respond with latest protocol version
+  server.setRequestHandler(InitializeRequestSchema, async (request) => {
+    return {
+      protocolVersion: LATEST_PROTOCOL_VERSION,
+      capabilities: { tools: {} },
+      serverInfo: { name: "mcp-iva-mcu", version: "1.4.1" },
+      instructions: server["_instructions"],
+    };
+  });
 
   server.setRequestHandler(ListToolsRequestSchema, async () => {
     return {
