@@ -3,8 +3,13 @@
 # MCP-сервер для IVA 360
 
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
+[![npm downloads](https://img.shields.io/npm/dm/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
 [![тесты](https://img.shields.io/badge/тесты-58-brightgreen.svg)](../CHANGELOG.md)
+[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-green.svg)](https://nodejs.org/)
+[![MCP протокол](https://img.shields.io/badge/протокол-MCP-purple.svg)](https://modelcontextprotocol.io)
+[![платформа](https://img.shields.io/badge/платформа-IVA%20360%20%C2%B7%20Минцифры%20РФ-blue.svg)](https://iva360.ru)
+
 [![зависимости](https://img.shields.io/badge/зависимости-0%20уязвимостей-brightgreen.svg)](#безопасность)
 [![секреты](https://img.shields.io/badge/секреты-не%20зашиты%20в%20коде-brightgreen.svg)](#безопасность)
 [![вредонос](https://img.shields.io/badge/вредонос-не%20обнаружен-brightgreen.svg)](#безопасность)

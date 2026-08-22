@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.3] — 2026-08-23
+
+### Changed
+- **Badge set refined.** Re-added `npm downloads` and added `Node.js ≥18`, `MCP protocol`, and `platform IVA 360 · Минцифры РФ` to the header badges in README (EN) and `i18n/README.ru.md` (RU), alongside the security cluster (dependencies: 0 vulnerabilities, secrets: none hardcoded, malware: none detected). Removed only the low-signal badges (GitHub stars, GitHub issues, TypeScript version, TypeScript strict).
+- Version bumped to **2.0.3** (docs-only).
+
+---
+
 ## [2.0.2] — 2026-08-23
 
 ### Changed
