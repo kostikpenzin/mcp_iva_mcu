@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- **Security & significance badges** in README (EN) and `i18n/README.ru.md` (RU): tests (55), 0 dependencies vulnerabilities, no hardcoded secrets, TypeScript strict mode, MCP protocol, IVA 360 · Минцифры РФ platform.
+- Fixed stale test count in README headers (53 → 55).
+
+---
+
 ## [1.5.2] — 2026-08-23
 
 ### Fixed

@@ -10,7 +10,14 @@
 [![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
 [![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
 
-**40 tools** · **375 REST actions** · **368 API endpoints** · **53 tests**
+[![tests](https://img.shields.io/badge/tests-55-brightgreen.svg)](./CHANGELOG.md)
+[![dependencies](https://img.shields.io/badge/dependencies-0%20vulnerabilities-brightgreen.svg)](#platform--subscription)
+[![secrets](https://img.shields.io/badge/secrets-none%20hardcoded-brightgreen.svg)](#platform--subscription)
+[![TypeScript strict](https://img.shields.io/badge/TypeScript-strict%20mode-blue.svg)](./tsconfig.json)
+[![MCP protocol](https://img.shields.io/badge/protocol-MCP-purple.svg)](https://modelcontextprotocol.io)
+[![platform](https://img.shields.io/badge/platform-IVA%20360%20%C2%B7%20%D0%9C%D0%B8%D0%BD%D1%86%D0%B8%D1%84%D1%80%D1%8B%20%D0%A0%D0%A4-blue.svg)](https://iva360.ru)
+
+**40 tools** · **375 REST actions** · **368 API endpoints** · **55 tests**
 
 MCP server for the **IVA MCU** video conferencing platform.
 Wraps Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
