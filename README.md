@@ -30,6 +30,31 @@ into 40 tools your AI agent can call directly.
 
 ---
 
+## Platform & Subscription
+
+This MCP server connects to **IVA MCU** — the video conferencing core of the
+[**IVA 360**](https://iva360.ru) corporate communications platform.
+
+**IVA 360** is a Russian-developed enterprise ecosystem that combines video
+meetings, webinars, messenger, mail, cloud storage, and an AI assistant in a
+single window. It is built for both **large and small organizations** — from
+small teams on the Starter plan to holdings, educational institutions, and
+government bodies on Enterprise (private/hybrid cloud with up to 99.98% SLA
+and up to 10 million accounts). The software is registered in the Russian
+Ministry of Digital Development registry and stores data on servers inside the
+Russian Federation.
+
+> ⚠️ **A subscription to [iva360.ru](https://iva360.ru) is required** to use this
+> server. The IVA MCU API endpoints (`IVA_BASE_URL`) and the authentication
+> tokens (`IVA_SESSION_TOKEN`, `IVA_JWT_TOKEN`, `IVA_INTEGRATION_TOKEN`,
+> `IVA_BOT_TOKEN`, or `IVA_LOGIN`/`IVA_PASSWORD`) are only available to
+> subscribed organizations. A free trial is available — see the website for
+> plans and pricing.
+
+➡️ More details: [iva360.ru](https://iva360.ru)
+
+---
+
 ## Compatible API Versions
 
 | API | Version | Base Path | Auth | Endpoints |
@@ -45,6 +70,7 @@ OpenAPI specs for these exact versions are in [`specs/`](./specs) (source repo o
 ### Prerequisites
 
 - Node.js 18+
+- An active [IVA 360](https://iva360.ru) subscription (see [Platform & Subscription](#platform--subscription))
 - IVA MCU server URL (e.g. `https://your-iva-server.ru`)
 - At least one auth token (see [Environment Variables](#environment-variables))
 

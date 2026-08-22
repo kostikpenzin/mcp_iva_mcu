@@ -19,13 +19,14 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.5.1" },
+    { name: "mcp-iva-mcu", version: "1.5.2" },
     {
       capabilities: {
         tools: {},
       },
       instructions:
-        "IVA MCU MCP server. Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
+        "IVA MCU MCP server. Connects to the IVA MCU video conferencing core of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
+        "Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
         "NATURAL LANGUAGE MAPPING (Russian/English → tool + action):\n\n" +
         "CONFERENCES & MEETINGS (встреча, мероприятие, конференция, собрание, планёрка, webинар, meeting, conference, event, webinar, book, schedule, create):\n" +
         "  - Create/schedule/book a meeting → iva_conference action=create (requires conferenceData with name + startDate in UNIX ms)\n" +
@@ -159,8 +160,8 @@ async function main() {
     try {
       await server.close();
       await transport.close();
-    } catch {
-      // ignore
+    } catch (err) {
+      console.error("Shutdown error:", err);
     }
     process.exit(0);
   };

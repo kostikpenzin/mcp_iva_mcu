@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.5.2] — 2026-08-23
+
+### Fixed
+- **Security: `rawBody` request body no longer leaks control/parameter fields to the IVA server.** In `createActionTool`, the `rawBody` branch previously only stripped `action` from the outgoing request body, so `confirm` and any `pathParams`/`queryParams` (e.g. `resourceId`) were forwarded to the upstream IVA API as unexpected body fields. The branch now strips `action`, `confirm`, and all declared path/query params before sending the body. Affects `iva_file_resources` (`upload`), `iva_conference_documents` (`create_directory`, `create_document`).
+- `shutdown` handler in `src/index.ts` now logs shutdown errors instead of silently swallowing them.
+
+### Added
+- 2 regression tests in `src/tools/framework.test.ts` covering `rawBody` field stripping (55 tests total, was 53).
+- **Documentation: subscription requirement.** README (EN) and `i18n/README.ru.md` (RU) now include a "Platform & Subscription" section stating that an active [iva360.ru](https://iva360.ru) subscription is required to use the server, and describing IVA 360 as a corporate communications platform for both large and small organizations. Prerequisites updated accordingly.
+- Server `instructions` in `src/index.ts` and `package.json` description now mention the IVA 360 platform and subscription requirement.
+
+---
+
 ## [1.4.4] — 2026-08-22
 
 ### Added

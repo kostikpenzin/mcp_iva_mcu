@@ -208,4 +208,72 @@ describe("createActionTool", () => {
     expect(result.isError).toBeUndefined();
     expect(client.request).toHaveBeenCalled();
   });
+
+  it("rawBody strips action, confirm, pathParams, and queryParams from the request body", async () => {
+    const client = createMockClient();
+    const tool = createActionTool(
+      "test_tool",
+      "Test tool",
+      ["upload"],
+      {
+        resourceId: { type: "string", format: "uuid", description: "Resource ID" },
+        visibility: { type: "string", description: "Visibility query param" },
+      },
+      {
+        upload: {
+          apiType: "clients",
+          method: "POST",
+          path: "/resources/{resourceId}",
+          pathParams: ["resourceId"],
+          queryParams: ["visibility"],
+          rawBody: true,
+        },
+      },
+      client,
+    );
+
+    await tool.handler({
+      action: "upload",
+      resourceId: "550e8400-e29b-41d4-a716-446655440000",
+      visibility: "public",
+      confirm: true,
+      fileName: "doc.pdf",
+      size: 1024,
+    });
+    const call = (client.request as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.body).toEqual({ fileName: "doc.pdf", size: 1024 });
+    expect(call.body).not.toHaveProperty("action");
+    expect(call.body).not.toHaveProperty("confirm");
+    expect(call.body).not.toHaveProperty("resourceId");
+    expect(call.body).not.toHaveProperty("visibility");
+    expect(call.pathParams).toEqual({ resourceId: "550e8400-e29b-41d4-a716-446655440000" });
+    expect(call.queryParams).toEqual({ visibility: "public" });
+  });
+
+  it("rawBody sends empty object when no extra fields are provided", async () => {
+    const client = createMockClient();
+    const tool = createActionTool(
+      "test_tool",
+      "Test tool",
+      ["create_dir"],
+      { resourceId: { type: "string", format: "uuid", description: "Resource ID" } },
+      {
+        create_dir: {
+          apiType: "clients",
+          method: "POST",
+          path: "/resources/{resourceId}/dir",
+          pathParams: ["resourceId"],
+          rawBody: true,
+        },
+      },
+      client,
+    );
+
+    await tool.handler({
+      action: "create_dir",
+      resourceId: "550e8400-e29b-41d4-a716-446655440000",
+    });
+    const call = (client.request as ReturnType<typeof vi.fn>).mock.calls[0][0];
+    expect(call.body).toEqual({});
+  });
 });

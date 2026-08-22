@@ -131,7 +131,13 @@ export function createActionTool(
           body = { [mapping.bodyWrapper]: body };
         }
       } else if (mapping.rawBody) {
-        const { action: _action, ...rest } = args;
+        const reserved = new Set<string>(["action", "confirm"]);
+        if (mapping.pathParams) mapping.pathParams.forEach((p) => reserved.add(p));
+        if (mapping.queryParams) mapping.queryParams.forEach((p) => reserved.add(p));
+        const rest: Record<string, unknown> = {};
+        for (const [key, value] of Object.entries(args)) {
+          if (!reserved.has(key)) rest[key] = value;
+        }
         body = Object.keys(rest).length > 0 ? rest : {};
       }
 
