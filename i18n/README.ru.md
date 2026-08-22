@@ -19,7 +19,7 @@
 **40 инструментов** · **375 REST-действий** · **368 эндпоинтов** · **55 тестов**
 
 MCP-сервер для видеоконференцплатформы **IVA 360**.
-Оборачивает API IVA MCU — Clients API (v2.28.12), Integration API (v1.28.12) и Bot API (v1.28.12)
+Оборачивает API IVA 360 — Clients API (v2.28.12), Integration API (v1.28.12) и Bot API (v1.28.12)
 в 40 инструментов, которые ваш AI-агент может вызывать напрямую.
 
 [Установка](#установка) ·
@@ -38,8 +38,8 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 
 ## Платформа и подписка
 
-Этот MCP-сервер оборачивает API **IVA MCU** — видеоконференц-ядро
-корпоративной платформы [**IVA 360**](https://iva360.ru).
+Этот MCP-сервер оборачивает корпоративные видеоконференц-API
+[**IVA 360**](https://iva360.ru) (Clients, Integration, Bot).
 
 **IVA 360** — российская корпоративная экосистема, объединяющая видеовстречи,
 вебинары, мессенджер, почту, облачный диск и ИИ-ассистента в одном окне.
@@ -50,7 +50,7 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 хранятся на серверах внутри Российской Федерации.
 
 > ⚠️ **Для работы сервера требуется подписка [iva360.ru](https://iva360.ru).**
-> Эндпоинты IVA MCU API (`IVA_BASE_URL`) и токены аутентификации
+> Эндпоинты IVA 360 API (`IVA_BASE_URL`) и токены аутентификации
 > (`IVA_SESSION_TOKEN`, `IVA_JWT_TOKEN`, `IVA_INTEGRATION_TOKEN`,
 > `IVA_BOT_TOKEN` или `IVA_LOGIN`/`IVA_PASSWORD`) доступны только организациям
 > с активной подпиской. Доступен бесплатный пробный период — тарифы и условия
@@ -76,7 +76,7 @@ OpenAPI-спецификации для этих версий — в катал�
 
 - Node.js 18+
 - Активная подписка [IVA 360](https://iva360.ru) (см. [Платформа и подписка](#платформа-и-подписка))
-- URL сервера IVA MCU (например, `https://your-iva-server.ru`)
+- URL сервера IVA 360 (например, `https://your-iva-server.ru`)
 - Хотя бы один токен аутентификации (см. [Переменные окружения](#переменные-окружения))
 
 ### Установка из npm
@@ -91,7 +91,7 @@ npx -y mcp-iva-mcu
 
 | Переменная | Обязательна | Описание |
 |-----------|------------|----------|
-| `IVA_BASE_URL` | Да | URL сервера IVA MCU |
+| `IVA_BASE_URL` | Да | URL сервера IVA 360 |
 | `IVA_LOGIN` | Clients API (авто-логин) | Логин (email) для автоматического обновления сессии |
 | `IVA_PASSWORD` | Clients API (авто-логин) | Пароль для автоматического обновления сессии |
 | `IVA_SESSION_TOKEN` | Clients API (альтернатива) | UUID сессии (истекает — используйте login/password для автообновления) |
@@ -142,7 +142,7 @@ npx -y mcp-iva-mcu
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -163,7 +163,7 @@ npx -y mcp-iva-mcu
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "cmd",
       "args": ["/c", "npx", "-y", "mcp-iva-mcu"],
       "env": {
@@ -182,15 +182,15 @@ npx -y mcp-iva-mcu
 **Docker:**
 
 ```bash
-docker build -t mcp/iva-mcu .
+docker build -t mcp/iva-360 .
 ```
 
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "mcp/iva-mcu"],
+      "args": ["run", "--rm", "-i", "mcp/iva-360"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
@@ -211,7 +211,7 @@ docker build -t mcp/iva-mcu .
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -232,7 +232,7 @@ docker build -t mcp/iva-mcu .
 ```json
 {
   "servers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -249,7 +249,7 @@ docker build -t mcp/iva-mcu .
 ### Codex CLI
 
 ```bash
-codex mcp add iva-mcu npx -y mcp-iva-mcu
+codex mcp add iva-360 npx -y mcp-iva-mcu
 ```
 
 ### Из исходников
@@ -264,7 +264,7 @@ npm run build
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "node",
       "args": ["/абсолютный/путь/к/mcp_iva_mcu/dist/index.js"],
       "env": {
@@ -430,7 +430,7 @@ npm install          # Установка зависимостей
 npm run build        # Компиляция TypeScript + chmod +x
 npm run dev          # Режим наблюдения
 npm start            # Запуск сервера
-docker build -t mcp/iva-mcu .  # Docker-образ
+docker build -t mcp/iva-360 .  # Docker-образ
 npm publish          # Публикация в npm (авто clean + build)
 ```
 

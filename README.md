@@ -20,7 +20,7 @@
 **40 tools** · **375 REST actions** · **368 API endpoints** · **55 tests**
 
 MCP server for the **IVA 360** video conferencing platform.
-Wraps the IVA MCU APIs — Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
+Wraps the IVA 360 APIs — Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
 into 40 tools your AI agent can call directly.
 
 [Installation](#installation) ·
@@ -39,8 +39,8 @@ into 40 tools your AI agent can call directly.
 
 ## Platform & Subscription
 
-This MCP server wraps the **IVA MCU** APIs — the video conferencing core of the
-[**IVA 360**](https://iva360.ru) corporate communications platform.
+This MCP server wraps the [**IVA 360**](https://iva360.ru) corporate video
+conferencing APIs (Clients, Integration, Bot).
 
 **IVA 360** is a Russian-developed enterprise ecosystem that combines video
 meetings, webinars, messenger, mail, cloud storage, and an AI assistant in a
@@ -52,7 +52,7 @@ Ministry of Digital Development registry and stores data on servers inside the
 Russian Federation.
 
 > ⚠️ **A subscription to [iva360.ru](https://iva360.ru) is required** to use this
-> server. The IVA MCU API endpoints (`IVA_BASE_URL`) and the authentication
+> server. The IVA 360 API endpoints (`IVA_BASE_URL`) and the authentication
 > tokens (`IVA_SESSION_TOKEN`, `IVA_JWT_TOKEN`, `IVA_INTEGRATION_TOKEN`,
 > `IVA_BOT_TOKEN`, or `IVA_LOGIN`/`IVA_PASSWORD`) are only available to
 > subscribed organizations. A free trial is available — see the website for
@@ -78,7 +78,7 @@ OpenAPI specs for these exact versions are in [`specs/`](./specs) (source repo o
 
 - Node.js 18+
 - An active [IVA 360](https://iva360.ru) subscription (see [Platform & Subscription](#platform--subscription))
-- IVA MCU server URL (e.g. `https://your-iva-server.ru`)
+- IVA 360 server URL (e.g. `https://your-iva-server.ru`)
 - At least one auth token (see [Environment Variables](#environment-variables))
 
 ### Install from npm
@@ -93,7 +93,7 @@ npx -y mcp-iva-mcu
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `IVA_BASE_URL` | Yes | IVA MCU server URL |
+| `IVA_BASE_URL` | Yes | IVA 360 server URL |
 | `IVA_LOGIN` | Clients API (auto-login) | Login (email) for automatic session refresh |
 | `IVA_PASSWORD` | Clients API (auto-login) | Password for automatic session refresh |
 | `IVA_SESSION_TOKEN` | Clients API (alternative) | Session UUID (expires — use login/password for auto-refresh) |
@@ -144,7 +144,7 @@ Add to `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -165,7 +165,7 @@ Add to `claude_desktop_config.json`:
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "cmd",
       "args": ["/c", "npx", "-y", "mcp-iva-mcu"],
       "env": {
@@ -184,15 +184,15 @@ Add to `claude_desktop_config.json`:
 **Docker:**
 
 ```bash
-docker build -t mcp/iva-mcu .
+docker build -t mcp/iva-360 .
 ```
 
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "mcp/iva-mcu"],
+      "args": ["run", "--rm", "-i", "mcp/iva-360"],
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
@@ -213,7 +213,7 @@ Add to `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -234,7 +234,7 @@ Add to `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "npx",
       "args": ["-y", "mcp-iva-mcu"],
       "env": {
@@ -251,7 +251,7 @@ Add to `.vscode/mcp.json`:
 ### Codex CLI
 
 ```bash
-codex mcp add iva-mcu npx -y mcp-iva-mcu
+codex mcp add iva-360 npx -y mcp-iva-mcu
 ```
 
 ### From source
@@ -266,7 +266,7 @@ npm run build
 ```json
 {
   "mcpServers": {
-    "iva-mcu": {
+    "iva-360": {
       "command": "node",
       "args": ["/absolute/path/to/mcp_iva_mcu/dist/index.js"],
       "env": {
@@ -432,7 +432,7 @@ npm install          # Install dependencies
 npm run build        # Compile TypeScript + chmod +x
 npm run dev          # Watch mode
 npm start            # Run server
-docker build -t mcp/iva-mcu .  # Docker image
+docker build -t mcp/iva-360 .  # Docker image
 npm publish          # Publish to npm (auto clean + build)
 ```
 

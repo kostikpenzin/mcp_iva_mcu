@@ -73,7 +73,7 @@ describe("MCP server end-to-end protocol", () => {
     expect(msg.result.serverInfo.version).toBe(packageVersion);
     expect(msg.result.protocolVersion).toBe("2024-11-05");
     expect(msg.result.capabilities.tools).toBeDefined();
-    expect(msg.result.instructions).toContain("IVA MCU");
+    expect(msg.result.instructions).toContain("IVA 360");
   });
 
   it("responds to tools/list with 40 tools", async () => {
