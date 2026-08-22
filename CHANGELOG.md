@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.4] — 2026-08-23
+
+### Changed
+- **Author section moved to the end** of README (EN) and `i18n/README.ru.md` (RU) — was previously in the header block. Now appears as a dedicated `## Author` / `## Автор` section after License.
+- Version bumped to **2.0.4** (docs-only).
+
+---
+
 ## [2.0.3] — 2026-08-23
 
 ### Changed
