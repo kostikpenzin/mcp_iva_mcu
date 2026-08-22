@@ -32,6 +32,8 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 
 **Языки:** [English](../README.md) · Русский
 
+**Автор:** Пензин Константин — [GitHub](https://github.com/kostikpenzin) · [penzin85@gmail.com](mailto:penzin85@gmail.com)
+
 </div>
 
 ---

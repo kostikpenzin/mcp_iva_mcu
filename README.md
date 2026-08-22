@@ -33,6 +33,8 @@ into 28 tools your AI agent can call directly.
 
 **Languages:** English · [Русский](./i18n/README.ru.md)
 
+**Author:** Penzin Konstantin — [GitHub](https://github.com/kostikpenzin) · [penzin85@gmail.com](mailto:penzin85@gmail.com)
+
 </div>
 
 ---

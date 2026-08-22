@@ -1,5 +1,16 @@
 # Changelog
 
+## [2.0.1] — 2026-08-23
+
+### Added
+- **Author metadata.** `package.json` now declares `"author": "Penzin Konstantin <penzin85@gmail.com> (https://github.com/kostikpenzin)"`. README (EN) and `i18n/README.ru.md` (RU) show an "Author / Автор" line in the header.
+
+### Changed
+- **Destructive action confirmation** is now described in the server `instructions` (`src/index.ts`) so MCP clients surface the feature: when `IVA_CONFIRM_DESTRUCTIVE=true`, destructive actions require an explicit `confirm: true`; otherwise a warning is returned instead of executing. The feature itself was already present and is documented in the README "Destructive Action Confirmation" section and the Environment Variables table.
+- Version bumped to **2.0.1**.
+
+---
+
 ## [2.0.0] — 2026-08-23
 
 ### Removed (breaking)

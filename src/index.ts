@@ -19,7 +19,7 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "2.0.0" },
+    { name: "mcp-iva-mcu", version: "2.0.1" },
     {
       capabilities: {
         tools: {},
@@ -112,7 +112,8 @@ async function main() {
         "SYSTEM (система, системная информация, media, ICE, system info):\n" +
         "  - Get system info → iva_system action=get_info (системная информация, system info)\n" +
         "  - Get ICE servers → iva_system action=get_ice_servers (ICE серверы, ICE servers)\n\n" +
-        "All UUID parameters must be valid UUIDs. Dates are UNIX timestamps in milliseconds.",
+        "All UUID parameters must be valid UUIDs. Dates are UNIX timestamps in milliseconds.\n\n" +
+        "DESTRUCTIVE ACTION CONFIRMATION: when IVA_CONFIRM_DESTRUCTIVE=true is set, destructive actions (delete, remove, disconnect, stop, block, mute, cancel, reject, clear, pause) require an explicit confirm: true parameter; otherwise the tool returns a warning instead of executing. This protects against accidental data loss when driven by AI agents. When unset or false, destructive actions execute without confirmation (default).",
     },
   );
 
