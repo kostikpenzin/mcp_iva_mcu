@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.5.3] — 2026-08-23
 
 ### Added
 - **Security & significance badges** in README (EN) and `i18n/README.ru.md` (RU): tests (55), 0 dependencies vulnerabilities, no hardcoded secrets, TypeScript strict mode, MCP protocol, IVA 360 · Минцифры РФ platform.
