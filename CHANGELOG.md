@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [1.5.4] — 2026-08-23
 
 ### Changed
 - **Project rebrand: "MCP Server for IVA MCU" → "MCP Server for IVA 360".** All prose mentions of "IVA MCU" replaced with "IVA 360" across README (EN), `i18n/README.ru.md` (RU), server `instructions`, and `package.json` description. Example labels in MCP client configs, Docker tags, and codex names renamed `iva-mcu` → `iva-360` / `mcp/iva-mcu` → `mcp/iva-360`. e2e test assertion updated to expect "IVA 360".

@@ -1,6 +1,6 @@
 {
   "name": "mcp-iva-mcu",
-  "version": "1.5.3",
+  "version": "1.5.4",
   "description": "MCP server for the IVA 360 video conferencing platform (wraps the IVA 360 corporate APIs — part of the IVA 360 communications suite, iva360.ru subscription required). 40 tools: Clients, Integration & Bot APIs with natural language support (RU/EN), auto-login, destructive action confirmation, and chat name auto-filling",
   "license": "MIT",
   "mcpName": "io.github.kostikpenzin/mcp-iva-mcu",

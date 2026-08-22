@@ -19,7 +19,7 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.5.3" },
+    { name: "mcp-iva-mcu", version: "1.5.4" },
     {
       capabilities: {
         tools: {},
