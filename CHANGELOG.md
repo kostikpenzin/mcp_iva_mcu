@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.2] — 2026-08-23
+
+### Changed
+- **Badges trimmed to the essential set** under the title in README (EN) and `i18n/README.ru.md` (RU). Kept: npm version, license, tests (58). Removed: npm downloads, Node.js, TypeScript, GitHub stars, GitHub issues, TypeScript strict, MCP protocol, platform.
+- **Security badges consolidated** and linked to the Security section: `dependencies: 0 vulnerabilities`, `secrets: none hardcoded`, and a new `malware: none detected` badge (RU: `вредонос: не обнаружен`) — the explicit "no viruses" indicator that was missing.
+- Version bumped to **2.0.2** (docs-only).
+
+---
+
 ## [2.0.1] — 2026-08-23
 
 ### Added

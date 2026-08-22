@@ -4,17 +4,10 @@
 
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-green.svg)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg)](https://www.typescriptlang.org/)
-[![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
-[![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
-
-[![тесты](https://img.shields.io/badge/%D1%82%D0%B5%D1%81%D1%82%D1%8B-58-brightgreen.svg)](../CHANGELOG.md)
-[![зависимости](https://img.shields.io/badge/%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-0%20%D1%83%D1%8F%D0%B7%D0%B2%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B5%D0%B9-brightgreen.svg)](#%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%B8-%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B0)
-[![секреты](https://img.shields.io/badge/%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D1%8B-%D0%BD%D0%B5%20%D0%B7%D0%B0%D1%88%D0%B8%D1%82%D1%8B%20%D0%B2%20%D0%BA%D0%BE%D0%B4%D0%B5-brightgreen.svg)](#%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%B8-%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B0)
-[![TypeScript strict](https://img.shields.io/badge/TypeScript-strict%20mode-blue.svg)](../tsconfig.json)
-[![MCP протокол](https://img.shields.io/badge/%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB-MCP-purple.svg)](https://modelcontextprotocol.io)
-[![платформа](https://img.shields.io/badge/%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-IVA%20360%20%C2%B7%20%D0%9C%D0%B8%D0%BD%D1%86%D0%B8%D1%84%D1%80%D1%8B%20%D0%A0%D0%A4-blue.svg)](https://iva360.ru)
+[![тесты](https://img.shields.io/badge/тесты-58-brightgreen.svg)](../CHANGELOG.md)
+[![зависимости](https://img.shields.io/badge/зависимости-0%20уязвимостей-brightgreen.svg)](#безопасность)
+[![секреты](https://img.shields.io/badge/секреты-не%20зашиты%20в%20коде-brightgreen.svg)](#безопасность)
+[![вредонос](https://img.shields.io/badge/вредонос-не%20обнаружен-brightgreen.svg)](#безопасность)
 
 **28 инструментов** · **304 REST-действия** · **310 эндпоинтов** · **58 тестов**
 
