@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- **Project rebrand: "MCP Server for IVA MCU" → "MCP Server for IVA 360".** Updated the H1 title, tagline, Platform & Subscription section, server `instructions`, and `package.json` description to present the project under the IVA 360 umbrella brand (the IVA MCU APIs remain the technical target). Applies to README (EN) and `i18n/README.ru.md` (RU).
+- Note: the npm package name (`mcp-iva-mcu`), GitHub repo name, bin name, and Docker image tag are unchanged — only display/branding strings were renamed.
+
+---
+
 ## [1.5.3] — 2026-08-23
 
 ### Added

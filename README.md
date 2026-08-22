@@ -1,6 +1,6 @@
 <div align="center">
 
-# MCP Server for IVA MCU
+# MCP Server for IVA 360
 
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![npm downloads](https://img.shields.io/npm/dm/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
@@ -19,8 +19,8 @@
 
 **40 tools** · **375 REST actions** · **368 API endpoints** · **55 tests**
 
-MCP server for the **IVA MCU** video conferencing platform.
-Wraps Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
+MCP server for the **IVA 360** video conferencing platform.
+Wraps the IVA MCU APIs — Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12)
 into 40 tools your AI agent can call directly.
 
 [Installation](#installation) ·
@@ -39,7 +39,7 @@ into 40 tools your AI agent can call directly.
 
 ## Platform & Subscription
 
-This MCP server connects to **IVA MCU** — the video conferencing core of the
+This MCP server wraps the **IVA MCU** APIs — the video conferencing core of the
 [**IVA 360**](https://iva360.ru) corporate communications platform.
 
 **IVA 360** is a Russian-developed enterprise ecosystem that combines video

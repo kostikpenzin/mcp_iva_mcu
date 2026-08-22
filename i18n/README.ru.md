@@ -1,6 +1,6 @@
 <div align="center">
 
-# MCP-сервер для IVA MCU
+# MCP-сервер для IVA 360
 
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
@@ -18,8 +18,8 @@
 
 **40 инструментов** · **375 REST-действий** · **368 эндпоинтов** · **55 тестов**
 
-MCP-сервер для видеоконференцплатформы **IVA MCU**.
-Оборачивает Clients API (v2.28.12), Integration API (v1.28.12) и Bot API (v1.28.12)
+MCP-сервер для видеоконференцплатформы **IVA 360**.
+Оборачивает API IVA MCU — Clients API (v2.28.12), Integration API (v1.28.12) и Bot API (v1.28.12)
 в 40 инструментов, которые ваш AI-агент может вызывать напрямую.
 
 [Установка](#установка) ·
@@ -38,7 +38,7 @@ MCP-сервер для видеоконференцплатформы **IVA MCU
 
 ## Платформа и подписка
 
-Этот MCP-сервер подключается к **IVA MCU** — видеоконференц-ядру
+Этот MCP-сервер оборачивает API **IVA MCU** — видеоконференц-ядро
 корпоративной платформы [**IVA 360**](https://iva360.ru).
 
 **IVA 360** — российская корпоративная экосистема, объединяющая видеовстречи,

@@ -25,7 +25,7 @@ async function main() {
         tools: {},
       },
       instructions:
-        "IVA MCU MCP server. Connects to the IVA MCU video conferencing core of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
+        "IVA 360 MCP server. Wraps the IVA MCU APIs — the video conferencing core of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
         "Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
         "NATURAL LANGUAGE MAPPING (Russian/English → tool + action):\n\n" +
         "CONFERENCES & MEETINGS (встреча, мероприятие, конференция, собрание, планёрка, webинар, meeting, conference, event, webinar, book, schedule, create):\n" +
