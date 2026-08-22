@@ -76,7 +76,7 @@ describe("MCP server end-to-end protocol", () => {
     expect(msg.result.instructions).toContain("IVA 360");
   });
 
-  it("responds to tools/list with 40 tools", async () => {
+  it("responds to tools/list with 28 tools", async () => {
     // Send initialized notification first
     sendMcpMessage(proc, {
       jsonrpc: "2.0",
@@ -90,7 +90,7 @@ describe("MCP server end-to-end protocol", () => {
     });
     const msg = await waitForMessage(proc, 2);
     expect(msg.result.tools).toBeDefined();
-    expect(msg.result.tools).toHaveLength(40);
+    expect(msg.result.tools).toHaveLength(28);
   });
 
   it("returns validation error for invalid UUID in tools/call", async () => {

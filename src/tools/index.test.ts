@@ -24,8 +24,8 @@ describe("getAllTools — structural integrity", () => {
   const client = createMockClient();
   const tools = getAllTools(client);
 
-  it("registers exactly 40 tools", () => {
-    expect(tools).toHaveLength(40);
+  it("registers exactly 28 tools", () => {
+    expect(tools).toHaveLength(28);
   });
 
   it("all tools have unique names", () => {
@@ -84,22 +84,11 @@ describe("getAllTools — action count verification", () => {
     return sum + actions.length;
   }, 0);
 
-  it("total actions across all tools is reasonable (300+)", () => {
-    expect(totalActions).toBeGreaterThan(300);
+  it("total actions across all tools is reasonable (250+)", () => {
+    expect(totalActions).toBeGreaterThan(250);
   });
 
   it("Clients API has 28 tools", () => {
-    const clientsTools = tools.filter((t) => !t.name.includes("integration") && !t.name.includes("bot"));
-    expect(clientsTools).toHaveLength(28);
-  });
-
-  it("Integration API has 11 tools", () => {
-    const integrationTools = tools.filter((t) => t.name.includes("integration"));
-    expect(integrationTools).toHaveLength(11);
-  });
-
-  it("Bot API has 1 tool", () => {
-    const botTools = tools.filter((t) => t.name.includes("bot"));
-    expect(botTools).toHaveLength(1);
+    expect(tools).toHaveLength(28);
   });
 });

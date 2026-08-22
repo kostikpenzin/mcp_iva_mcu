@@ -31,22 +31,6 @@ import { createConferenceTemplatesTool } from "./clients/conference-templates.js
 import { createWhiteboardTool } from "./clients/whiteboard.js";
 import { createScreenshareTool } from "./clients/screenshare.js";
 
-// Integration API tools
-import { createIntegrationUsersTool } from "./integration/users.js";
-import { createIntegrationCompaniesTool } from "./integration/companies.js";
-import { createIntegrationGroupsTool } from "./integration/groups.js";
-import { createIntegrationConferencesTool } from "./integration/conferences.js";
-import { createIntegrationConferenceSessionsTool } from "./integration/conference-sessions.js";
-import { createIntegrationChatsTool } from "./integration/chats.js";
-import { createIntegrationDocumentsTool } from "./integration/documents.js";
-import { createIntegrationDomainsTool } from "./integration/domains.js";
-import { createIntegrationSubscriptionsTool } from "./integration/subscriptions.js";
-import { createIntegrationProfilesTool } from "./integration/profiles.js";
-import { createIntegrationResourcesTool } from "./integration/resources.js";
-
-// Bot API tools
-import { createBotChatTool } from "./bot/chat.js";
-
 export function getAllTools(
   client: IvaApiClient,
 ): ToolDefinition[] {
@@ -80,21 +64,5 @@ export function getAllTools(
     createConferenceTemplatesTool(client),
     createWhiteboardTool(client),
     createScreenshareTool(client),
-
-    // Integration API (11 tools)
-    createIntegrationUsersTool(client),
-    createIntegrationCompaniesTool(client),
-    createIntegrationGroupsTool(client),
-    createIntegrationConferencesTool(client),
-    createIntegrationConferenceSessionsTool(client),
-    createIntegrationChatsTool(client),
-    createIntegrationDocumentsTool(client),
-    createIntegrationDomainsTool(client),
-    createIntegrationSubscriptionsTool(client),
-    createIntegrationProfilesTool(client),
-    createIntegrationResourcesTool(client),
-
-    // Bot API (1 tool)
-    createBotChatTool(client),
   ];
 }

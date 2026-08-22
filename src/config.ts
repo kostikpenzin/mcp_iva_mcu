@@ -34,8 +34,6 @@ export function loadConfig(): IvaConfig {
     baseUrl,
     sessionToken: process.env.IVA_SESSION_TOKEN,
     jwtToken: process.env.IVA_JWT_TOKEN,
-    integrationToken: process.env.IVA_INTEGRATION_TOKEN,
-    botToken: process.env.IVA_BOT_TOKEN,
     login: process.env.IVA_LOGIN,
     password: process.env.IVA_PASSWORD,
     confirmDestructive: process.env.IVA_CONFIRM_DESTRUCTIVE === "true",

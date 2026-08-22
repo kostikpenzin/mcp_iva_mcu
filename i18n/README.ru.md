@@ -9,18 +9,18 @@
 [![GitHub stars](https://img.shields.io/github/stars/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu)
 [![GitHub issues](https://img.shields.io/github/issues/kostikpenzin/mcp_iva_mcu.svg)](https://github.com/kostikpenzin/mcp_iva_mcu/issues)
 
-[![тесты](https://img.shields.io/badge/%D1%82%D0%B5%D1%81%D1%82%D1%8B-55-brightgreen.svg)](../CHANGELOG.md)
+[![тесты](https://img.shields.io/badge/%D1%82%D0%B5%D1%81%D1%82%D1%8B-58-brightgreen.svg)](../CHANGELOG.md)
 [![зависимости](https://img.shields.io/badge/%D0%B7%D0%B0%D0%B2%D0%B8%D1%81%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8-0%20%D1%83%D1%8F%D0%B7%D0%B2%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B5%D0%B9-brightgreen.svg)](#%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%B8-%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B0)
 [![секреты](https://img.shields.io/badge/%D1%81%D0%B5%D0%BA%D1%80%D0%B5%D1%82%D1%8B-%D0%BD%D0%B5%20%D0%B7%D0%B0%D1%88%D0%B8%D1%82%D1%8B%20%D0%B2%20%D0%BA%D0%BE%D0%B4%D0%B5-brightgreen.svg)](#%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-%D0%B8-%D0%BF%D0%BE%D0%B4%D0%BF%D0%B8%D1%81%D0%BA%D0%B0)
 [![TypeScript strict](https://img.shields.io/badge/TypeScript-strict%20mode-blue.svg)](../tsconfig.json)
 [![MCP протокол](https://img.shields.io/badge/%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D0%BA%D0%BE%D0%BB-MCP-purple.svg)](https://modelcontextprotocol.io)
 [![платформа](https://img.shields.io/badge/%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0-IVA%20360%20%C2%B7%20%D0%9C%D0%B8%D0%BD%D1%86%D0%B8%D1%84%D1%80%D1%8B%20%D0%A0%D0%A4-blue.svg)](https://iva360.ru)
 
-**40 инструментов** · **375 REST-действий** · **368 эндпоинтов** · **55 тестов**
+**28 инструментов** · **304 REST-действия** · **310 эндпоинтов** · **58 тестов**
 
 MCP-сервер для видеоконференцплатформы **IVA 360**.
-Оборачивает API IVA 360 — Clients API (v2.28.12), Integration API (v1.28.12) и Bot API (v1.28.12)
-в 40 инструментов, которые ваш AI-агент может вызывать напрямую.
+Оборачивает Clients API IVA 360 (v2.28.12)
+в 28 инструментов, которые ваш AI-агент может вызывать напрямую.
 
 [Установка](#установка) ·
 [Конфигурация](#конфигурация-mcp-клиентов) ·
@@ -38,8 +38,8 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 
 ## Платформа и подписка
 
-Этот MCP-сервер оборачивает корпоративные видеоконференц-API
-[**IVA 360**](https://iva360.ru) (Clients, Integration, Bot).
+Этот MCP-сервер оборачивает корпоративный видеоконференц-API
+[**IVA 360**](https://iva360.ru) (Clients).
 
 **IVA 360** — российская корпоративная экосистема, объединяющая видеовстречи,
 вебинары, мессенджер, почту, облачный диск и ИИ-ассистента в одном окне.
@@ -51,10 +51,9 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 
 > ⚠️ **Для работы сервера требуется подписка [iva360.ru](https://iva360.ru).**
 > Эндпоинты IVA 360 API (`IVA_BASE_URL`) и токены аутентификации
-> (`IVA_SESSION_TOKEN`, `IVA_JWT_TOKEN`, `IVA_INTEGRATION_TOKEN`,
-> `IVA_BOT_TOKEN` или `IVA_LOGIN`/`IVA_PASSWORD`) доступны только организациям
-> с активной подпиской. Доступен бесплатный пробный период — тарифы и условия
-> см. на сайте.
+> (`IVA_SESSION_TOKEN`, `IVA_JWT_TOKEN` или `IVA_LOGIN`/`IVA_PASSWORD`)
+> доступны только организациям с активной подпиской. Доступен бесплатный
+> пробный период — тарифы и условия см. на сайте.
 
 ➡️ Подробнее: [iva360.ru](https://iva360.ru)
 
@@ -65,10 +64,8 @@ MCP-сервер для видеоконференцплатформы **IVA 360
 | API | Версия | Базовый путь | Аутентификация | Эндпоинтов |
 |-----|--------|-------------|----------------|------------|
 | IVA Clients API | **2.28.12** | `/api/rest` | Заголовок `Session` или JWT Bearer | 310 |
-| IVA System Integration API | **1.28.12** | `/api/rest/integration` | Bearer-токен | 54 |
-| IVA Chat Bot API | **1.28.12** | `/api/rest/bot` | Заголовок `X-Iva-Bot-Api-Token` | 4 |
 
-OpenAPI-спецификации для этих версий — в каталоге [`specs/`](../specs) (только в репозитории).
+OpenAPI-спецификация для этой версии — в каталоге [`specs/`](../specs) (только в репозитории).
 
 ## Установка
 
@@ -96,8 +93,6 @@ npx -y mcp-iva-mcu
 | `IVA_PASSWORD` | Clients API (авто-логин) | Пароль для автоматического обновления сессии |
 | `IVA_SESSION_TOKEN` | Clients API (альтернатива) | UUID сессии (истекает — используйте login/password для автообновления) |
 | `IVA_JWT_TOKEN` | Clients API (альтернатива) | JWT-токен |
-| `IVA_INTEGRATION_TOKEN` | Integration API | Bearer-токен |
-| `IVA_BOT_TOKEN` | Bot API | Токен Bot API |
 | `IVA_CONFIRM_DESTRUCTIVE` | Опционально | Установите `true` для обязательного подтверждения деструктивных действий (удаление, остановка и т.д.) |
 
 Для Clients API можно либо:
@@ -106,30 +101,7 @@ npx -y mcp-iva-mcu
 
 ### Подтверждение деструктивных действий
 
-Когда `IVA_CONFIRM_DESTRUCTIVE=true`, сервер требует явный параметр `confirm: true` перед выполнением деструктивных действий (удаление, удаление участника, отключение, остановка, блокировка, мьют, отмена, отклонение, очистка, пауза). Без подтверждения инструмент возвращает предупреждение вместо выполнения.
-
-Это защищает от случайной потери данных при работе с AI-агентами.
-
-**Без подтверждения (заблокировано):**
-```
-Инструмент: iva_conference
-Аргументы:
-  action: "delete"
-  conferenceId: "abc-123"
-→ Возвращает: "⚠️ Требуется подтверждение..."
-```
-
-**С подтверждением (выполнено):**
-```
-Инструмент: iva_conference
-Аргументы:
-  action: "delete"
-  conferenceId: "abc-123"
-  confirm: true
-→ Выполняет удаление
-```
-
-Когда `IVA_CONFIRM_DESTRUCTIVE` не задан или `false`, деструктивные действия выполняются без подтверждения (поведение по умолчанию).
+Когда `IVA_CONFIRM_DESTRUCTIVE=true`, сервер требует явный параметр `confirm: true` перед выполнением деструктивных действий (удаление, удаление участника, отключение, остановка, блокировка, мьют, отмена, отклонение, очистка, пауза). Без него инструмент возвращает предупреждение вместо выполнения, что защищает от случайной потери данных при работе с AI-агентами. Когда переменная не задана или `false`, деструктивные действия выполняются без подтверждения (поведение по умолчанию).
 
 ## Конфигурация MCP-клиентов
 
@@ -148,10 +120,7 @@ npx -y mcp-iva-mcu
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true",
-        "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
-        "IVA_BOT_TOKEN": "ваш-bot-токен"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -169,10 +138,7 @@ npx -y mcp-iva-mcu
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true",
-        "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
-        "IVA_BOT_TOKEN": "ваш-bot-токен"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -194,10 +160,7 @@ docker build -t mcp/iva-360 .
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true",
-        "IVA_INTEGRATION_TOKEN": "ваш-integration-токен",
-        "IVA_BOT_TOKEN": "ваш-bot-токен"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -217,8 +180,7 @@ docker build -t mcp/iva-360 .
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -238,8 +200,7 @@ docker build -t mcp/iva-360 .
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -270,8 +231,7 @@ npm run build
       "env": {
         "IVA_BASE_URL": "https://your-iva-server.ru",
         "IVA_LOGIN": "your-email@example.ru",
-        "IVA_PASSWORD": "your-password",
-        "IVA_CONFIRM_DESTRUCTIVE": "true"
+        "IVA_PASSWORD": "your-password"
       }
     }
   }
@@ -280,7 +240,7 @@ npm run build
 
 ## Обзор инструментов
 
-### Clients API — 28 инструментов, 317 действий
+### Clients API — 28 инструментов, 304 действия
 
 | Инструмент | Описание | Действий |
 |-----------|----------|---------|
@@ -313,28 +273,6 @@ npm run build
 | `iva_whiteboard` | Книги, страницы, демонстрация, экспорт, отмена | 21 |
 | `iva_screenshare` | Демонстрация экрана Web/VNC, удалённое управление | 7 |
 
-### Integration API — 11 инструментов, 70 действий
-
-| Инструмент | Описание | Действий |
-|-----------|----------|---------|
-| `iva_integration_users` | CRUD пользователей, блокировка, платные звонки | 12 |
-| `iva_integration_companies` | CRUD компаний, блокировка, диск, платные звонки | 11 |
-| `iva_integration_groups` | CRUD групп, подгруппы, управление пользователями | 8 |
-| `iva_integration_conferences` | CRUD конференций, участники, шаблоны | 7 |
-| `iva_integration_conference_sessions` | CRUD сессий, комнаты, участники, документы | 11 |
-| `iva_integration_chats` | CRUD чатов, участники, звонки, документы | 11 |
-| `iva_integration_documents` | Файлы диска, удаление документов | 3 |
-| `iva_integration_domains` | Информация о домене | 2 |
-| `iva_integration_subscriptions` | CRUD подписок | 5 |
-| `iva_integration_profiles` | Информация о профиле | 1 |
-| `iva_integration_resources` | Скачивание файла | 1 |
-
-### Bot API — 1 инструмент, 4 действия
-
-| Инструмент | Описание | Действий |
-|-----------|----------|---------|
-| `iva_bot_chat` | Отправка сообщений, создание/загрузка/скачивание файлов | 4 |
-
 ## Возможности
 
 MCP-сервер понимает **естественный язык на русском и английском**. Не нужно знать названия инструментов или enum-действий — просто опишите, что нужно сделать, и AI-агент сопоставит это с нужным инструментом и действием.
@@ -351,8 +289,6 @@ MCP-сервер понимает **естественный язык на ру�
 - **Статистика и отчёты** — просматривать статистику конференций, экспортировать данные о посещаемости и участии
 - **Шаблоны** — создавать и управлять шаблонами конференций для быстрого планирования
 - **Контакты и присутствие** — искать пользователей, приглашать контакты, проверять, кто онлайн
-- **Управление пользователями (Integration API)** — создавать/блокировать/разблокировать пользователей, управлять компаниями и группами
-- **Сообщения от бота** — отправлять сообщения и файлы от имени бота
 
 ### Безопасность
 
@@ -406,15 +342,7 @@ AI-агент:
 1. Найдёт чат через `iva_chat` с `action: "search"`
 2. Вызовет `iva_chat_messages` с `action: "send"` и текстом сообщения
 
-### 6. Создать пользователя (Integration API)
-
-> **Вы говорите:** "Создай пользователя ivan@company.ru в компании 'АО ИВА360'"
-
-AI-агент:
-1. Найдёт компанию через `iva_integration_companies`
-2. Вызовет `iva_integration_users` с `action: "create"` и данными пользователя
-
-### 7. Получить статистику по конференции
+### 6. Получить статистику по конференции
 
 > **Вы говорите:** "Покажи статистику по конференции 'Встреча' за прошлый месяц"
 
@@ -422,6 +350,20 @@ AI-агент:
 1. Найдёт сессию через `iva_conference_session`
 2. Вызовет `iva_conference_statistics` с `action: "get"` и диапазоном дат
 3. Вернёт данные о посещаемости, длительности и участии
+
+### 7. Анализ встреч за неделю и затрат времени
+
+> **Вы говорите:** "Сколько времени на этой неделе заняли встречи, в процентах от 40-часовой рабочей недели?"
+
+AI-агент:
+1. Вызовет `iva_conference_session` с `action: "find"`, `dateFrom` = понедельник 00:00, `dateTo` = воскресенье 23:59 (UNIX ms)
+2. Ответ обогащён полями `actualDurationMs` / `actualDuration` для каждой завершённой сессии (вычисляется из `actualStartDate`/`actualEndDate`) — ручных расчётов не требуется
+3. Просуммирует `actualDurationMs` по сессиям, разделит на 40 ч (40 × 3 600 000 мс) и вернёт процент
+4. Вернёт по каждой встрече фактическую и плановую длительность и итоговую долю рабочей недели
+
+Пример ответа: «11 встреч, фактически 5 ч 40 мин (14,2% от 40-часовой недели).»
+
+> Примечание: история звонков (P2P-вызовы в чатах) не отдаётся Clients API — только текущее состояние звонка в чате (`iva_chat_call` `action: "get"`). Поэтому анализ охватывает только запланированные конференции.
 
 ## Разработка
 
@@ -447,10 +389,8 @@ mcp_iva_mcu/
 │   └── tools/
 │       ├── framework.ts  # Data-driven фреймворк
 │       ├── params.ts     # Переиспользуемые параметры
-│       ├── index.ts      # Регистрация (40 инструментов)
-│       ├── clients/      # 28 инструментов Clients API
-│       ├── integration/  # 11 инструментов Integration API
-│       └── bot/          # 1 инструмент Bot API
+│       ├── index.ts      # Регистрация (28 инструментов)
+│       └── clients/      # 28 инструментов Clients API
 ├── specs/                # OpenAPI-спецификации
 ├── i18n/                 # Переводы (README.ru.md)
 ├── Dockerfile            # Многоэтапная сборка Docker

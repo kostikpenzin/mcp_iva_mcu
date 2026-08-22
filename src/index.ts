@@ -19,14 +19,14 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "1.5.4" },
+    { name: "mcp-iva-mcu", version: "2.0.0" },
     {
       capabilities: {
         tools: {},
       },
       instructions:
-        "IVA 360 MCP server. Wraps the IVA 360 corporate video conferencing APIs (Clients, Integration, Bot) — part of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
-        "Provides 40 tools covering IVA Clients API (v2.28.12), Integration API (v1.28.12), and Bot API (v1.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
+        "IVA 360 MCP server. Wraps the IVA 360 corporate video conferencing Clients API — part of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
+        "Provides 28 tools covering IVA Clients API (v2.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
         "NATURAL LANGUAGE MAPPING (Russian/English → tool + action):\n\n" +
         "CONFERENCES & MEETINGS (встреча, мероприятие, конференция, собрание, планёрка, webинар, meeting, conference, event, webinar, book, schedule, create):\n" +
         "  - Create/schedule/book a meeting → iva_conference action=create (requires conferenceData with name + startDate in UNIX ms)\n" +
@@ -36,7 +36,7 @@ async function main() {
         "  - Start meeting now → iva_conference action=start_now (начни сейчас, start now)\n" +
         "  - Create room → iva_conference action=create_room (создай комнату, create room)\n\n" +
         "CONFERENCE SESSIONS (сессия, session, запись, транскрипция, запись экрана, join, войти, выйти, recording, transcription):\n" +
-        "  - List/find sessions → iva_conference_session action=find (покажи встречи, list meetings, найди конференцию)\n" +
+        "  - List/find sessions → iva_conference_session action=find (покажи встречи, list meetings, найди конференцию). For finished sessions the response is enriched with actualDurationMs / actualDuration (from actualStartDate/actualEndDate), so total meeting time and % of a work week can be summed directly.\n" +
         "  - Get session details → iva_conference_session action=get\n" +
         "  - Join session → iva_conference_session action=join (войди в конференцию, join meeting)\n" +
         "  - Leave session → iva_conference_session action=leave (выйди, leave)\n" +
@@ -112,13 +112,6 @@ async function main() {
         "SYSTEM (система, системная информация, media, ICE, system info):\n" +
         "  - Get system info → iva_system action=get_info (системная информация, system info)\n" +
         "  - Get ICE servers → iva_system action=get_ice_servers (ICE серверы, ICE servers)\n\n" +
-        "INTEGRATION API (управление пользователями, компаниями, группами, admin, manage users, companies):\n" +
-        "  - Create user → iva_integration_users action=create (создай пользователя, create user)\n" +
-        "  - Block/unblock user → iva_integration_users action=block/unblock (заблокируй/разблокируй пользователя)\n" +
-        "  - Create company → iva_integration_companies action=create (создай компанию, create company)\n" +
-        "  - Create group → iva_integration_groups action=create (создай группу, create group)\n\n" +
-        "BOT API (бот, отправить от имени бота, bot, send as bot):\n" +
-        "  - Send bot message → iva_bot_chat action=send_message (бот отправь сообщение, bot send message)\n\n" +
         "All UUID parameters must be valid UUIDs. Dates are UNIX timestamps in milliseconds.",
     },
   );

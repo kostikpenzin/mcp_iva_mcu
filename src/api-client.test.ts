@@ -6,8 +6,6 @@ describe("IvaApiClient", () => {
   const config = {
     baseUrl: "https://test.example.ru",
     sessionToken: "session-uuid",
-    integrationToken: "integration-token",
-    botToken: "bot-token",
     confirmDestructive: false,
   };
 
@@ -26,7 +24,10 @@ describe("IvaApiClient", () => {
       "https://test.example.ru/api/rest/chats/abc-123?limit=10&offset=0",
       expect.objectContaining({
         method: "GET",
-        headers: expect.objectContaining({ Session: "session-uuid" }),
+        headers: expect.objectContaining({
+          Session: "session-uuid",
+          "User-Agent": "mcp-iva360",
+        }),
       }),
     );
   });
@@ -36,8 +37,6 @@ describe("IvaApiClient", () => {
       baseUrl: "https://test.example.ru",
       login: "user@example.ru",
       password: "pass123",
-      integrationToken: "integration-token",
-      botToken: "bot-token",
     confirmDestructive: false,
     };
     const client = new IvaApiClient(loginConfig);
@@ -71,12 +70,10 @@ describe("IvaApiClient", () => {
     );
   });
 
-  it("uses the correct auth header for each API type", async () => {
+  it("uses the Session auth header for the clients API", async () => {
     const client = new IvaApiClient(config);
     global.fetch = vi
       .fn()
-      .mockResolvedValueOnce(new Response("{}", { status: 200 }))
-      .mockResolvedValueOnce(new Response("{}", { status: 200 }))
       .mockResolvedValueOnce(new Response("{}", { status: 200 }));
 
     await client.get("clients", "/test");
@@ -87,24 +84,67 @@ describe("IvaApiClient", () => {
         headers: expect.objectContaining({ Session: "session-uuid" }),
       }),
     );
+  });
 
-    await client.get("integration", "/test");
+  it("re-logins and retries once on 401 when using login/password", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "pass123",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(loginConfig);
+    // Sequence: login (sessionId A) -> request 401 -> re-login (sessionId B) -> request 200
+    global.fetch = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ sessionId: "session-A" }), { status: 200 })) // initial login
+      .mockResolvedValueOnce(new Response(JSON.stringify({ message: "No auth context" }), { status: 401 })) // expired
+      .mockResolvedValueOnce(new Response(JSON.stringify({ sessionId: "session-B" }), { status: 200 })) // re-login
+      .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true }), { status: 200 })); // retry success
+
+    const result = await client.get("clients", "/test");
+
+    expect(global.fetch).toHaveBeenCalledTimes(4);
+    // 1st call: login -> Session: session-A
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      1,
+      "https://test.example.ru/api/rest/login",
+      expect.objectContaining({ method: "POST" }),
+    );
+    // 2nd call: request with expired session-A -> 401
     expect(global.fetch).toHaveBeenNthCalledWith(
       2,
       expect.any(String),
-      expect.objectContaining({
-        headers: expect.objectContaining({ Authorization: "Bearer integration-token" }),
-      }),
+      expect.objectContaining({ headers: expect.objectContaining({ Session: "session-A" }) }),
     );
-
-    await client.get("bot", "/test");
+    // 3rd call: re-login -> session-B
     expect(global.fetch).toHaveBeenNthCalledWith(
       3,
-      expect.any(String),
-      expect.objectContaining({
-        headers: expect.objectContaining({ "X-Iva-Bot-Api-Token": "bot-token" }),
-      }),
+      "https://test.example.ru/api/rest/login",
+      expect.objectContaining({ method: "POST" }),
     );
+    // 4th call: retry with session-B
+    expect(global.fetch).toHaveBeenNthCalledWith(
+      4,
+      expect.any(String),
+      expect.objectContaining({ headers: expect.objectContaining({ Session: "session-B" }) }),
+    );
+    expect(result).toEqual({ ok: true });
+  });
+
+  it("does not retry on 401 when using a static session token", async () => {
+    const staticConfig = {
+      baseUrl: "https://test.example.ru",
+      sessionToken: "static-session",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(staticConfig);
+    global.fetch = vi.fn().mockResolvedValue(
+      new Response(JSON.stringify({ message: "No auth context" }), { status: 401 }),
+    );
+
+    await expect(client.get("clients", "/test")).rejects.toThrow(IvaApiError);
+    // Only one attempt — no re-login possible with a static token.
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 
   it("throws IvaApiError on non-OK response", async () => {

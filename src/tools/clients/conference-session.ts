@@ -3,6 +3,45 @@ import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
 
+// Formats a duration in ms as a compact human-readable string, e.g. "1 ч 5 мин", "30 мин".
+function fmtDuration(ms: number): string {
+  if (!ms || ms <= 0) return "0 мин";
+  const min = Math.round(ms / 60000);
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return h ? (m ? `${h} ч ${m} мин` : `${h} ч`) : `${m} мин`;
+}
+
+// Enriches session list responses with the actual meeting duration computed
+// from actualStartDate/actualEndDate, so the agent can answer "how long did
+// meetings run" and "what % of the work week" without manual math.
+function enrichSessionDurations(action: string, data: unknown): unknown {
+  if (action !== "find" && action !== "find_sessions") return data;
+
+  const enrich = (s: Record<string, unknown>): Record<string, unknown> => {
+    const aStart = s.actualStartDate as number | undefined;
+    const aEnd = s.actualEndDate as number | undefined;
+    if (aStart && aEnd && aEnd > aStart) {
+      const ms = aEnd - aStart;
+      s.actualDurationMs = ms;
+      s.actualDuration = fmtDuration(ms);
+    }
+    return s;
+  };
+
+  if (Array.isArray(data)) return data.map(enrich);
+  if (typeof data === "object" && data !== null) {
+    const obj = data as Record<string, unknown>;
+    for (const key of ["data", "conferenceSessions", "items", "result"]) {
+      if (Array.isArray(obj[key])) {
+        obj[key] = (obj[key] as Record<string, unknown>[]).map(enrich);
+        return data;
+      }
+    }
+  }
+  return data;
+}
+
 export function createConferenceSessionTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_session",
@@ -83,7 +122,7 @@ export function createConferenceSessionTool(client: IvaApiClient): ToolDefinitio
       get: "Get conference session details by ID",
       delete: "Delete a conference session",
       update: "Update conference session properties",
-      find: "Find/list conference sessions. Use when user says 'покажи встречи', 'list meetings', 'найди конференцию'. Optional: dateFrom, dateTo, limit, offset, sortBy, sortDirection.",
+      find: "Find/list conference sessions. Use when user says 'покажи встречи', 'list meetings', 'найди конференцию'. Optional: dateFrom, dateTo, limit, offset, sortBy, sortDirection. Response is enriched with actualDurationMs / actualDuration (computed from actualStartDate/actualEndDate) for finished sessions, so total meeting time can be summed directly.",
       find_rooms: "Find conference rooms",
       find_sessions: "Find conference sessions (alternative search)",
       get_layout_settings: "Get layout settings for a session",
@@ -113,5 +152,6 @@ export function createConferenceSessionTool(client: IvaApiClient): ToolDefinitio
       respond_on_invitation: "Respond to session invitation",
       confirm_record_access: "Confirm access to stopped event recording",
     },
+    enrichSessionDurations,
   );
 }

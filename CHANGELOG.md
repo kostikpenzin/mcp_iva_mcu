@@ -1,5 +1,31 @@
 # Changelog
 
+## [2.0.0] — 2026-08-23
+
+### Removed (breaking)
+- **Integration API and Bot API removed.** The project now wraps only the IVA Clients API. Deleted `src/tools/integration/` (11 tools) and `src/tools/bot/` (1 tool) along with their OpenAPI specs (`specs/integration-openapi.json`, `specs/bot-openapi.json`). Tool count: 40 → 28.
+- **Removed environment variables** `IVA_INTEGRATION_TOKEN` and `IVA_BOT_TOKEN`. The `IvaConfig` type, `ApiType` union (`"integration"` / `"bot"`), API path map, and auth-header branches for these API types were removed from `src/types.ts`, `src/api-client.ts`, and `src/config.ts`.
+- Removed Integration/Bot sections from the server `instructions` in `src/index.ts` and from `package.json` description (dropped the `bot-api` keyword).
+
+### Added
+- **Auto-relogin on 401.** When a Clients API request returns 401 (expired session) and auth is via `IVA_LOGIN`/`IVA_PASSWORD`, the API client now drops the cached session token, re-logs in, and retries the request once — fixing the "401: No auth context" failures seen when a session expires mid-use. Static `IVA_SESSION_TOKEN`/`IVA_JWT_TOKEN` auth is not retried (no way to refresh). Implemented in `src/api-client.ts` (`canReauth()` + retry-once in `doRequest`).
+- **Actual meeting duration in `iva_conference_session` `find`.** The `find`/`find_sessions` responses are now enriched with `actualDurationMs` and a human-readable `actualDuration` (e.g. "1 ч 5 мин"), computed from `actualStartDate`/`actualEndDate` for finished sessions. Lets the agent answer "how long did meetings run" and "what % of the work week" without manual math. Implemented via `enrichSessionDurations` transform in `src/tools/clients/conference-session.ts`.
+- **New README usage scenario** "Analyze this week's meetings and time spent" (EN + RU): find sessions in a date range, sum `actualDurationMs`, report % of a 40-hour week. Notes that call history is not exposed by the Clients API (only live call state via `iva_chat_call`).
+
+### Changed
+- Version bumped to **2.0.0** (breaking change — public tool surface and env vars removed).
+- **`User-Agent: mcp-iva360` header** now sent on every IVA API request (added in `src/api-client.ts`), so the MCP server can be identified in IVA access logs. Override per-request via `opts.headers["User-Agent"]`.
+- README (EN) and `i18n/README.ru.md` (RU) updated: header stats (40 tools · 375 actions · 368 endpoints · 55 tests → 28 tools · 304 actions · 310 endpoints · 58 tests), Compatible API Versions table, Environment Variables table, MCP client config examples, Tools Overview, Capabilities, Usage Scenarios (dropped "Create a new user (Integration API)" scenario; added "Analyze this week's meetings and time spent"), and Project Structure.
+- **MCP client config examples simplified** to the minimal env set (`IVA_BASE_URL`, `IVA_LOGIN`, `IVA_PASSWORD`) across all variants (Claude Desktop npx/Windows/Docker, Cursor, VS Code, Codex CLI, From source); removed `IVA_CONFIRM_DESTRUCTIVE` from the example JSON blocks. The "Destructive Action Confirmation" section was condensed to a single paragraph (removed the verbose code-block examples). The `IVA_CONFIRM_DESTRUCTIVE` env var and the feature remain supported and documented in the Environment Variables table.
+- `src/tools/index.test.ts`: tool count 40 → 28, total-actions threshold 300 → 250; removed the Integration (11) and Bot (1) tool-count assertions.
+- `src/api-client.test.ts`: dropped `integrationToken`/`botToken` from config fixtures and the per-API-type auth-header assertions for integration/bot; added a `User-Agent: mcp-iva360` assertion; added auto-relogin-on-401 tests (relogin+retry, and no-retry with a static token).
+- `src/mcp-protocol.test.ts`: `tools/list` expectation 40 → 28.
+
+### Tests
+- 58 tests pass (was 55; −2 removed integration/bot tool-count tests, +2 auto-relogin tests, +3 `enrichSessionDurations` tests).
+
+---
+
 ## [1.5.4] — 2026-08-23
 
 ### Changed

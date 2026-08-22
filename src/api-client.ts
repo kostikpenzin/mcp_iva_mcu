@@ -3,10 +3,12 @@ import { IvaApiError } from "./error.js";
 
 const DEFAULT_TIMEOUT_MS = 30000;
 
+// User-Agent identifies this MCP server in IVA API access logs.
+// Callers can override it per-request via opts.headers["User-Agent"].
+const USER_AGENT = "mcp-iva360";
+
 const API_PATHS: Record<ApiType, string> = {
   clients: "/api/rest",
-  integration: "/api/rest/integration",
-  bot: "/api/rest/bot",
 };
 
 export class IvaApiClient {
@@ -68,30 +70,6 @@ export class IvaApiClient {
         }
         break;
       }
-      case "integration": {
-        if (this.config.integrationToken) {
-          headers["Authorization"] = `Bearer ${this.config.integrationToken}`;
-        } else {
-          throw new IvaApiError(
-            401,
-            "No authentication configured for Integration API. Set IVA_INTEGRATION_TOKEN.",
-            "AUTH_NOT_CONFIGURED",
-          );
-        }
-        break;
-      }
-      case "bot": {
-        if (this.config.botToken) {
-          headers["X-Iva-Bot-Api-Token"] = this.config.botToken;
-        } else {
-          throw new IvaApiError(
-            401,
-            "No authentication configured for Bot API. Set IVA_BOT_TOKEN.",
-            "AUTH_NOT_CONFIGURED",
-          );
-        }
-        break;
-      }
     }
     return headers;
   }
@@ -125,7 +103,22 @@ export class IvaApiClient {
     return parts.length > 0 ? `?${parts.join("&")}` : "";
   }
 
+  // True when the active Clients API auth path is login/password (not a static
+  // session or JWT token), so an expired session can be recovered by re-login.
+  private canReauth(): boolean {
+    return (
+      !this.config.sessionToken &&
+      !this.config.jwtToken &&
+      !!this.config.login &&
+      !!this.config.password
+    );
+  }
+
   async request<T = unknown>(opts: ApiRequestOptions): Promise<T> {
+    return this.doRequest<T>(opts, false);
+  }
+
+  private async doRequest<T = unknown>(opts: ApiRequestOptions, isRetry: boolean): Promise<T> {
     const basePath = API_PATHS[opts.apiType];
     const fullPath = this.buildPath(opts.path, opts.pathParams);
     const queryString = this.buildQuery(opts.queryParams);
@@ -134,6 +127,7 @@ export class IvaApiClient {
     const authHeaders = await this.buildAuthHeaders(opts.apiType);
     const headers: Record<string, string> = {
       "Content-Type": "application/json",
+      "User-Agent": USER_AGENT,
       ...authHeaders,
       ...(opts.headers || {}),
     };
@@ -172,6 +166,18 @@ export class IvaApiClient {
       throw err;
     }
     clearTimeout(timeout);
+
+    // Auto-relogin: if the cached session expired (401) and we auth via
+    // login/password, drop the cached token, re-login, and retry once.
+    if (
+      response.status === 401 &&
+      opts.apiType === "clients" &&
+      !isRetry &&
+      this.canReauth()
+    ) {
+      this.cachedSessionToken = undefined;
+      return this.doRequest<T>(opts, true);
+    }
 
     const responseText = await response.text();
 

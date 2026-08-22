@@ -1,11 +1,9 @@
-export type ApiType = "clients" | "integration" | "bot";
+export type ApiType = "clients";
 
 export interface IvaConfig {
   baseUrl: string;
   sessionToken?: string;
   jwtToken?: string;
-  integrationToken?: string;
-  botToken?: string;
   login?: string;
   password?: string;
   confirmDestructive: boolean;
