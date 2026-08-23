@@ -1,5 +1,18 @@
 # Changelog
 
+## [2.0.5] — 2026-08-23
+
+### Changed (toolchain)
+- **TypeScript upgraded** `^5.6.0` → `^7.0.0` (built with TypeScript 7.0.2). TS 7 no longer auto-includes `@types/*`, so `tsconfig.json` now declares `"types": ["node"]` explicitly.
+- **@types/node upgraded** `^22.0.0` → `^26.0.0` (26.2.0).
+- No runtime/dependency changes (these are devDependencies, not shipped in the npm package). Runtime deps unchanged: `@modelcontextprotocol/sdk`, `ajv`, `ajv-formats`.
+- Version bumped to **2.0.5**.
+
+### Tests
+- 58 tests pass on TypeScript 7.0.2 + @types/node 26.2.0.
+
+---
+
 ## [2.0.4] — 2026-08-23
 
 ### Changed
