@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createContactsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_contacts",
-    "IVA contacts management: get/search contacts, changes, presences, invitations, tags, invite, reject, remove, update, create note. Clients API v2.28.12.",
+    `IVA contacts management: get/search contacts, changes, presences, invitations, tags, invite, reject, remove, update, create note. Clients API ${API_VERSION}.`,
     [
       "get", "get_changes", "get_presences", "get_invitations",
       "get_tags", "get_users_presence", "invite", "reject_invitation",

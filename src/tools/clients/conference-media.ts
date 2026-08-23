@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceMediaTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_media",
-    "IVA conference media: get media/room info, report media state, request/revoke attention, report equipment, set layout/media-profile/broadcast-language/original-volume/screen-orientation/translation-direction. Clients API v2.28.12.",
+    `IVA conference media: get media/room info, report media state, request/revoke attention, report equipment, set layout/media-profile/broadcast-language/original-volume/screen-orientation/translation-direction. Clients API ${API_VERSION}.`,
     [
       "get_info", "get_room_info", "report_media_state",
       "request_attention", "revoke_attention",

@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceQuestionnaireTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_questionnaire",
-    "IVA conference questionnaire: get questionnaire, save questionnaire answers. Clients API v2.28.12.",
+    `IVA conference questionnaire: get questionnaire, save questionnaire answers. Clients API ${API_VERSION}.`,
     ["get", "save_answers"],
     {
       conferenceSessionId: P.conferenceSessionId,

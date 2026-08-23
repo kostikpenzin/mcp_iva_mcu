@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceSessionGroupsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_session_groups",
-    "IVA conference session groups: create/activate/deactivate/remove groups, extend duration, move participants, get groups. Clients API v2.28.12.",
+    `IVA conference session groups: create/activate/deactivate/remove groups, extend duration, move participants, get groups. Clients API ${API_VERSION}.`,
     ["activate", "create", "deactivate", "extend_duration", "get", "move_participants", "remove"],
     {
       conferenceSessionId: P.conferenceSessionId,

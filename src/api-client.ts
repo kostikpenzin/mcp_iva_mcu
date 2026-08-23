@@ -134,17 +134,12 @@ export class IvaApiClient {
 
     let bodyStr: string | undefined;
     if (opts.body !== undefined && opts.body !== null) {
-      if (typeof opts.body === "string" && opts.body === "{}") {
-        bodyStr = "{}";
-      } else if (typeof opts.body === "string") {
+      if (typeof opts.body === "string") {
         bodyStr = opts.body;
       } else {
         bodyStr = JSON.stringify(opts.body);
       }
     }
-
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), DEFAULT_TIMEOUT_MS);
 
     let response: Response;
     try {
@@ -152,11 +147,10 @@ export class IvaApiClient {
         method: opts.method,
         headers,
         body: bodyStr,
-        signal: controller.signal,
+        signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
       });
     } catch (err) {
-      clearTimeout(timeout);
-      if (err instanceof Error && err.name === "AbortError") {
+      if (err instanceof Error && (err.name === "AbortError" || err.name === "TimeoutError")) {
         throw new IvaApiError(
           408,
           `Request timed out after ${DEFAULT_TIMEOUT_MS}ms`,
@@ -165,7 +159,6 @@ export class IvaApiClient {
       }
       throw err;
     }
-    clearTimeout(timeout);
 
     // Auto-relogin: if the cached session expired (401) and we auth via
     // login/password, drop the cached token, re-login, and retry once.
@@ -243,14 +236,6 @@ export class IvaApiClient {
     queryParams?: Record<string, unknown>;
   }): Promise<T> {
     return this.request<T>({ apiType, method: "DELETE", path, ...opts });
-  }
-
-  get baseUrl(): string {
-    return this.config.baseUrl;
-  }
-
-  getAuthHeaders(apiType: ApiType): Promise<Record<string, string>> {
-    return this.buildAuthHeaders(apiType);
   }
 
   isConfirmDestructive(): boolean {

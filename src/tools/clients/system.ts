@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createSystemTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_system",
-    "IVA system info: system info, media info, ICE servers, layouts, broadcast notifications, SMS approval, crash report, mail to support, client applications. Clients API v2.28.12.",
+    `IVA system info: system info, media info, ICE servers, layouts, broadcast notifications, SMS approval, crash report, mail to support, client applications. Clients API ${API_VERSION}.`,
     [
       "get_system_info", "get_media_info", "get_ice_servers",
       "get_layouts", "get_layout", "get_broadcast_notification",

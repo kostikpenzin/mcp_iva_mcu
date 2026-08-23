@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceParticipantsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_participants",
-    "IVA conference participants: add/remove/find/get/disconnect participants, mute/unmute media, hand up/down, DTMF, reactions, audio callback, outgoing calls, layout settings, update settings, return to lobby. Clients API v2.28.12.",
+    `IVA conference participants: add/remove/find/get/disconnect participants, mute/unmute media, hand up/down, DTMF, reactions, audio callback, outgoing calls, layout settings, update settings, return to lobby. Clients API ${API_VERSION}.`,
     [
       "get_public", "add", "find", "get", "get_by_profile",
       "get_layout_settings", "update", "remove", "disconnect",

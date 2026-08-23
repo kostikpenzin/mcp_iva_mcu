@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceTemplatesTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_templates",
-    "IVA conference templates: list/create/get/delete/update templates, set template as default. Clients API v2.28.12.",
+    `IVA conference templates: list/create/get/delete/update templates, set template as default. Clients API ${API_VERSION}.`,
     ["list", "create", "get", "delete", "update", "set_as_default"],
     {
       conferenceTemplateId: P.conferenceTemplateId,

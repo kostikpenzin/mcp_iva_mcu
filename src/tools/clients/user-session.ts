@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createUserSessionTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_user_session",
-    "IVA user session management: logout, session info, guest login, session state, login URL. Clients API v2.28.12. Note: login and 2FA actions are excluded for security — authentication is handled automatically via IVA_LOGIN/IVA_PASSWORD environment variables.",
+    `IVA user session management: logout, session info, guest login, session state, login URL. Clients API ${API_VERSION}. Note: login and 2FA actions are excluded for security — authentication is handled automatically via IVA_LOGIN/IVA_PASSWORD environment variables.`,
     [
       "login_as_guest",
       "logout", "get_session_info", "set_session_state", "get_login_url",

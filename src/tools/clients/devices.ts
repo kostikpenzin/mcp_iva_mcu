@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createDevicesTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_devices",
-    "IVA device management: register and deregister user devices. Clients API v2.28.12.",
+    `IVA device management: register and deregister user devices. Clients API ${API_VERSION}.`,
     ["register", "deregister"],
     {
       profileId: P.profileId,

@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceInquiryTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_inquiry",
-    "IVA conference inquiries (polls): create/find/get/delete/update inquiries, start/stop individual or all inquiries, answer/edit answers, find responders, get aggregated answers, export. Clients API v2.28.12.",
+    `IVA conference inquiries (polls): create/find/get/delete/update inquiries, start/stop individual or all inquiries, answer/edit answers, find responders, get aggregated answers, export. Clients API ${API_VERSION}.`,
     [
       "create", "find", "get", "delete", "update",
       "start", "stop", "start_all", "stop_all",

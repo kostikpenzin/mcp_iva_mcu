@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createChatMessagesTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_chat_messages",
-    "IVA chat messages: send/edit/delete/star messages, search attachments, get messages/changes/starred, typing notification, read receipt. Clients API v2.28.12.",
+    `IVA chat messages: send/edit/delete/star messages, search attachments, get messages/changes/starred, typing notification, read receipt. Clients API ${API_VERSION}.`,
     [
       "send", "send_audio", "edit", "delete", "delete_multiple",
       "get", "get_changes", "get_starred", "search_attachments",

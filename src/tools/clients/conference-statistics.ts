@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceStatisticsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_statistics",
-    "IVA conference statistics: get session/participant statistics, participants activity, sessions statistics aggregation, export to CSV, user participation statistics. Clients API v2.28.12.",
+    `IVA conference statistics: get session/participant statistics, participants activity, sessions statistics aggregation, export to CSV, user participation statistics. Clients API ${API_VERSION}.`,
     [
       "get_session_stats", "get_session_participants_stats",
       "get_participant_stats", "get_participants_activity",

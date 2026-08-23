@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceSelfRegistrationTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_self_registration",
-    "IVA conference self-registration: register, check email, resend email. Clients API v2.28.12.",
+    `IVA conference self-registration: register, check email, resend email. Clients API ${API_VERSION}.`,
     ["register", "check_email", "resend_email"],
     {
       conferenceSessionId: P.conferenceSessionId,

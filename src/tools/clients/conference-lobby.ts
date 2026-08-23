@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceLobbyTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_lobby",
-    "IVA conference lobby: join/leave lobby, get lobby participants, approve/reject individual or all participant requests. Clients API v2.28.12.",
+    `IVA conference lobby: join/leave lobby, get lobby participants, approve/reject individual or all participant requests. Clients API ${API_VERSION}.`,
     ["join", "leave", "get_participants", "approve", "approve_all", "reject", "reject_all"],
     {
       conferenceSessionId: P.conferenceSessionId,

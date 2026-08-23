@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceDocumentsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_documents",
-    "IVA conference documents: create/delete/update/move/list documents and directories, document/video demonstration control (start/stop/pause/play/position), get pages/path/can-upload, public documents. Clients API v2.28.12.",
+    `IVA conference documents: create/delete/update/move/list documents and directories, document/video demonstration control (start/stop/pause/play/position), get pages/path/can-upload, public documents. Clients API ${API_VERSION}.`,
     [
       "get_public", "create_directory", "create_document", "delete",
       "update", "can_upload", "get_pages", "get_path", "list",

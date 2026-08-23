@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createFileResourcesTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_file_resources",
-    "IVA file resources: create resource, download/upload files, get resources info, subscribe to scanning status. Clients API v2.28.12.",
+    `IVA file resources: create resource, download/upload files, get resources info, subscribe to scanning status. Clients API ${API_VERSION}.`,
     ["create", "download", "upload", "get_info", "subscribe_scanning"],
     {
       resourceId: P.resourceId,

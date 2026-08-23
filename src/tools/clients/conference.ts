@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference",
-    "IVA conference management: create/get/update/delete conferences, calculate session schedule, quick start, create rooms, get participants, respond to invitations, get free resources. Clients API v2.28.12.",
+    `IVA conference management: create/get/update/delete conferences, calculate session schedule, quick start, create rooms, get participants, respond to invitations, get free resources. Clients API ${API_VERSION}.`,
     [
       "create", "get", "delete", "update", "calculate_sessions_schedule",
       "get_draft", "get_free_resources", "get_participant", "get_participants",

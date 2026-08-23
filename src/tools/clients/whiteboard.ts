@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createWhiteboardTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_whiteboard",
-    "IVA whiteboard: start/stop demonstration, manage books and pages (add/delete/update/clear/copy/reorder), get whiteboard/books/pages, export to PNG, undo, save change, update cursor/demo state. Clients API v2.28.12.",
+    `IVA whiteboard: start/stop demonstration, manage books and pages (add/delete/update/clear/copy/reorder), get whiteboard/books/pages, export to PNG, undo, save change, update cursor/demo state. Clients API ${API_VERSION}.`,
     [
       "load", "start_demo", "stop_demo", "update_cursor", "update_demo_state",
       "get_books", "add_book", "get_book_pages", "add_page",

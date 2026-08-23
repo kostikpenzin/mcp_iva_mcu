@@ -1,5 +1,24 @@
 # Changelog
 
+## [2.0.6] — 2026-08-23
+
+### Changed (code quality, minimal changes)
+- **Version single source of truth**: server version now reads from `package.json` via `createRequire` instead of being hardcoded in `src/index.ts`. The MCP protocol integration test now verifies end-to-end version sync.
+- **API version constant**: `v2.28.12` extracted to `src/constants.ts` (`API_VERSION`). All 28 tool description strings now reference `${API_VERSION}` instead of duplicating the literal — one change point instead of 28.
+- **Timeout unification** in `IvaApiClient`: replaced manual `AbortController + setTimeout + clearTimeout` with `AbortSignal.timeout()`. Also handles `TimeoutError` alongside `AbortError`.
+- **Dead code removal**: removed unreachable `body === "{}"` branch in `IvaApiClient.doRequest` (subsumed by the generic string-body branch).
+- **Removed unused methods**: `IvaApiClient.getAuthHeaders()` and `baseUrl` getter — not called in production code.
+- **AJV imports**: removed two `as any` casts and `eslint-disable` comments in `validate.ts`. `Ajv` and `ErrorObject` are now imported as named exports; `ajv-formats` default import uses a specific typed cast (CJS/Node16 interop).
+
+### Added
+- **Mapping integrity tests** (`src/tools/mappings.test.ts`): 304 parametrized tests verifying every action of every tool has a valid HTTP method, a path starting with `/`, and every `{placeholder}` in the path has a matching `pathParams` value.
+- `.gitignore`: added `analyze-week.mjs` and `list-meetings.mjs` (one-off scripts with personal paths).
+
+### Tests
+- 362 tests pass (was 58; +304 mapping tests).
+
+---
+
 ## [2.0.5] — 2026-08-23
 
 ### Changed (toolchain)

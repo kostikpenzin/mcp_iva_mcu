@@ -10,6 +10,7 @@ import { IvaApiClient } from "./api-client.js";
 import { getAllTools } from "./tools/index.js";
 import type { ToolDefinition } from "./types.js";
 import { IvaApiError, errorResult, apiErrorResult } from "./error.js";
+import { VERSION, API_VERSION } from "./constants.js";
 
 async function main() {
   const config = loadConfig();
@@ -19,14 +20,14 @@ async function main() {
   const toolMap = new Map<string, ToolDefinition>(tools.map((t) => [t.name, t]));
 
   const server = new Server(
-    { name: "mcp-iva-mcu", version: "2.0.5" },
+    { name: "mcp-iva-mcu", version: VERSION },
     {
       capabilities: {
         tools: {},
       },
       instructions:
         "IVA 360 MCP server. Wraps the IVA 360 corporate video conferencing Clients API — part of the IVA 360 corporate platform (iva360.ru). An active IVA 360 subscription is required to obtain API endpoints and authentication tokens. IVA 360 is an enterprise ecosystem for corporate online communications (video meetings, webinars, messenger, mail, cloud storage, AI assistant), suited for both large and small organizations. More info: https://iva360.ru\n\n" +
-        "Provides 28 tools covering IVA Clients API (v2.28.12). Each tool uses an 'action' parameter to select the specific operation.\n\n" +
+        `Provides 28 tools covering IVA Clients API (${API_VERSION}). Each tool uses an 'action' parameter to select the specific operation.\n\n` +
         "NATURAL LANGUAGE MAPPING (Russian/English → tool + action):\n\n" +
         "CONFERENCES & MEETINGS (встреча, мероприятие, конференция, собрание, планёрка, webинар, meeting, conference, event, webinar, book, schedule, create):\n" +
         "  - Create/schedule/book a meeting → iva_conference action=create (requires conferenceData with name + startDate in UNIX ms)\n" +

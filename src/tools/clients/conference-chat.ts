@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferenceChatTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_chat",
-    "IVA conference chat messages: send/edit/remove/moderate messages, get messages/participant-targets, export to txt, typing notification, remove all messages. Clients API v2.28.12.",
+    `IVA conference chat messages: send/edit/remove/moderate messages, get messages/participant-targets, export to txt, typing notification, remove all messages. Clients API ${API_VERSION}.`,
     [
       "send", "edit", "remove", "remove_all", "remove_all_for_participant",
       "get", "get_participant_targets", "export_txt",

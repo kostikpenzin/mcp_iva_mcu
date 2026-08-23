@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createChatCallTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_chat_call",
-    "IVA chat calls: join/leave/hold calls, start/stop recording, start/stop screen sharing, transfer calls, DTMF, media state, start outgoing call, cancel outgoing call. Clients API v2.28.12.",
+    `IVA chat calls: join/leave/hold calls, start/stop recording, start/stop screen sharing, transfer calls, DTMF, media state, start outgoing call, cancel outgoing call. Clients API ${API_VERSION}.`,
     [
       "get", "join", "join_v2", "start", "leave", "hold",
       "start_recording", "stop_recording",

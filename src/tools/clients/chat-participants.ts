@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createChatParticipantsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_chat_participants",
-    "IVA chat participants: add and remove participants, update participant settings. Clients API v2.28.12.",
+    `IVA chat participants: add and remove participants, update participant settings. Clients API ${API_VERSION}.`,
     ["add", "remove", "update"],
     {
       chatRoomId: P.chatRoomId,

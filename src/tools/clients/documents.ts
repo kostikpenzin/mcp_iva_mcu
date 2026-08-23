@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createDocumentsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_documents",
-    "IVA user documents: convert document, delete single/multiple, list converted pages. Clients API v2.28.12.",
+    `IVA user documents: convert document, delete single/multiple, list converted pages. Clients API ${API_VERSION}.`,
     ["convert", "delete", "delete_multiple", "get_pages"],
     {
       documentId: P.documentId,

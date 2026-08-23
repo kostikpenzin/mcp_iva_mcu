@@ -2,6 +2,7 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 // Formats a duration in ms as a compact human-readable string, e.g. "1 ч 5 мин", "30 мин".
 function fmtDuration(ms: number): string {
@@ -45,7 +46,7 @@ function enrichSessionDurations(action: string, data: unknown): unknown {
 export function createConferenceSessionTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_session",
-    "IVA conference session management: get/find/update/delete sessions, join/leave, start/stop, timer control, recording, transcription, subtitling, media publication, invitations, public info. Clients API v2.28.12.",
+    `IVA conference session management: get/find/update/delete sessions, join/leave, start/stop, timer control, recording, transcription, subtitling, media publication, invitations, public info. Clients API ${API_VERSION}.`,
     [
       "get_public_by_id", "get_public_by_params", "get_join_info",
       "get", "delete", "update", "find", "find_rooms", "find_sessions",

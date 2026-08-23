@@ -2,6 +2,7 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 function fillChatNames(action: string, data: unknown): unknown {
   if (!data) return data;
@@ -43,7 +44,7 @@ function fillChatNames(action: string, data: unknown): unknown {
 export function createChatTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_chat",
-    "IVA chat management: create group chat, get/search/update/delete chats, forward messages, clear history, manage notifications, get P2P chat, get muted chats. Clients API v2.28.12.",
+    `IVA chat management: create group chat, get/search/update/delete chats, forward messages, clear history, manage notifications, get P2P chat, get muted chats. Clients API ${API_VERSION}.`,
     [
       "create_group_chat", "get", "delete", "update", "search",
       "get_p2p", "get_all", "forward_messages", "clear_history",

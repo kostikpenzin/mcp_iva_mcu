@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createProfileTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_profile",
-    "IVA user profile management: get/update profile, call forwarding rules, disk utilization, notifications, subscriptions. Clients API v2.28.12. Note: password management and recovery actions are excluded for security.",
+    `IVA user profile management: get/update profile, call forwarding rules, disk utilization, notifications, subscriptions. Clients API ${API_VERSION}. Note: password management and recovery actions are excluded for security.`,
     [
       "get", "update", "get_call_forwarding", "create_call_forwarding",
       "delete_call_forwarding", "update_call_forwarding",

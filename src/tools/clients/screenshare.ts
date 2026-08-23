@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createScreenshareTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_screenshare",
-    "IVA screenshare: start/stop web or VNC screen demonstration, request/respond/stop remote control, batch respond. Clients API v2.28.12.",
+    `IVA screenshare: start/stop web or VNC screen demonstration, request/respond/stop remote control, batch respond. Clients API ${API_VERSION}.`,
     [
       "start_web", "start_vnc", "stop",
       "request_remote_control", "respond_remote_control",

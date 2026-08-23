@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createInterlocutorsTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_interlocutors",
-    "IVA interlocutors: find by contact/ldap/profile/profileIds, find interlocutors, get available types, subscribe to presence. Clients API v2.28.12.",
+    `IVA interlocutors: find by contact/ldap/profile/profileIds, find interlocutors, get available types, subscribe to presence. Clients API ${API_VERSION}.`,
     [
       "find_by_contact", "find_by_ldap_user", "find_by_profile",
       "find_by_profile_ids", "find", "get_types", "subscribe_presence",

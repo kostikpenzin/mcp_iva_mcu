@@ -1,12 +1,12 @@
-import Ajv from "ajv";
+import { Ajv, type ErrorObject } from "ajv";
 import ajvFormats from "ajv-formats";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const ajv = new (Ajv as any)({ allErrors: true, coerceTypes: true });
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-(ajvFormats as any)(ajv);
+const ajv = new Ajv({ allErrors: true, coerceTypes: true });
+// ajv-formats is CJS; Node16 types its default import as the module namespace,
+// but at runtime it is the plugin function. Cast to the specific callable type.
+(ajvFormats as unknown as (ajv: Ajv) => void)(ajv);
 
-export function formatAjvErrors(errors: Ajv.ErrorObject[]): string {
+export function formatAjvErrors(errors: ErrorObject[]): string {
   const messages = errors.map((err) => {
     const path = err.instancePath || "args";
     const param = path.replace(/^\//, "").replace(/\//g, ".") || "args";

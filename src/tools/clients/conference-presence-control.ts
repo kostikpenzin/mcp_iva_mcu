@@ -2,11 +2,12 @@ import type { IvaApiClient } from "../../api-client.js";
 import type { ToolDefinition } from "../../types.js";
 import { createActionTool } from "../framework.js";
 import { P } from "../params.js";
+import { API_VERSION } from "../../constants.js";
 
 export function createConferencePresenceControlTool(client: IvaApiClient): ToolDefinition {
   return createActionTool(
     "iva_conference_presence_control",
-    "IVA conference presence control: start/stop presence control, confirm attendance. Clients API v2.28.12.",
+    `IVA conference presence control: start/stop presence control, confirm attendance. Clients API ${API_VERSION}.`,
     ["start", "stop", "confirm"],
     {
       conferenceSessionId: P.conferenceSessionId,
