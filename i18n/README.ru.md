@@ -5,7 +5,7 @@
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![npm downloads](https://img.shields.io/npm/dm/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](../LICENSE)
-[![тесты](https://img.shields.io/badge/тесты-58-brightgreen.svg)](../CHANGELOG.md)
+[![тесты](https://img.shields.io/badge/тесты-362-brightgreen.svg)](../CHANGELOG.md)
 [![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-green.svg)](https://nodejs.org/)
 [![MCP протокол](https://img.shields.io/badge/протокол-MCP-purple.svg)](https://modelcontextprotocol.io)
 [![платформа](https://img.shields.io/badge/платформа-IVA%20360%20%C2%B7%20Минцифры%20РФ-blue.svg)](https://iva360.ru)
@@ -14,7 +14,7 @@
 [![секреты](https://img.shields.io/badge/секреты-не%20зашиты%20в%20коде-brightgreen.svg)](#безопасность)
 [![вредонос](https://img.shields.io/badge/вредонос-не%20обнаружен-brightgreen.svg)](#безопасность)
 
-**28 инструментов** · **304 REST-действия** · **310 эндпоинтов** · **58 тестов**
+**28 инструментов** · **304 REST-действия** · **310 эндпоинтов** · **362 теста**
 
 MCP-сервер для видеоконференцплатформы **IVA 360**.
 Оборачивает Clients API IVA 360 (v2.28.12)
