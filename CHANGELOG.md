@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.7] — 2026-08-24
+
+### Changed (docs)
+- Updated test count badges 58 → 362 in README (EN) and `i18n/README.ru.md` (RU) to reflect the 304 mapping tests added in 2.0.6.
+
+---
+
 ## [2.0.6] — 2026-08-23
 
 ### Changed (code quality, minimal changes)
