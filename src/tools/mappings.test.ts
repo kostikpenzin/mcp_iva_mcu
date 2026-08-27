@@ -17,6 +17,7 @@ function createMockClient(): IvaApiClient {
     put: vi.fn(),
     delete: vi.fn(),
     isConfirmDestructive: vi.fn().mockReturnValue(false),
+    clearSessionToken: vi.fn(),
   } as unknown as IvaApiClient;
 }
 

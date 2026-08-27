@@ -22,6 +22,12 @@ export function loadConfig(): IvaConfig {
       `Invalid IVA_BASE_URL protocol: ${url.protocol}. Only http: and https: are supported.`
     );
   }
+  if (url.protocol === "http:" && process.env.IVA_ALLOW_HTTP !== "true") {
+    throw new Error(
+      "Insecure IVA_BASE_URL: http: would send login/password in plaintext. " +
+        "Use https:// or set IVA_ALLOW_HTTP=true for local testing only."
+    );
+  }
   if (url.username || url.password) {
     throw new Error(
       "IVA_BASE_URL must not contain credentials. Use environment variables for authentication."

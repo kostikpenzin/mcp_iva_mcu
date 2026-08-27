@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { IvaApiClient } from "./api-client.js";
 import { IvaApiError } from "./error.js";
+import type { ApiRequestOptions } from "./types.js";
 
 describe("IvaApiClient", () => {
   const config = {
@@ -9,13 +10,20 @@ describe("IvaApiClient", () => {
     confirmDestructive: false,
   };
 
+  function req(overrides: Partial<ApiRequestOptions> = {}): ApiRequestOptions {
+    return { apiType: "clients", method: "GET", path: "/test", ...overrides };
+  }
+
   it("builds the correct URL with path and query parameters", async () => {
     const client = new IvaApiClient(config);
     global.fetch = vi.fn().mockResolvedValue(
       new Response(JSON.stringify({ id: "123" }), { status: 200 }),
     );
 
-    await client.get("clients", "/chats/{chatRoomId}", {
+    await client.request({
+      apiType: "clients",
+      method: "GET",
+      path: "/chats/{chatRoomId}",
       pathParams: { chatRoomId: "abc-123" },
       queryParams: { limit: 10, offset: 0 },
     });
@@ -49,7 +57,7 @@ describe("IvaApiClient", () => {
         new Response(JSON.stringify({ ok: true }), { status: 200 }),
       );
 
-    await client.get("clients", "/test");
+    await client.request(req());
 
     // First call: login
     expect(global.fetch).toHaveBeenNthCalledWith(
@@ -70,13 +78,75 @@ describe("IvaApiClient", () => {
     );
   });
 
+  it("deduplicates concurrent auto-logins into a single login request", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "pass123",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(loginConfig);
+    global.fetch = vi.fn().mockImplementation(async (url: string | URL, init?: RequestInit) => {
+      if (String(url).endsWith("/login")) {
+        return new Response(JSON.stringify({ sessionId: "shared-session" }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    });
+
+    await Promise.all([
+      client.request({ apiType: "clients", method: "GET", path: "/a" }),
+      client.request({ apiType: "clients", method: "GET", path: "/b" }),
+      client.request({ apiType: "clients", method: "GET", path: "/c" }),
+    ]);
+
+    const loginCalls = (global.fetch as ReturnType<typeof vi.fn>).mock.calls.filter(
+      (call) => String(call[0]).endsWith("/login"),
+    );
+    expect(loginCalls).toHaveLength(1);
+  });
+
+  it("throws a readable IvaApiError when login returns a non-JSON body", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "pass123",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(loginConfig);
+    global.fetch = vi
+      .fn()
+      .mockResolvedValue(new Response("<html>502 Bad Gateway</html>", { status: 200 }));
+
+    await expect(client.request(req())).rejects.toThrow(
+      "Auto-login failed: server returned a non-JSON response",
+    );
+  });
+
+  it("throws IvaApiError when login returns an HTTP error status", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "wrong-pass",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(loginConfig);
+    global.fetch = vi
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ message: "Bad credentials" }), { status: 403 }));
+
+    await expect(client.request(req())).rejects.toMatchObject({
+      status: 403,
+      reason: "AUTH_LOGIN_FAILED",
+    });
+  });
+
   it("uses the Session auth header for the clients API", async () => {
     const client = new IvaApiClient(config);
     global.fetch = vi
       .fn()
       .mockResolvedValueOnce(new Response("{}", { status: 200 }));
 
-    await client.get("clients", "/test");
+    await client.request(req());
     expect(global.fetch).toHaveBeenNthCalledWith(
       1,
       expect.any(String),
@@ -101,7 +171,7 @@ describe("IvaApiClient", () => {
       .mockResolvedValueOnce(new Response(JSON.stringify({ sessionId: "session-B" }), { status: 200 })) // re-login
       .mockResolvedValueOnce(new Response(JSON.stringify({ ok: true }), { status: 200 })); // retry success
 
-    const result = await client.get("clients", "/test");
+    const result = await client.request(req());
 
     expect(global.fetch).toHaveBeenCalledTimes(4);
     // 1st call: login -> Session: session-A
@@ -142,9 +212,34 @@ describe("IvaApiClient", () => {
       new Response(JSON.stringify({ message: "No auth context" }), { status: 401 }),
     );
 
-    await expect(client.get("clients", "/test")).rejects.toThrow(IvaApiError);
+    await expect(client.request(req())).rejects.toThrow(IvaApiError);
     // Only one attempt — no re-login possible with a static token.
     expect(global.fetch).toHaveBeenCalledTimes(1);
+  });
+
+  it("clearSessionToken forces a fresh login on the next request", async () => {
+    const loginConfig = {
+      baseUrl: "https://test.example.ru",
+      login: "user@example.ru",
+      password: "pass123",
+      confirmDestructive: false,
+    };
+    const client = new IvaApiClient(loginConfig);
+    global.fetch = vi.fn().mockImplementation(async (url: string | URL) => {
+      if (String(url).endsWith("/login")) {
+        return new Response(JSON.stringify({ sessionId: "fresh-session" }), { status: 200 });
+      }
+      return new Response(JSON.stringify({ ok: true }), { status: 200 });
+    });
+
+    await client.request(req());
+    client.clearSessionToken();
+    await client.request(req());
+
+    const loginCalls = (global.fetch as ReturnType<typeof vi.fn>).mock.calls.filter(
+      (call) => String(call[0]).endsWith("/login"),
+    );
+    expect(loginCalls).toHaveLength(2);
   });
 
   it("throws IvaApiError on non-OK response", async () => {
@@ -155,7 +250,7 @@ describe("IvaApiClient", () => {
       }),
     );
 
-    await expect(client.get("clients", "/test")).rejects.toThrow(IvaApiError);
+    await expect(client.request(req())).rejects.toThrow(IvaApiError);
   });
 
   it("throws timeout error on abort", async () => {
@@ -166,7 +261,7 @@ describe("IvaApiClient", () => {
       return Promise.reject(err);
     });
 
-    await expect(client.get("clients", "/test")).rejects.toThrow(
+    await expect(client.request(req())).rejects.toThrow(
       "Request timed out",
     );
   });

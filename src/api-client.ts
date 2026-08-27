@@ -13,13 +13,17 @@ const API_PATHS: Record<ApiType, string> = {
 
 export class IvaApiClient {
   private cachedSessionToken?: string;
+  // Shared in-flight login promise. The server may invalidate the previous
+  // session on each new login, so concurrent first requests must not trigger
+  // multiple logins racing to overwrite each other's session.
+  private loginPromise?: Promise<string>;
 
   constructor(private config: IvaConfig) {
     this.cachedSessionToken = config.sessionToken;
   }
 
-  private async getFreshSessionToken(): Promise<string> {
-    if (this.cachedSessionToken) return this.cachedSessionToken;
+  private async getFreshSessionToken(force = false): Promise<string> {
+    if (!force && this.cachedSessionToken) return this.cachedSessionToken;
 
     if (!this.config.login || !this.config.password) {
       throw new IvaApiError(
@@ -29,15 +33,56 @@ export class IvaApiClient {
       );
     }
 
-    const url = `${this.config.baseUrl}/api/rest/login`;
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ login: this.config.login, password: this.config.password }),
-      signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
-    });
+    if (!this.loginPromise) {
+      this.loginPromise = this.login().finally(() => {
+        this.loginPromise = undefined;
+      });
+    }
+    return this.loginPromise;
+  }
 
-    const data = await response.json() as { sessionId?: string };
+  private async login(): Promise<string> {
+    const url = `${this.config.baseUrl}/api/rest/login`;
+
+    let response: Response;
+    try {
+      response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login: this.config.login, password: this.config.password }),
+        signal: AbortSignal.timeout(DEFAULT_TIMEOUT_MS),
+      });
+    } catch (err) {
+      if (err instanceof Error && (err.name === "AbortError" || err.name === "TimeoutError")) {
+        throw new IvaApiError(
+          408,
+          `Auto-login timed out after ${DEFAULT_TIMEOUT_MS}ms`,
+          "REQUEST_TIMEOUT",
+        );
+      }
+      throw err;
+    }
+
+    if (!response.ok) {
+      throw new IvaApiError(
+        response.status,
+        `Auto-login failed: HTTP ${response.status}`,
+        "AUTH_LOGIN_FAILED",
+      );
+    }
+
+    const responseText = await response.text();
+    let data: { sessionId?: string };
+    try {
+      data = JSON.parse(responseText) as { sessionId?: string };
+    } catch {
+      throw new IvaApiError(
+        response.status,
+        "Auto-login failed: server returned a non-JSON response",
+        "AUTH_LOGIN_FAILED",
+      );
+    }
+
     if (!data.sessionId) {
       throw new IvaApiError(
         401,
@@ -161,14 +206,15 @@ export class IvaApiClient {
     }
 
     // Auto-relogin: if the cached session expired (401) and we auth via
-    // login/password, drop the cached token, re-login, and retry once.
+    // login/password, force a re-login (deduped across concurrent callers)
+    // and retry once.
     if (
       response.status === 401 &&
       opts.apiType === "clients" &&
       !isRetry &&
       this.canReauth()
     ) {
-      this.cachedSessionToken = undefined;
+      await this.getFreshSessionToken(true);
       return this.doRequest<T>(opts, true);
     }
 
@@ -200,42 +246,12 @@ export class IvaApiClient {
     throw new IvaApiError(response.status, errorMessage, reason, errorType);
   }
 
-  async get<T = unknown>(apiType: ApiType, path: string, opts?: {
-    pathParams?: Record<string, string | number>;
-    queryParams?: Record<string, unknown>;
-  }): Promise<T> {
-    return this.request<T>({ apiType, method: "GET", path, ...opts });
-  }
-
-  async post<T = unknown>(apiType: ApiType, path: string, opts?: {
-    pathParams?: Record<string, string | number>;
-    queryParams?: Record<string, unknown>;
-    body?: unknown;
-  }): Promise<T> {
-    return this.request<T>({ apiType, method: "POST", path, ...opts });
-  }
-
-  async patch<T = unknown>(apiType: ApiType, path: string, opts?: {
-    pathParams?: Record<string, string | number>;
-    queryParams?: Record<string, unknown>;
-    body?: unknown;
-  }): Promise<T> {
-    return this.request<T>({ apiType, method: "PATCH", path, ...opts });
-  }
-
-  async put<T = unknown>(apiType: ApiType, path: string, opts?: {
-    pathParams?: Record<string, string | number>;
-    queryParams?: Record<string, unknown>;
-    body?: unknown;
-  }): Promise<T> {
-    return this.request<T>({ apiType, method: "PUT", path, ...opts });
-  }
-
-  async delete<T = unknown>(apiType: ApiType, path: string, opts?: {
-    pathParams?: Record<string, string | number>;
-    queryParams?: Record<string, unknown>;
-  }): Promise<T> {
-    return this.request<T>({ apiType, method: "DELETE", path, ...opts });
+  // Forgets the auto-login session token (e.g. after a logout action) so the
+  // next request re-authenticates instead of replaying a dead token. A static
+  // IVA_SESSION_TOKEN stays in place — it is what the user configured.
+  clearSessionToken(): void {
+    this.cachedSessionToken = this.config.sessionToken;
+    this.loginPromise = undefined;
   }
 
   isConfirmDestructive(): boolean {

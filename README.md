@@ -5,16 +5,15 @@
 [![npm version](https://img.shields.io/npm/v/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![npm downloads](https://img.shields.io/npm/dm/mcp-iva-mcu.svg)](https://www.npmjs.com/package/mcp-iva-mcu)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![tests](https://img.shields.io/badge/tests-362-brightgreen.svg)](./CHANGELOG.md)
-[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A518-green.svg)](https://nodejs.org/)
+[![tests](https://img.shields.io/badge/tests-373-brightgreen.svg)](./CHANGELOG.md)
+[![Node.js](https://img.shields.io/badge/Node.js-%E2%89%A520-green.svg)](https://nodejs.org/)
 [![MCP protocol](https://img.shields.io/badge/protocol-MCP-purple.svg)](https://modelcontextprotocol.io)
 [![platform](https://img.shields.io/badge/platform-IVA%20360%20%C2%B7%20%D0%9C%D0%B8%D0%BD%D1%86%D0%B8%D1%84%D1%80%D1%8B%20%D0%A0%D0%A4-blue.svg)](https://iva360.ru)
 
-[![dependencies](https://img.shields.io/badge/dependencies-0%20vulnerabilities-brightgreen.svg)](#security)
 [![secrets](https://img.shields.io/badge/secrets-none%20hardcoded-brightgreen.svg)](#security)
 [![malware](https://img.shields.io/badge/malware-none%20detected-brightgreen.svg)](#security)
 
-**28 tools** · **304 REST actions** · **310 API endpoints** · **362 tests**
+**28 tools** · **304 REST actions** · **310 API endpoints** · **373 tests**
 
 MCP server for the **IVA 360** video conferencing platform.
 Wraps the IVA 360 Clients API (v2.28.12)
@@ -70,7 +69,7 @@ OpenAPI spec for this exact version is in [`specs/`](./specs) (source repo only)
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 20+
 - An active [IVA 360](https://iva360.ru) subscription (see [Platform & Subscription](#platform--subscription))
 - IVA 360 server URL (e.g. `https://your-iva-server.ru`)
 - At least one auth token (see [Environment Variables](#environment-variables))
@@ -93,6 +92,7 @@ npx -y mcp-iva-mcu
 | `IVA_SESSION_TOKEN` | Clients API (alternative) | Session UUID (expires — use login/password for auto-refresh) |
 | `IVA_JWT_TOKEN` | Clients API (alternative) | JWT token |
 | `IVA_CONFIRM_DESTRUCTIVE` | Optional | Set to `true` to require confirmation before destructive actions (delete, remove, stop, etc.) |
+| `IVA_ALLOW_HTTP` | Optional | Set to `true` to allow an `http://` IVA_BASE_URL for local testing (otherwise only `https://` is accepted, since credentials would otherwise be sent in plaintext) |
 
 For Clients API, you can either:
 - Set `IVA_LOGIN` + `IVA_PASSWORD` — the server will auto-login and refresh sessions automatically (**recommended**), or

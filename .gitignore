@@ -10,3 +10,4 @@ Thumbs.db
 # One-off analysis scripts (import from dist/, contain personal paths)
 analyze-week.mjs
 list-meetings.mjs
+coverage/

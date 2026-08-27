@@ -16,10 +16,22 @@ describe("loadConfig", () => {
     expect(config.sessionToken).toBe("session-uuid");
   });
 
-  it("returns config for a valid http URL", () => {
+  it("rejects http URLs unless IVA_ALLOW_HTTP=true", () => {
     process.env = {
       ...baseEnv,
       IVA_BASE_URL: "http://localhost:8080",
+      IVA_ALLOW_HTTP: undefined,
+    };
+    expect(() => loadConfig()).toThrow(
+      "Insecure IVA_BASE_URL: http: would send login/password in plaintext",
+    );
+  });
+
+  it("allows http URLs when IVA_ALLOW_HTTP=true", () => {
+    process.env = {
+      ...baseEnv,
+      IVA_BASE_URL: "http://localhost:8080",
+      IVA_ALLOW_HTTP: "true",
     };
 
     const config = loadConfig();

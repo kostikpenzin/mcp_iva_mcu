@@ -31,5 +31,11 @@ export function createUserSessionTool(client: IvaApiClient): ToolDefinition {
       set_session_state: "Set/update the session state (e.g. online/away/do-not-disturb). Установить состояние сессии.",
       get_login_url: "Get a login URL for a specified login type (e.g. SSO, OAuth redirect). Получить URL для входа.",
     },
+    // After logout the auto-login session is dead on the server; drop the
+    // cached token so the next request re-authenticates instead of replaying it.
+    (action, data) => {
+      if (action === "logout") client.clearSessionToken();
+      return data;
+    },
   );
 }

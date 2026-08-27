@@ -13107,7 +13107,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -13258,7 +13258,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -13475,7 +13475,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -13780,7 +13780,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -13997,7 +13997,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14192,7 +14192,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14387,7 +14387,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14472,7 +14472,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14623,7 +14623,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14752,7 +14752,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -14947,7 +14947,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -15010,7 +15010,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -15205,7 +15205,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -15862,7 +15862,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -15969,7 +15969,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -16076,7 +16076,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -16249,7 +16249,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -16290,7 +16290,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }
@@ -16326,7 +16326,7 @@
           }
         },
         "servers" : [ {
-          "url" : "wss://beta.hi-tech.org",
+          "url" : "wss://example.com",
           "variables" : { }
         } ]
       }

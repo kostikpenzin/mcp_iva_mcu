@@ -1,5 +1,36 @@
 # Changelog
 
+## [2.0.8] — 2026-08-27
+
+### Fixed
+- **`iva_whiteboard` `start_demo`**: the request body now matches the API contract (`WhiteboardStateRestDTO` requires `pageId, left, top, right, bottom`). The old mapping sent `{"pageId": <bookId>}` — a book UUID under the wrong key with the required viewport fields missing, so the action could only fail. New `whiteboardState` object parameter carries the full DTO.
+- **`iva_conference_session` `find` / `find_sessions`**: description no longer advertises `sortBy`/`sortDirection` (not supported by the API — arguments were silently dropped). Exposed the real filter parameters from the spec: `nameContains`, `state` / `states` (NO_STARTED/ACTIVE/STOPPED), `conferenceId`.
+
+### Security
+- **`http://` base URLs now require `IVA_ALLOW_HTTP=true`** (`src/config.ts`): auto-login would send credentials in plaintext over http. Local testing can opt in explicitly.
+- **Removed the remaining 19 vendor stage WebSocket URLs** (`wss://beta.hi-tech.org` → `wss://example.com`) from `specs/clients-openapi.json` (the 2.0.6-era cleanup left the operation-level `servers` entries in place).
+- **Concurrent auto-login deduplication** (`src/api-client.ts`): parallel first requests now share one in-flight login promise instead of racing multiple `POST /login` calls that could invalidate each other's sessions. The 401 retry path forces re-login through the same deduped promise.
+
+### Reliability
+- **Auto-login error handling** (`src/api-client.ts`): login responses are checked for `response.ok` and parsed defensively — a non-JSON body (e.g. a proxy HTML error page) now raises a readable `IvaApiError` instead of a raw `SyntaxError`; login timeouts are reported as 408 `REQUEST_TIMEOUT`.
+- **`logout` clears the cached session token** (`iva_user_session`): the next request re-authenticates instead of replaying a dead token (which previously only self-healed with login/password auth).
+- **AJV compile cache** (`src/tools/validate.ts`): compiled validators are reused across calls instead of recompiling the schema on every tool invocation.
+
+### Added
+- **CI** (`.github/workflows/ci.yml`): build + tests + `npm audit` on Node 20/22, plus Gitleaks secret scanning on every push/PR.
+- **Tests for chat name auto-filling** (`src/tools/clients/chat.test.ts`, 6 tests): the `fillChatNames` response transform was previously untested (4% file coverage).
+
+### Changed (cleanup)
+- **Removed dead code**: unused HTTP convenience wrappers `get/post/patch/put/delete` in `IvaApiClient` (all tools call `request()` directly) and 24 unused shared parameters in `src/tools/params.ts` (including `password`, `recoveryTokenId`, `twoFAChallengeId` — leftovers of the excluded auth features).
+- **Docker image runs as the non-root `node` user**.
+- **Node.js engine raised to >=20** (Node 18 is EOL); `npm test` now builds first (`pretest`), so the MCP protocol E2E test works on a fresh clone.
+- **README**: removed the static "0 vulnerabilities" badge (goes stale), updated Node badges to ≥20, documented `IVA_ALLOW_HTTP`.
+
+### Tests
+- 373 tests pass (was 362; +11). Coverage: overall lines 81.7% → 90.2% (`api-client.ts` 75.6% → 80.2%, `chat.ts` 4.3% → 96%).
+
+---
+
 ## [2.0.7] — 2026-08-24
 
 ### Changed (docs)

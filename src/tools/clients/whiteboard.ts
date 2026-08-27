@@ -28,12 +28,16 @@ export function createWhiteboardTool(client: IvaApiClient): ToolDefinition {
       reorderData: { type: "object", description: "Reorder pages data" },
       cursorData: { type: "object", description: "Cursor state data" },
       demoStateData: { type: "object", description: "Demonstration state data" },
+      whiteboardState: {
+        type: "object",
+        description: "Whiteboard view state sent as the request body: {pageId, left, top, right, bottom}. All five fields are required by the API; pageId is a whiteboard page UUID, left/top/right/bottom are integer viewport coordinates.",
+      },
       limit: P.limit,
       offset: P.offset,
     },
     {
       load: { apiType: "clients", method: "GET", path: "/conference-sessions/{conferenceSessionId}/whiteboard", pathParams: ["conferenceSessionId"] },
-      start_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/start", pathParams: ["conferenceSessionId"], bodyParam: "bookId", bodyWrapper: "pageId" },
+      start_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/start", pathParams: ["conferenceSessionId"], bodyParam: "whiteboardState" },
       stop_demo: { apiType: "clients", method: "POST", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/stop", pathParams: ["conferenceSessionId"], emptyBody: true },
       update_cursor: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/cursor", pathParams: ["conferenceSessionId"], bodyParam: "cursorData" },
       update_demo_state: { apiType: "clients", method: "PATCH", path: "/conference-sessions/{conferenceSessionId}/demonstration/whiteboard/state", pathParams: ["conferenceSessionId"], bodyParam: "demoStateData" },
@@ -57,7 +61,7 @@ export function createWhiteboardTool(client: IvaApiClient): ToolDefinition {
     client,
     {
       load: "Load/get the current whiteboard state of a conference session (incl. pages, books, demo info).",
-      start_demo: "Start whiteboard demonstration. Начать демонстрацию доски. Показать доску участникам.",
+      start_demo: "Start whiteboard demonstration. Начать демонстрацию доски. Показать доску участникам. Requires whiteboardState: {pageId, left, top, right, bottom} (all fields required per API).",
       stop_demo: "Stop whiteboard demonstration. Остановить демонстрацию доски. Прекратить показывать доску.",
       update_cursor: "Update presenter cursor position on the whiteboard (e.g. move pointer).",
       update_demo_state: "Update whiteboard demonstration state (running/paused/scrolling etc.).",
